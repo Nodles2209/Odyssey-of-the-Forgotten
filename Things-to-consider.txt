@@ -14,6 +14,7 @@ THINGS TO CONSIDER (logic for additional features) for discussion later on:
     - Complexity of combat system; type of combat system if any
         - Turn based? (with user input)
         - Chance based? (roll a dice based on stats to decide subsequent events)
+        - Button mashing for inputs?
 
     - How to implement ending conditions efficiently?
         - At a base,
