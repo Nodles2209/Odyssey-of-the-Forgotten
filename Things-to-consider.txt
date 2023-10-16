@@ -1,0 +1,30 @@
+THINGS TO CONSIDER (logic for additional features) for discussion later on:
+
+    - Should we have different difficulty modes that change the starting stats of your player character?
+        - NORMAL mode : starts at 10 base stats across all main stats with 5 sanity and 0 reputation points
+        - HARD mode : starts at -10 sanity
+        or have the base game start at 'HARD' mode with no difficulty mods?
+
+    - Would an ENTITY class be easier to classify players, NPCs and monsters (that inherit from the ENTITY class)?
+      If so, what attributes would the ENTITY class contain?
+
+    - How will we navigate NPC-PLAYER dialogue?
+    - How will we store dialogue options already chosen; do we need to?
+
+    - Complexity of combat system; type of combat system if any
+        - Turn based? (with user input)
+        - Chance based? (roll a dice based on stats to decide subsequent events)
+
+    - How to implement ending conditions efficiently?
+        - At a base,
+            - main ending achieved by completed main story quest
+            - three different endings per certain class role based on mainly sanity and maybe reputation
+                - Good end
+                - Neutral end
+                - Bad end
+            - extra endings if time is available
+            - Easter egg endings based on
+                - specifically around not following instructions/already established game logic
+                - based on extremely biased stats (like extremely high hp, extremely low reputation etc.)
+
+    - Text formatting using sys/time modules?
