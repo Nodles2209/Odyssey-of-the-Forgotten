@@ -18,16 +18,16 @@ class backpack:
 
         print('\033[93mMass:' + str(backpack.backpack_mass(Backpack)))
 
-    def add_items_backpack(items, Backpack):
+    def add_items_backpack(items, Backpack, current_room):
+        if (backpack.backpack_mass(Backpack) + items['mass']) <= Pack_MAX:
+            Backpack.append(items)
+            current_room['items'].remove(items)
 
-        if (backpack.backpack_mass(Backpack) + items['mass']) > Pack_MAX: #check if the backpack is full
+        else:
             print('\033[91m')
             textout('You cannot take this, your backpack is full !')
-        else:
-            print('\033[36mYou took ' + items['id'] + ' :)')
-            Backpack.append(items)
 
-        return Backpack
+        return [current_room, Backpack]
     
     def remove_items_backpack(items, Backpack):
 
