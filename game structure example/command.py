@@ -81,67 +81,71 @@ class commands:
             textout('What is that ?')
 
     def execute_commands (command, current_room, Backpack):
+        try:
 
-        if len(command) == 0: # no input
-            textout('Ah, what do you want ?')
+            if len(command) != 0: # no input
 
-        else:
-            if command[0] == 'go':
-
-                if len(command) > 1:
-
-                    player = commands.go(command[1], current_room, Backpack)
-                    current_room = player[0]
-                    Backpack = player[1]
-
-                else:
-                    textout('go where ?')
-                
-            elif command[0] == 'take':
-
-                if len(command) > 1:
-
-                    player = commands.take(command[1], current_room, Backpack)
-                    current_room = player[0]
-                    Backpack = player[1]
-
-                else:
-                    textout('take what ?')
-
-            elif command[0] == 'drop':
-
-                if len(command) > 1:
-
-                    player = commands.drop(command[1], current_room, Backpack)
-                    current_room = player[0]
-                    Backpack = player[1]
-
-                else:
-                    textout('drop what ?')
-
-            elif command[0] == 'check':
-                
-                if len(command) > 1:
-
-                    if command[1] == 'backpack':
-                        backpack.backpack_menu(Backpack)
-
-                    elif command[1] == 'room':
-                        print_room_menu(current_room)
-
+                if command[0] == 'go':
+    
+                    if len(command) > 1:
+    
+                        player = commands.go(command[1], current_room, Backpack)
+                        current_room = player[0]
+                        Backpack = player[1]
+    
                     else:
-                        commands.check(command[1], current_room, Backpack)
-
-            elif command[0] == 'help':
-                print("\n\033[36mCHECK backpack, CHECK room\nType 'exit' to quit the game :) ")
-
-            elif command[0] == 'exit':
-                print('\033[91m')
-                print('\033[5mYOU ARE OUT !\n')
-                exit()
+                        textout('go where ?')
+                    
+                elif command[0] == 'take':
+    
+                    if len(command) > 1:
+    
+                        player = commands.take(command[1], current_room, Backpack)
+                        current_room = player[0]
+                        Backpack = player[1]
+    
+                    else:
+                        textout('take what ?')
+    
+                elif command[0] == 'drop':
+    
+                    if len(command) > 1:
+    
+                        player = commands.drop(command[1], current_room, Backpack)
+                        current_room = player[0]
+                        Backpack = player[1]
+    
+                    else:
+                        textout('drop what ?')
+    
+                elif command[0] == 'check':
+                    
+                    if len(command) > 1:
+    
+                        if command[1] == 'backpack':
+                            backpack.backpack_menu(Backpack)
+    
+                        elif command[1] == 'room':
+                            print_room_menu(current_room)
+    
+                        else:
+                            commands.check(command[1], current_room, Backpack)
+    
+                elif command[0] == 'help':
+                    print("\n\033[36mCHECK backpack, CHECK room\nType 'exit' to quit the game :) ")
+    
+                elif command[0] == 'exit':
+                    print('\033[91m')
+                    print('\033[5mYOU ARE OUT !\n')
+                    exit()
+    
+                else:
+                    print('\033[91m')
+                    textout('This does not make any sense [O.o]?')
 
             else:
-                print('\033[91m')
-                textout('This does not make any sense [O.o]?')
+                textout('Ah what do you want ?')
+        except TypeError:
+            textout('WELL...')
 
-            return [current_room, Backpack] # return current_room and Backpack to the main loop
+        return [current_room, Backpack] # return current room and backpack to the main loop
