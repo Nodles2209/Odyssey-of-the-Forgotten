@@ -37,10 +37,9 @@ class commands:
 
         try:
             if items[item_take] in current_room['items']: # check if the item is in the room
-                    player = backpack.add_items_backpack(items[item_take], Backpack, current_room)
-                    current_room = player[0]
-                    Backpack = player[1]
-                    print('\033[36mYou took ' + items['id'] + ' :)')
+                player = backpack.add_items_backpack(items[item_take], Backpack, current_room)
+                current_room = player[0]
+                Backpack = player[1]
                     
             else:
                 print('\033[91m')
@@ -148,6 +147,6 @@ class commands:
             else:
                 textout('Ah what do you want ?')
         except TypeError:
-            textout('WELL...')
+            pass
 
         return [current_room, Backpack] # return current room and backpack to the main loop
