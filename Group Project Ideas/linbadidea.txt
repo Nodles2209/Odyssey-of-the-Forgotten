@@ -1,0 +1,36 @@
+Map: set up 2-d Matrix [arrays] [Winograd's alg]
+	[option 1]:
+
+	After random time(1 min, 3min, 5min...) the room will change:
+			room move around in the matrix map, but only check the exits in current_room
+			BUT need to plan how the room will move to avoid [out of range error]
+			more like a puzzle challenge with no story
+	
+	[option 2]:
+		The room changes as the player explore [npc interaction]
+		set up some hidden events [npc interaction or pick up something]
+		the players don't know where to go, they need to check all the exits themselves
+
+items:
+	give things to npc/ get things from npc
+	combain two - three items to create a new item.
+
+	[Addiction: card games: collect cards in different room] [new gameing system]
+
+puzzle in rooms:
+{1}	[better to have text based 'images' [option: player can take 'photo' of the room]]
+	BUT large amount of data
+
+
+{2}	[Give things to npcs or complete mission to get further information about the world]
+
+
+[text version of 'escape room']
+
+
+events:
+	[the npc is in vacation] after some time [the npc comes back]
+	
+	[the door is locked find the way out]
+
+	[slime rain :)]
