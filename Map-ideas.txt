@@ -1,0 +1,148 @@
+THIS FILE IS MAINLY FOR DUNGEONS
+
+IDEA 1 - ROGUELITE WITH QUAD-DIRECTIONAL ROOMS
+    - Randomised dungeon
+    - A room in the dungeon can be one of 3 types:
+        - Combat - Fight a random amount of random monsters (between 1-3 monsters)
+        - Occurrence - Encounter a random event (from an array of possible events), which can include
+            - Encountering a random NPC
+            - Finding a random object
+            - Obtaining buffs/debuffs
+        - Rest - Healing party for 60% of total max HP
+    - A method is called to randomly determine whether the current room has a north, south, east or west exit
+    - For every exit that exists, generate a room that connects to that exit
+
+    DUNGEON RULES:
+    - Starting room is a combat based dungeon
+    - For the first 3 rooms navigated to, there is guaranteed to be at least 2 other exits
+    - For the first 10 rooms navigated, there is guaranteed to be at least 1 other exits
+    - After the first 10 rooms, the amount of exits is completely randomised
+    - The exit the player entered from does not count towards the rules stated above
+    - Every 5th room generated MUST be a special combat type room with 1 BOSS monster, and the only room that can be
+      navigated to
+    - The room that succeeds a special combat room MUST have an option of a rest type room in one of the available exits
+    - Players CAN NOT move to the direction they came from
+    - Rooms CAN NOT connect to previously generated rooms
+    - Each newly generated room MUST BE UNIQUE to each other
+    - If there are no other exits apart from the one the player arrived from, the dungeon will cease immediately
+    - The player can leave whenever they want, but only gain rewards if they clear the first room
+
+    EXAMPLE DUNGEON:
+
+    KEY:
+    - The number within each room represents the order in which the player has navigated to their chosen room
+    - Capitalised room types indicate rooms that MUST be generated in accordance to dungeon rules
+
+
+    |----------|           |----------|           |----------|
+    |  Combat  |           |Occurrence|           |Occurrence|
+    |    1     |===========|    2     |===========|    /     |
+    |          |           |          |           |          |
+    |----------|           |----------|           |----------|
+         ||                     ||
+         ||                     ||
+         ||                     ||
+         ||                     ||
+         ||                     ||
+    |----------|           |----------|           |----------|
+    |  Combat  |           |  Combat  |           |Occurrence|
+    |    /     |           |    3     |===========|    /     |
+    |          |           |          |           |          |
+    |----------|           |----------|           |----------|
+                                ||
+                                ||
+                                ||
+                                ||
+                                ||
+                           |----------|           |----------|           |----------|
+                           |  Combat  |           |   BOSS   |           |   REST   |
+                           |    4     |===========|    5     |===========|    6     |
+                           |          |           |          |           |          |
+                           |----------|           |----------|           |----------|
+                                                       ||                     ||
+                                                       ||                     ||
+                                                       ||                     ||
+                                                       ||                     ||
+                                                       ||                     ||
+    |----------|           |----------|           |----------|           |----------|           |----------|
+    |  Combat  |           |   REST   |           |  Combat  |           |  Combat  |           |   Rest   |
+    |    12    |===========|    11    |           |    /     |           |    7     |===========|    /     |
+    |          |           |          |           |          |           |          |           |          |
+    |----------|           |----------|           |----------|           |----------|           |----------|
+                                ||                                            ||
+                                ||                                            ||
+                                ||                                            ||
+                                ||                                            ||
+                                ||                                            ||
+                           |----------|           |----------|           |----------|           |----------|
+                           |   BOSS   |           |Occurrence|           |Occurrence|           |  Combat  |
+                           |    10    |===========|    9     |===========|    8     |===========|    /     |
+                           |          |           |          |           |          |           |          |
+                           |----------|           |----------|           |----------|           |----------|
+                                                                              ||
+                                                                              ||
+                                                                              ||
+                                                                              ||
+                                                                              ||
+                                                                         |----------|
+                                                                         |   Rest   |
+                                                                         |    /     |
+                                                                         |          |
+                                                                         |----------|
+
+
+IDEA 2 - ROGUELITE WITH CHOICE BASED EXITS
+    - Randomised dungeon
+    - A room in the dungeon can be one of 3 types:
+        - Combat - Fight a random amount of random monsters (between 1-3 monsters)
+        - Occurrence - Encounter a random event (from an array of possible events), which can include
+            - Encountering a random NPC
+            - Finding a random object
+            - Obtaining buffs/debuffs
+        - Rest - Healing party for 60% of total max HP
+    - A method is called to randomly determine whether the current room has 1-3 exits
+    - For every exit that exists, generate a room that connects to that exit
+    - The dungeon layout is a top-down type dungeon, which involves the player invoking the name/id of the next room
+      they want to navigate to
+
+    DUNGEON RULES:
+    - Starting room is a combat based dungeon
+    - For the first 3 rooms navigated to, there is guaranteed to be at least 2 other exits
+    - For the first 10 rooms navigated, there is guaranteed to be at least 1 other exits
+    - After the first 10 rooms, the amount of exits is completely randomised (from 0-3)
+    - Every 5th room generated MUST be a special combat type room with 1 BOSS monster, and the only room that can be
+      navigated to
+    - The room that succeeds a special combat room MUST have an option of a rest type room in one of the available exits
+    - The player can leave whenever they want, but only gain rewards if they clear the first room
+    - Players CAN NOT move to the room they came from (and so the previous room can be erased from memory)
+    - Each newly generated room MUST BE UNIQUE to each other
+    - If there are no other exits, the dungeon will cease immediately
+
+    EXAMPLE DUNGEON:
+
+                                            |----------|
+                                           /|  Combat  |\
+                                          //|    1     |\\
+                                         // |          | \\
+                                        //  |----------|  \\
+                                       //                  \\
+                                      //                    \\
+                                     //                      \\
+                                |----------|            |----------|
+                               /|  Combat  |\           |Occurrence|
+                              //|    2     |\\          |    /     |
+                             // |          | \\         |          |
+                            //  |----------|  \\        |----------|
+                           //        ||        \\
+                          //         ||         \\
+                         //          ||          \\
+                    |----------||----------||----------|
+                    |  Combat  ||   Rest   ||Occurrence|
+                    |    /     ||    /     ||    3     |
+                    |          ||          ||          |
+                    |----------||----------||----------|
+                                                 .
+                                                 .
+                                                 .
+                                                 .
+
