@@ -22,6 +22,7 @@ class backpack:
         if (backpack.backpack_mass(Backpack) + items['mass']) <= Pack_MAX:
             Backpack.append(items)
             current_room['items'].remove(items)
+            print('\033[36mYou took ' + items['id'] + ' :)')
 
         else:
             print('\033[91m')
