@@ -17,11 +17,22 @@ class Room:
 
     def __init__(self):
         self.__id = None  # type str - used for easy reference to a room object
+        self.__x = None  # type int
+        self.__y = None  # type int
+        self.__exits = {'north': None,
+                        'east': None,
+                        'south': None,
+                        'west': None
+                        }
         self.__type = None  # type str - used to store type of room
         self.__description = None  # stores str but type undetermined; can be arr, dict or its own object -
         # used to store room text
         self.__clear_condition = None  # type stored in this attribute depends on room type
         self.__isClear = False  # type bool - checks if the room is cleared or not; False until True
+        self.__visited = False  # type bool - checks if player has already visited the room; False until True
+        self.__necessary = None  # type int -
+                                 # 0 : not necessary,
+                                 # 1+ : order of importance
 
 
 class Riddle(Room):
