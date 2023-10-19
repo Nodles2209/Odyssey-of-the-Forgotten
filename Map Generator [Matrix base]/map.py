@@ -7,7 +7,7 @@ init_map = [[0, 0, 0, 0, 0, 0, 0],
               [0, 0, 0, 0, 0, 0, 0],
               [0, 0, 0, 0, 0 ,0, 0]]
 
-def printmap(testmap):                                                                 
+def printmap(testmap): # print the map                                                                
     print('\n\n')
  
     for row in range(5):
@@ -62,7 +62,7 @@ def random_direction():
 
 def direction_map(row, col, direction):
     
-    if direction == 'north' and (row - 2) > -1:
+    if direction == 'north' and (row - 2) > -1: # check if the location is valid
         init_map[row - 1][col] = 1
         init_map[row - 2][col] = 3
     
@@ -79,7 +79,7 @@ def direction_map(row, col, direction):
         init_map[row][col - 2] = 6
     
     else:
-        print('direction error :/')
+        print('direction error :/') # check [can be removed]
     
     return init_map
 
@@ -92,10 +92,10 @@ def map_generator():
 
     directions = random_direction() # list of random directions
 
-    for element in directions:
+    for element in directions: # put rooms in the map
         final_map = direction_map(row, col, element)
 
-    printmap(final_map)
+    printmap(final_map) # print the generated map
 
 
 map_generator()
