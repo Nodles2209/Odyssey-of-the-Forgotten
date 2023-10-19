@@ -84,7 +84,7 @@ def direction_map(row, col, direction):
     return init_map
 
 def map_generator():
-    seed(None, version=2)
+    seed(None, version=1)
     row = choice([0, 2, 4])
     col = choice([0, 2, 4, 6])
 
