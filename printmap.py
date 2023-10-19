@@ -20,7 +20,7 @@ predefined values
 test_map = [[2, 1, 3, 1, 4, 1, 9],  # every 4th row holds room data, starting from row 1 (index 0)
 
             [1, 0, 1, 0, 0, 0, 0],  # the 3 rows after the room data row holds vertical connection data, including
-            [1, 0, 1, 0, 0, 0, 0],  # formatting for print display
+            [1, 0, 1, 0, 0, 0, 0],  # formatting for print display - mainly for aesthetic purposes
             [1, 0, 1, 0, 0, 0, 0],
 
             [5, 0, 6, 0, 0, 0, 0],
@@ -41,11 +41,12 @@ for row in range(rows):  # goes through each row
     for col in range(cols):  # goes through each element within a row
 
         # first checks if the row is holding room data or vertical connections data
-        if row % 4 == 0:
+        if row % 4 == 0:  # changed this to every 4 because of changed matrix logic
 
             # checks if there is a room in each element
             if test_map[row][col] != 1 and test_map[row][col] != 0:
                 print(f'[ROOM {test_map[row][col] - 1}]', end='')
+                # changed this to use an f string; generally better than concatenating and converting variables to print
 
             else:
 
@@ -71,4 +72,4 @@ for row in range(rows):  # goes through each row
                     print('      ', end='')
 
         if col == 6:
-            print('\n', end='')
+            print('\n', end='')  # changed this to not create a newline between connections
