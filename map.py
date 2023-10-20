@@ -1,4 +1,5 @@
 import random #This module is needed for creating psuedo randomness in the game/map
+from rooms import Room
 
 class Map:
     '''
@@ -16,26 +17,23 @@ class Map:
         The rooms in the optional_room_list are picked in a random order as it is not import where they are accessed,
         The rooms in the required_room_list are picked in the order of the list, this is to prevent situations where the player could get stuck behind a locked door with the key unaccesable behind the door,
         Next a random room is picked from the rooms already placed in the map (repeated until a room is found with an exit not already taken and not out of bounds)-This room is often called the branch_from_room in the code,
-        Next an exit is picked from the possible exits,
-        After this the new room is added to the map and the correct exits and lists are updated,
+        Next an exit is picked from the possible __exits,
+        After this the new room is added to the map and the correct __exits and lists are updated,
         This is repeated until both the room lists are empty
     '''
 
     def __init__(self):
         '''This function is automatically called when a map object is created'''
         self.matrix_size = [5, 5]   # sets the size of the map matrix, the integers in the list need to be odd to have a center for the entrance room
-        self.entrance = Room("en", 2, 2)    # sets the entrance room object into the map class
-        self.rooms_in_map = [self.entrance]     #adds the entrance room to the rooms_in_map list
+        self.rooms_in_map = []     #adds the entrance room to the rooms_in_map list
         self.map_matrix = self.init_gen_empty_map_matrix(self.matrix_size)  # this uses a function built into the Map class to create and set an empty matrix
-        self.map_matrix[(self.matrix_size[0] - 1) // 2][(self.matrix_size[1] - 1) // 2] = self.entrance    # this puts the entrance object within the matrix at the center
-        self.init_gen_map()   #This generates the map placing all the rooms within
 
     def init_gen_map(self):
         '''This function is called in the __init__ function of the class and holds the main system for adding the rooms to the map'''
         while required_room_list or optional_room_list:     #runs a while loop until both lists are empty
             chosen_room = self.init_choose_room()       #This function picks the next room (mostly) randomly to be next placed in the map
             branch_from_room, exit = self.init_find_branch_room()   #This function finds a random place for placing the room and finds a direction it can be placed from the room
-            self.place_room(chosen_room, branch_from_room, exit)    #This function handles the system for adding the room to the game matrix and setting the correct exits in the exits dictionary of the room
+            self.place_room(chosen_room, branch_from_room, exit)    #This function handles the system for adding the room to the game matrix and setting the correct __exits in the __exits dictionary of the room
 
     def init_choose_room(self):
         '''This function is used to return a room to next be placed in the map from the two lists: required_room_list and optional_room_list'''
@@ -48,7 +46,7 @@ class Map:
         return chosen_room  #chosen room is returned
 
     def init_check_exits_possible(self, branch_from_room):
-        '''This function takes the room that the new room is being branched from as an argument, and returns a list of booleans of which exits are possible, in the order: North,East,South,West'''
+        '''This function takes the room that the new room is being branched from as an argument, and returns a list of booleans of which __exits are possible, in the order: North,East,South,West'''
 
         #These are temporary values which are used for returning at the end of the function
         north_possible = False
@@ -57,16 +55,16 @@ class Map:
         west_possible = False
 
         #checks north exit is possible in the map matrix, and that a room is not already placed there
-        if branch_from_room.y != 0 and self.map_matrix[branch_from_room.y - 1][branch_from_room.x] == None:
+        if branch_from_room.get_y() != 0 and self.map_matrix[branch_from_room.get_y() - 1][branch_from_room.get_x()] == None:
             north_possible = True
         #check east
-        if branch_from_room.x != self.matrix_size[0] - 1 and self.map_matrix[branch_from_room.y][branch_from_room.x + 1] == None:
+        if branch_from_room.get_x() != self.matrix_size[0] - 1 and self.map_matrix[branch_from_room.get_y()][branch_from_room.get_x() + 1] == None:
             east_possible = True
         #check south
-        if branch_from_room.y != self.matrix_size[1] - 1 and self.map_matrix[branch_from_room.y + 1][branch_from_room.x] == None:
+        if branch_from_room.get_y() != self.matrix_size[1] - 1 and self.map_matrix[branch_from_room.get_y() + 1][branch_from_room.get_x()] == None:
             south_possible = True
         #check west
-        if branch_from_room.x != 0 and self.map_matrix[branch_from_room.y][branch_from_room.x - 1] == None:
+        if branch_from_room.get_x() != 0 and self.map_matrix[branch_from_room.get_y()][branch_from_room.get_x() - 1] == None:
             west_possible = True
 
         return [north_possible, east_possible, south_possible, west_possible]
@@ -87,49 +85,47 @@ class Map:
 
     def place_room(self, chosen_room, branch_from_room, exit):
         '''This function takes the room being added to the map, the room it is being branched from, and the exit from the branched room that will lead to the new room as arguments,
-           The function sets the room within the matrix and sets the exits for both the rooms'''
+           The function sets the room within the matrix and sets the __exits for both the rooms'''
 
-        branch_from_room.exits[exit] = chosen_room  #sets the exit for the branch room
+        branch_from_room.set_exit(exit, chosen_room)  #sets the exit for the branch room
         self.rooms_in_map.append(chosen_room)   #adds new room to the rooms_in_map list
 
-        if exit == "North":                                 #This sets the exit for the chosen_room and sets the x,y and places the room within the map matrix
-            chosen_room.exits["South"] = branch_from_room
-            chosen_room.x = branch_from_room.x
-            chosen_room.y = branch_from_room.y - 1
-            self.map_matrix[chosen_room.y][chosen_room.x] = chosen_room 
-        elif exit == "East":
-            chosen_room.exits["West"] = branch_from_room
-            chosen_room.x = branch_from_room.x + 1
-            chosen_room.y = branch_from_room.y
-            self.map_matrix[chosen_room.y][chosen_room.x] = chosen_room 
-        elif exit == "South":
-            chosen_room.exits["North"] = branch_from_room
-            chosen_room.x = branch_from_room.x
-            chosen_room.y = branch_from_room.y + 1
-            self.map_matrix[chosen_room.y][chosen_room.x] = chosen_room 
-        elif exit == "West":
-            chosen_room.exits["East"] = branch_from_room
-            chosen_room.x = branch_from_room.x - 1
-            chosen_room.y = branch_from_room.y
-            self.map_matrix[chosen_room.y][chosen_room.x] = chosen_room 
+        if exit == "north":                               #This sets the exit for the chosen_room and sets the x,y and places the room within the map matrix
+            chosen_room.set_exit("south", branch_from_room)
+            chosen_room.set_x(branch_from_room.get_x())
+            chosen_room.set_y(branch_from_room.get_y() - 1)
+        elif exit == "east":
+            chosen_room.set_exit("west", branch_from_room)
+            chosen_room.set_x(branch_from_room.get_x() + 1)
+            chosen_room.set_y(branch_from_room.get_y())
+        elif exit == "south":
+            chosen_room.set_exit("north", branch_from_room)
+            chosen_room.set_x(branch_from_room.get_x())
+            chosen_room.set_y(branch_from_room.get_y() + 1)
+        elif exit == "west":
+            chosen_room.set_exit("east", branch_from_room)
+            chosen_room.set_x(branch_from_room.get_x() - 1)
+            chosen_room.set_y(branch_from_room.get_y())
+
+        self.map_matrix[chosen_room.get_y()][chosen_room.get_x()] = chosen_room
         
         
 
 
     def init_find_exit(self, branch_from_room, possible_exits):
-        '''This function takes the branch room and the list of possible exits as arguments and returns a string of the direction of the exit'''
+        '''This function takes the branch room and the list of possible __exits as arguments and returns a string of the direction of the exit'''
         exit_chosen = False
         while not exit_chosen:
             exit_index = random.randint(0, 3)       #selects the exit at random
             if possible_exits[exit_index] == True:
                 if exit_index == 0:
-                    return "North"
+                    return "north"
                 elif exit_index == 1:
-                    return "East"
+                    return "east"
                 elif exit_index == 2:
-                    return "South"
+                    return "south"
                 elif exit_index == 3:
-                    return "West"
+                    return "west"
                 else:
                     print("Something went wrong at the init_find_exit function")
 
@@ -154,14 +150,14 @@ class Map:
 
         It prints rooms in the format, in a grid layout:
 
-        *This shows room with all exits
+        *This shows room with all __exits
           __||__  
          |      | 
         =|      |=    
          |______| 
             || 
 
-        *This shows room with no exits
+        *This shows room with no __exits
           ______  
          |      | 
          |      |   
@@ -186,28 +182,28 @@ class Map:
                     line_4 += " " * 10
                     line_5 += " " * 10
                 else:
-                    if room.exits["North"]:
+                    if room.get_exit("north"):
                         line_1 += "  __||__  "
                     else:
                         line_1 += "  ______  "
 
                     line_2 += " |      | "
 
-                    if room.exits["West"]:
+                    if room.get_exit("west"):
                         line_3 += "=|  "
                     else:
                         line_3 += " |  "
 
-                    line_3 += room.name
+                    line_3 += str(room.get_id())
 
-                    if room.exits["East"]:
+                    if room.get_exit("east"):
                         line_3 += "  |="
                     else:
                         line_3 += "  | "
 
                     line_4 += " |______| "
 
-                    if room.exits["South"]:
+                    if room.get_exit("south"):
                         line_5 += "    ||    "
                     else:
                         line_5 += " " * 10
@@ -218,36 +214,21 @@ class Map:
         print("-" * 100)        #print a line to make it easier to read
 
 
+R1, R2, R3, R4 = Room(), Room(), Room(), Room()
+o1, o2, o3, o4 = Room(), Room(), Room(), Room()
 
-class Room:
-    '''This class is used for creating room objects, it takes in a string 'name' , and and x and y (starting index at 0) used for setting the place of the room in the matrix
-       in the Map class, Although the x and y arguments have defualt values so they are not necessary when creating a room
-
-       useful values in this class are:
-
-       - self.name for a string of the rooms name
-       - self.x for the x coordinate (starting at 0) for the rooms place in the map matrix
-       - self.y for the y coordinate (starting at 0) for the rooms place in the map matrix (0 is the top row)
-       - self.exits is a dictionary with the keys as the directions (eg "North") and either None or a room object for the value
-       '''
-    def __init__(self, name, x = None, y = None):
-        '''This function is automatically called when a room object is created, it is used to set neccesary values in the room class'''
-        self.name = name    #string name of room
-        self.x = x     #sets x (indexing starts at 0)
-        self.y = y     #sets y (indexing starts at 0)
-        self.exits = {"North" : None,
-                      "East" : None,
-                      "South" : None,
-                      "West" : None}   #This is setting a dictionary with each of the directions as keys, when rooms are added they are added to the values as room objects
+R1.set_id("R1")
+R2.set_id("R2")
+R3.set_id("R3")
+R4.set_id("R4")
+o1.set_id("o1")
+o2.set_id("o2")
+o3.set_id("o3")
+o4.set_id("o4")
 
 
 
 #This is a list of Room objects used for creating the map, these rooms are the required ones for the game to function
-required_room_list = [Room("R1"), Room("R2"), Room("R3"), Room("R4")]
+required_room_list = [R1, R2, R3, R4]
 #This is a list of Room objects used for creating the map, these rooms are optional rooms not neccesary for the core game
-optional_room_list = [Room("o1"), Room("o2"), Room("o3"), Room("o4")]
-
-
-game_map = Map()
-game_map.display_map()
-
+optional_room_list = [o1, o2, o3, o4]

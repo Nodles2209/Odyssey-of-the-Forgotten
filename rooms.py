@@ -34,6 +34,29 @@ class Room:
                                  # 0 : not necessary,
                                  # 1+ : order of importance
 
+    def get_id(self):
+        return self.__id
+
+    def set_id(self, new_id):
+        self.__id = new_id
+
+    def get_x(self):
+        return self.__x
+
+    def set_x(self, x):
+        self.__x = x
+
+    def get_y(self):
+        return self.__y
+
+    def set_y(self, y):
+        self.__y = y
+
+    def get_exit(self, exit):
+        return self.__exits[exit]
+
+    def set_exit(self, exit, room):
+        self.__exits[exit] = room
 
 class Riddle(Room):
     """
