@@ -213,7 +213,10 @@ class Map:
 
         print("-" * 100)        #print a line to make it easier to read
 
-
+'''
+The code below is temporary until the rooms have been designed, later the code will be changed that the initlisation of the map will take
+a list of the rooms
+'''
 R1, R2, R3, R4 = Room(), Room(), Room(), Room()
 o1, o2, o3, o4 = Room(), Room(), Room(), Room()
 
