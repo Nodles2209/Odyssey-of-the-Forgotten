@@ -1,6 +1,4 @@
 import string
-import time
-import sys
  
 skip_words = ['a', 'abouta', 'about', 'all', 'an', 'another', 'any', 'around', 'at',
                 'bad', 'beautiful', 'been', 'better', 'big', 'can', 'every', 
