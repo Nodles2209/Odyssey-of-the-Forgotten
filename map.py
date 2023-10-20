@@ -24,7 +24,7 @@ class Map:
     def __init__(self):
         '''This function is automatically called when a map object is created'''
         self.matrix_size = [5, 5]   # sets the size of the map matrix, the integers in the list need to be odd to have a center for the entrance room
-        self.entrance = Room("ent0", 2, 2)    # sets the entrance room object into the map class
+        self.entrance = Room("en", 2, 2)    # sets the entrance room object into the map class
         self.rooms_in_map = [self.entrance]     #adds the entrance room to the rooms_in_map list
         self.map_matrix = self.init_gen_empty_map_matrix(self.matrix_size)  # this uses a function built into the Map class to create and set an empty matrix
         self.map_matrix[(self.matrix_size[0] - 1) // 2][(self.matrix_size[1] - 1) // 2] = self.entrance    # this puts the entrance object within the matrix at the center
@@ -147,29 +147,75 @@ class Map:
         return map_matrix
 
     def display_map(self):
-        '''This function is used for displaying the map on a grid'''
-        print("-" * 100)
+        '''
+        This function is used for displaying the map on a grid,
+        it uses a for loop that creates 5 lines to be printed, once the first for loop has completed, the whole map should be printed
+        This may later be changed slightly to incorperate where the player is, and only display rooms that have been visited
+
+        It prints rooms in the format, in a grid layout:
+
+        *This shows room with all exits
+          __||__  
+         |      | 
+        =|      |=    
+         |______| 
+            || 
+
+        *This shows room with no exits
+          ______  
+         |      | 
+         |      |   
+         |______| 
+
+        '''
+        print("-" * 100)        #print a line to make it easier to read
+
         for i in range(len(self.map_matrix)):
-            temp = ""
+            line_1 = ""
+            line_2 = ""
+            line_3 = ""
+            line_4 = ""
+            line_5 = ""
+
             for a in range(len(self.map_matrix[i])):
-                if not self.map_matrix[i][a]:
-                    temp += (" None")
+                room = self.map_matrix[i][a]
+                if not room:                #Here it prints empty space if no rooms are found in that positon of the matrix
+                    line_1 += " " * 10
+                    line_2 += " " * 10
+                    line_3 += " " * 10
+                    line_4 += " " * 10
+                    line_5 += " " * 10
                 else:
-                    temp += (" "+ self.map_matrix[i][a].name)
+                    if room.exits["North"]:
+                        line_1 += "  __||__  "
+                    else:
+                        line_1 += "  ______  "
 
-            print(temp)
+                    line_2 += " |      | "
 
-        print("-" * 100)
+                    if room.exits["West"]:
+                        line_3 += "=|  "
+                    else:
+                        line_3 += " |  "
 
-        '''
-        #This is for printing the exits of each room for debugging purposes
-        for room in self.rooms_in_map:
-            temp = f""
-            for direction, exit_room in room.exits.items():
-                if exit_room:
-                    temp += f" {direction}: {exit_room.name}"
-            print(f"Room: {room.name}, Exits:", temp)
-        '''
+                    line_3 += room.name
+
+                    if room.exits["East"]:
+                        line_3 += "  |="
+                    else:
+                        line_3 += "  | "
+
+                    line_4 += " |______| "
+
+                    if room.exits["South"]:
+                        line_5 += "    ||    "
+                    else:
+                        line_5 += " " * 10
+
+            combined_lines = f"{line_1}\n{line_2}\n{line_3}\n{line_4}\n{line_5}"        #This combines the lines to make it easier to print
+            print(combined_lines)
+
+        print("-" * 100)        #print a line to make it easier to read
 
 
 
@@ -197,12 +243,11 @@ class Room:
 
 
 #This is a list of Room objects used for creating the map, these rooms are the required ones for the game to function
-required_room_list = [Room("Rom1"), Room("Rom2"), Room("Rom3"), Room("Rom4")]
+required_room_list = [Room("R1"), Room("R2"), Room("R3"), Room("R4")]
 #This is a list of Room objects used for creating the map, these rooms are optional rooms not neccesary for the core game
-optional_room_list = [Room("opt1"), Room("opt2"), Room("opt3"), Room("opt4")]
+optional_room_list = [Room("o1"), Room("o2"), Room("o3"), Room("o4")]
 
 
 game_map = Map()
 game_map.display_map()
-#entrance_room = Room("ent0", 2, 2)
 
