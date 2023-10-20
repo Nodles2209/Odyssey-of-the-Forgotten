@@ -34,29 +34,32 @@ class Room:
                                  # 0 : not necessary,
                                  # 1+ : order of importance
 
-    def get_id(self):   #gets id of room
+        self.__items = []  # array of type item - stores all the items currently in the room
+
+    def get_id(self):   # gets id of room
         return self.__id
 
-    def set_id(self, new_id):   #sets id of the room (string)
+    def set_id(self, new_id):   # sets id of the room (string)
         self.__id = new_id
 
-    def get_x(self):    #gets x of room
+    def get_x(self):    # gets x of room
         return self.__x
 
-    def set_x(self, x):   #sets x coordinate of the room (int)
+    def set_x(self, x):   # sets x coordinate of the room (int)
         self.__x = x
 
-    def get_y(self):    #gets id of room
+    def get_y(self):    # gets id of room
         return self.__y
 
-    def set_y(self, y):   #sets id y coordinate the room (int)
+    def set_y(self, y):   # sets id y coordinate the room (int)
         self.__y = y
 
-    def get_exit(self, exit):   #gets an exit of the room taking in a direction as a string
-        return self.__exits[exit]
+    def get_exit(self, current_exit):   # gets an exit of the room taking in a direction as a string
+        return self.__exits[current_exit]
 
-    def set_exit(self, exit, room):   #sets an exit for the room taking in an exit direction (string) and room that it leads to (room object)
-        self.__exits[exit] = room
+    def set_exit(self, current_exit, room):   # sets an exit for the room taking in an exit direction (string) and room that it leads to (room object)
+        self.__exits[current_exit] = room
+
 
 class Riddle(Room):
     """
