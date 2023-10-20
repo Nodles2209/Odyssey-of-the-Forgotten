@@ -7,6 +7,16 @@ documentation for the code written for easier code maintenance
 import os
 
 
+def return_other_files(path):
+    """
+    This function, given the path directory of the other_rooms folder as a parameter, should return an array of all the
+    files within the other_rooms folder
+
+    """
+
+    pass
+
+
 def return_puzzle_files(path):
     """
     This function, given the path directory of the puzzle folder as a parameter, should return an array of all the files
@@ -47,6 +57,8 @@ def initialise_array(room_type):
     of time before returning the array
     This buffer can also ensure that the right command is being executed
 
+     **THIS DOCTEST IS SUBJECT TO CHANGE**
+
     For example:
     >>> initialise_array('puzzle')
     Initialising puzzle rooms...
@@ -57,6 +69,9 @@ def initialise_array(room_type):
     >>> initialise_array('event')
     Initialising event rooms...
     [<_io.TextIOWrapper name='event1.txt' mode='r' encoding='cp1252'>, <_io.TextIOWrapper name='event2.txt' mode='r' encoding='cp1252'>]
+    >>> initialise_array('other')
+    Initialising beginning and final rooms...
+    [<_io.TextIOWrapper name='beginning_room.txt' mode='r' encoding='cp1252'>, <_io.TextIOWrapper name='final_room.txt' mode='r' encoding='cp1252'>]
 
     **NOTE FOR DOCTEST**
     This doctest is only here for help into writing the logic for this method

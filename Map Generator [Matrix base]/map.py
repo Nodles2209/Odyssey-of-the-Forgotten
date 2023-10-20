@@ -1,101 +1,94 @@
-from random import seed                                                                
-from random import choice
+from random import seed
+    
+from random import randint
 
-init_map = [[0, 0, 0, 0, 0, 0, 0],
-              [0, 0, 0, 0, 0, 0, 0],
-              [0, 0, 0, 0, 0, 0, 0],
-              [0, 0, 0, 0, 0, 0, 0],
-              [0, 0, 0, 0, 0 ,0, 0]]
+from map1 import *
 
-def printmap(testmap): # print the map                                                                
-    print('\n\n')
- 
-    for row in range(5):
-        for col in range(7):
- 
-            if row % 2 == 0:
-                if testmap[row][col] != 1 and testmap[row][col] != 0:
-                    if testmap[row][col] == 2:
-                        print('[START]', end='')
- 
-                    else:
-                        print('[ROOM' + str(testmap[row][col] - 1) + ']', end='')
- 
-                else:
-                    if testmap[row][col] == 1:
-                        print('----', end='')
-                    else:
-                        if col % 2 == 0:
-                            print('       ', end='')
-                        else:
-                            print('    ', end='')
- 
-            else:
-                if testmap[row][col] == 1:
-                    print('  |||  ', end='')
- 
-                if testmap[row][col] == 0:
-                    if col % 2 == 0:
-                        print('       ', end='')
- 
-                    else:
-                        print('    ', end='')
- 
- 
-        print('\n')
-    print('='*80)
+def direction_map(row, col, direction, room_number, mmap):
 
-def random_direction():
- 
-    seed(None, version=2)
-    i = 0
-    final = []
- 
-    while i < 4:
-        direction = choice(['north', 'south', 'east', 'west'])
- 
-        if direction not in final:
-            final.append(direction)
-            i += 1
-        
-    return final # return the direction in random order
+     if direction == 'north' and (row - 2) > -1:
+         if mmap[row - 2][col] == 1 or mmap[row - 2][col] == 0: # if there is a room there, connect it
+             mmap[row - 2][col] = room_number
+             mmap[row - 1][col] = 1
+             room_number += 1
 
-def direction_map(row, col, direction):
-    
-    if direction == 'north' and (row - 2) > -1: # check if the location is valid
-        init_map[row - 1][col] = 1
-        init_map[row - 2][col] = 3
-    
-    elif direction == 'south' and (row + 1) < 5:
-        init_map[row + 1][col] = 1
-        init_map[row + 2][col] = 4
-    
-    elif direction == 'east' and (col + 1) < 7:
-        init_map[row][col + 1] = 1
-        init_map[row][col + 2] = 5
-    
-    elif direction == 'west' and (col - 1) > -1:
-        init_map[row][col - 1] = 1
-        init_map[row][col - 2] = 6
-    
-    else:
-        print('direction error :/') # check [can be removed]
-    
-    return init_map
+         else:
+             mmap[row - 1][col] = 1
 
-def map_generator():
+     elif direction == 'south' and (row + 1) < 9:
+         if mmap[row + 2][col] == 1 or mmap[row + 2][col] == 0:
+             mmap[row + 2][col] = room_number
+             mmap[row + 1][col] = 1
+             room_number += 1
+
+         else:
+             mmap[row + 1][col] = 1
+
+     elif direction == 'east' and (col + 1) < 9:
+         if mmap[row][col + 2] == 1 or mmap[row][col + 2] == 0:
+             mmap[row][col + 2] = room_number
+             mmap[row][col + 1] = 1
+             room_number += 1
+
+         else:
+             mmap[row][col + 1] = 1
+
+     elif direction == 'west' and (col - 1) > -1:
+         if mmap[row][col - 2] == 1 or mmap[row][col - 2] == 0:
+             mmap[row][col - 2] = room_number
+             mmap[row][col - 1] = 1
+             room_number += 1
+
+         else:
+             mmap[row][col - 1] = 1
+
+     else:
+         pass
+     return [mmap, room_number]
+
+def final_map_gen(first_map,room_number):
+
     seed(None, version=1)
-    row = choice([0, 2, 4])
-    col = choice([0, 2, 4, 6])
+    
+    random_room = randint(2, room_number)
+    exits = randint(1, 3)
+    
+    room = map_map(first_map)
+    
+    row = room[str(room_number - 2)][0]
+    col = room[str(room_number - 2)][1]
+    
+    while exits > (12 - room_number):
+        exits -= 1
 
-    init_map[row][col] = 2 # START
+    directions = random_direction()
 
-    directions = random_direction() # list of random directions
+    i =  0
+    while i < exits:
+    
+        direction = directions[i]
+    
+        collection = direction_map(row, col, direction, room_number, first_map)
+    
+        first_map = collection[0]
+        room_number = collection[1]
+    
+        i += 1
+    return [first_map, room_number]
 
-    for element in directions: # put rooms in the map
-        final_map = direction_map(row, col, element)
+def main():
 
-    printmap(final_map) # print the generated map
+    collection = first_map_gen()
+    first_map = collection[0]
+    room_number = collection[1]
+    collection = final_map_gen(first_map, room_number)
+    first_map = collection[0]
+    room_number = collection[1]
+    while room_number < 12:
+        collection = final_map_gen(first_map, room_number)
+        first_map = collection[0]
+        room_number = collection[1]
+    final_map = collection[0]
+    printmap(final_map)
 
-
-map_generator()
+main()
