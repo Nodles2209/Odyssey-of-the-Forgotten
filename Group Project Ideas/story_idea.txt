@@ -1,1 +1,12 @@
+The player enter the game, there is a broken aircraft in the 'room'
 
+-Main objective: the player need to collect everything they need to fix the aircraft [escape]
+
+-- The player is free to explore the map: [1]solve the puzzle to get the materials [2] enter optional room or luck room to get some tools to make finding the materials or solvuing the puzzles easier.
+
+endings:
+[1]once the player collect everything and go back to the entrance to fix the aircraft [player win]
+
+[2] time is up [player die]
+
+[add more]
