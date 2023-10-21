@@ -89,6 +89,7 @@ def main():
         first_map = collection[0]
         room_number = collection[1]
     final_map = collection[0]
-    printmap(final_map)
+    return final_map
 
-main()
+final_map = main()
+printmap(final_map)
