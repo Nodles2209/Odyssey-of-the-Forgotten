@@ -60,6 +60,12 @@ class Room:
     def set_exit(self, current_exit, room):   # sets an exit for the room taking in an exit direction (string) and room that it leads to (room object)
         self.__exits[current_exit] = room
 
+    def get_visited(self):  #returns the boolean of whether the room has been visited
+        return self.__visited
+
+    def set_visited(self, visited): #takes in a boolean to set if the room has been visited
+        self.__visited = visited
+
 
 class Riddle(Room):
     """

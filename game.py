@@ -58,6 +58,7 @@ def execute_action(game_map, player, player_action):
     """
     if player_action[0] == "go":  # if the first word in the input is "go"
         player.current_room = player.current_room.get_exit(player_action[1])  # update the players current room to the desired room
+        player.current_room.set_visited(True)
 
 
 def main():
@@ -74,11 +75,11 @@ def main():
     entrance.set_id("en")
     entrance.set_x(2)
     entrance.set_y(2)
+    entrance.set_visited(True)
     game_map.map_matrix[entrance.get_y()][entrance.get_x()] = entrance  # places entrance in map matrix
     game_map.rooms_in_map.append(entrance)  # places entrance in rooms list
 
     game_map.init_gen_map()  # This function runs the randomisation process of entering the rooms, may later need to take in a list of the rooms in future versions
-    game_map.display_map()  # prints the map for the player, may need to be removed later
 
     player_name = input("Please enter your name: ")  # gets the player to input their name
     player = Player(player_name, entrance)  # creates a player object with the name, and the entrance room object
@@ -87,6 +88,8 @@ def main():
         if check_win():  # This is where the game checks if the game has been completed at the start of each turn
             print("You Win! wooohoo!!")
             break  # breaks out of while loop
+
+        game_map.display_map(player)    #Displays the map at the start of every turn (use the player object as the argument)
 
         print_room(player.current_room)  # prints the id of the current room
 

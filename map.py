@@ -1,6 +1,6 @@
 import random  # This module is needed for creating pseudo randomness in the game/map
 from rooms import Room
-
+from player import Player
 
 def init_choose_room():
     """
@@ -177,7 +177,7 @@ class Map:
 
         self.map_matrix[chosen_room.get_y()][chosen_room.get_x()] = chosen_room
 
-    def display_map(self):
+    def display_map(self, player):
         """
         This function is used for displaying the map on a grid,
         it uses a for loop that creates 5 lines to be printed, once the first for loop has completed, the whole map should be printed
@@ -211,7 +211,7 @@ class Map:
 
             for a in range(len(self.map_matrix[i])):
                 room = self.map_matrix[i][a]
-                if not room:  # Here it prints empty space if no rooms are found in that position of the matrix
+                if not room or room.get_visited() == False:  # Here it prints empty space if no rooms are found in that position of the matrix
                     line_1 += " " * 10
                     line_2 += " " * 10
                     line_3 += " " * 10
@@ -223,7 +223,10 @@ class Map:
                     else:
                         line_1 += "  ______  "
 
-                    line_2 += " |      | "
+                    if player.current_room == room:
+                        line_2 += " |Player| "
+                    else:
+                        line_2 += " |      | "
 
                     if room.get_exit("west"):
                         line_3 += "=|  "
