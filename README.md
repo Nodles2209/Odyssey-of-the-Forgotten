@@ -17,7 +17,9 @@ git push -uf origin main
 Undecided - Will need to vote on this later
 
 ## Description
+```
 This game is a text based adventure game focused on roguelite puzzle game mechanics.
+```
 
 **This description will be left incomplete until the final story is fully decided upon**
 
