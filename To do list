@@ -11,7 +11,7 @@ create a new .py file that holds a class which can be used to create items, this
 -Room initialization:
 A way to take rooms from their information stored in dictionaries and creates room objects in the rooms.py file, then create a list of all the rooms that can be passed to the map class to create the map
 ------------------------------------------------------------------------------------------------------------------------------------
--Create room dictionaries:
+-Create room dictionaries:(Ziad)
 This will likely be something lots of people work on, it will be inputting the information of the room (name, puzzle or riddle ect) within dictionaries that can be passed to the room initialization
 ------------------------------------------------------------------------------------------------------------------------------------
 -Build a story:
