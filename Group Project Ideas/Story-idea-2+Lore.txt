@@ -1,0 +1,116 @@
+GENERAL PLOT:
+    - Player wakes up at a mysterious, remote island without much recollection of how they arrived there
+    - Since player has amnesia, they will have to set their name at the start of the play through
+    - Finds a mysterious note next to them stating that a mysterious entity awaits the player at the end of the ruins,
+    - Player's starting items would include this note that has the starting objective and a map of the first area
+
+    GAME IDEA REGARDING ABOVE PLOT POINT:
+        - Adding different floors/levels of exploration?
+            - Player might not start at the ruins right away, and would have to instead find the ruins to explore further
+            - First map can be fairly basic, no requirement of any puzzle or riddle - you start at a random part of the
+              first map and your objective is simply to find the ruins and potentially collect some items that can help
+              give hints or lifelines within the ruins
+            - Players can view the entire map of this first stage only due to the key item - map
+            - Players can also view information about a room's type through the map and what a room may contain as items
+            - Above idea can use Linli's current version of her "dungeon/game", which completely randomizes the map
+              layout; instead of having necessary rooms in the first map portion, all riddles/puzzles are strictly
+              unnecessary and only exist to boost score/acquire lifelines
+
+    **IMPORTANT**
+    Finding the ruins must evoke a sense of urgency - this can be done through multiple ways:
+        IDEA 1:
+        - Only a certain number of moves can be made by the player - the player can move anywhere they want, but can
+          only do so a certain amount of times (like say they can only move through 10 rooms before having to go to the
+          ruins) - failure to do so would result in the player "getting lost" or "losing track of time" and getting
+          killed off by the mysterious entity who would then be mad that the player "made it wait"
+        - For this idea, a visual indicator can be displayed which shows the amount of moves the player can make
+        - A move is determined by room changes - a player moving to a different room will count towards the move counter
+          but the player interacting with objects within a room would not count
+
+        IDEA 1.5:
+        - Instead of being killed off for not making it to the ruins within the move requirement, every move taken past
+          the move requirement will instead grant the player a debuff/score deduction/negative score multiplier
+
+        IDEA 2:
+        - The player must make it to the ruins within a time limit (irl time)
+        - If the player is afk, this will count towards the time limit and can kill the player if the timer crosses the
+          set limit
+
+    - Once the player finds the ruins, they receive a warning stating that they can no longer leave the ruins once entered
+    - Ominous text is printed once the ruins are entered (at the "start" room) stating that the ominous presence is
+      delighted with the player's return
+    - Another pop up message should appear indicating that a mysterious force shakes the ruins and a loud noise is heard
+      (indicating the random map generation's completion)
+
+        - The actual ruins can use the version of the map generation algorithm that Leo has designed - ruin exploration
+          is BLIND, however the starting point/room is fixed
+
+    - Some necessary rooms will be locked - requires certain items obtained from other necessary rooms
+    - Optional rooms also exist to help obtain lifelines/boost/deplete score (fully random)
+    - Items required for each locked room will be displayed once the player finds the exit leading to that room and attempts
+      to enter said room through a pop-up - "Player does not have sufficient items to enter the room - <required item>"
+    - Final room can operate in 2 ways:
+        - The final room only gets generated at a random location once all the required items have been collected -
+          encourages hording behaviour on the player's behalf
+        - The final room is always available and the items required to unlock the room will be displayed once the player
+          finds the room
+    - Once final room has been unlocked and entered, an ending can be triggered depending on certain attributes
+
+ENDING IDEAS:
+    MAIN ENDING
+        - The player realises that they have already been here multiple times in the past through the number of
+          leaderboard entries (default set to at least 2 other entries with the leaderboard displayed)
+        - The player is given their final score and their entry gets added permanently
+        - **OPTIONAL** - The player can "recall" certain events of the playthrough that directly precedes the current one;
+                         this can be achieved by storing certain words alongside the player's score in the leaderboard
+                         (that won't be directly visible to players) that are obtained through completing certain rooms
+                         and collecting certain "titles"
+                       - These "titles" are strictly unimportant to gameplay and only exist as a story/lore feature
+        - The player feels an ominous sense of dread and loses consciousness while having their "memories"/current
+          playthrough getting forcefully wiped
+        - After the memory wipe and reinitialisation of the map/rooms/items, the player is given the option to start a
+          "new game" pretending that the previous playthrough did not occur
+        - The only indication of the previous playthrough is stored in the leaderboard/final room
+
+    OPTIONAL ENDINGS
+        LUCKY/TRANSCENDENT ENDING
+            - If the player's ending score is exceptionally high, the player can "resist" the ominous entity's forced
+              reset and can "ascend" to directly confront the mysterious entity
+            - The player at this point can have some options:
+                - Restart the game through their own volition where
+                    - They start fresh again with a completely randomised map
+                    - Reset the items and score, but keep the map
+                - Enter a bet with the mysterious entity where they "win" the game and get freed if they
+                  solve one final riddle - guessing who the mysterious entity is (several answers can be accepted as long
+                  as they are similar)
+                    - Winning the bet means that the player has the ability to either continue the game or disband the
+                      game completely by deleting all files associated with the game
+                    - Losing the bet means that they get forcefully reset and giving up control again to the mysterious
+                      entity
+
+        UNLUCKY ENDING
+            - If the player obtains a certain "unlucky" item, has a score lower than a certain threshold or enters a
+              certain "unlucky" room, the playthrough automatically terminates and the mysterious entity forcefully resets
+              the playthrough with no score being stored in the leaderboard
+
+        LOST/WANDERER ENDING
+            - If the player never makes it into the ruins or takes too long, or the debuff multiplier/score reduction
+              is too high in the first stage, this ending is triggered where the player develops dementia and dies;
+              the mysterious entity gets sad and resets the playthrough
+            - **OPTIONAL** A message is generated in the playthrough directly succeeding it, which is automatically added
+             to the player's inventory from the mysterious entity encouraging the player and giving the player more available
+             moves to be made/a greater time limit
+                - Once this playthrough is successfully completed, the message is deleted from the next playthroughs
+
+MYSTERIOUS ENTITY'S IDENTITY:
+    - Us, the programmer/programming team
+    - This can be foreshadowed throughout the playthrough by having ominous messages being sent by the "mysterious entity"
+      like random error messages or robotic sounding messages at random
+    - Intentions of the entity: The player's life is just a game, and we're that bored lmao -
+                                We don't want the character to die, hence we reset their run when they die, but we also
+                                don't want the player to win easily since that would be "too boring" for the us, the devs,
+                                and the player that controls the main character (even if that may be to the detriment of
+                                the actual character that is going through everything against their will without any
+                                knowledge that their unfortunate circumstances are just a game to some higher being)
+
+heh 𓁹‿𓁹
