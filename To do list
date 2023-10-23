@@ -17,6 +17,6 @@ This will likely be something lots of people work on, it will be inputting the i
 -Build a story:
 Build a story from the ideas already stated (ask people if you have missed some of the ideas stated in the groupchat) this will include creating strings that will be printed for the player eg "Welcome to the game", "you enter a *room* there is .... inside", things like that
 ------------------------------------------------------------------------------------------------------------------------------------
--create a scoring system:
+-create a scoring system:(Will)
 The game will need a scoring system that gets larger the more puzzles you solve, and is printed to the player when completed, maybe in future add a leaderboard too that stores the top scores of the game
 ------------------------------------------------------------------------------------------------------------------------------------
