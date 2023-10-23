@@ -1,12 +1,10 @@
-from random import seed
-    
+from random import seed    
 from random import randint
-
 from map1 import *
 
 def direction_map(row, col, direction, room_number, mmap):
 
-     if direction == 'north' and (row - 2) > -1:
+     if direction == 'north' and (row - 2) > 0:
          if mmap[row - 2][col] == 1 or mmap[row - 2][col] == 0: # if there is a room there, connect it
              mmap[row - 2][col] = room_number
              mmap[row - 1][col] = 1
@@ -15,7 +13,7 @@ def direction_map(row, col, direction, room_number, mmap):
          else:
              mmap[row - 1][col] = 1
 
-     elif direction == 'south' and (row + 1) < 9:
+     elif direction == 'south' and (row + 1) < 10:
          if mmap[row + 2][col] == 1 or mmap[row + 2][col] == 0:
              mmap[row + 2][col] = room_number
              mmap[row + 1][col] = 1
@@ -24,7 +22,7 @@ def direction_map(row, col, direction, room_number, mmap):
          else:
              mmap[row + 1][col] = 1
 
-     elif direction == 'east' and (col + 1) < 9:
+     elif direction == 'east' and (col + 1) < 10:
          if mmap[row][col + 2] == 1 or mmap[row][col + 2] == 0:
              mmap[row][col + 2] = room_number
              mmap[row][col + 1] = 1
@@ -33,7 +31,7 @@ def direction_map(row, col, direction, room_number, mmap):
          else:
              mmap[row][col + 1] = 1
 
-     elif direction == 'west' and (col - 1) > -1:
+     elif direction == 'west' and (col - 1) > 0:
          if mmap[row][col - 2] == 1 or mmap[row][col - 2] == 0:
              mmap[row][col - 2] = room_number
              mmap[row][col - 1] = 1
