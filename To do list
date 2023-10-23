@@ -8,7 +8,7 @@ This can be created in the main.py file or create a new .py file like in task 6 
 -item class (Leo):
 create a new .py file that holds a class which can be used to create items, this will have values like "id", "from_room" or anything else you can think of
 ------------------------------------------------------------------------------------------------------------------------------------
--Room initialization:
+-Room initialization(Leo):
 A way to take rooms from their information stored in dictionaries and creates room objects in the rooms.py file, then create a list of all the rooms that can be passed to the map class to create the map
 ------------------------------------------------------------------------------------------------------------------------------------
 -Create room dictionaries:(Ziad)
