@@ -23,11 +23,14 @@ This game is a text based adventure game focused on roguelite puzzle game mechan
 
 ## Testing info
 **REQUIRES FIXES**
-
-**Tests for game.py** - Works as long as expected inputs are entered, however breaks upon invalid/unexpected inputs
+```
+Tests for game.py - Breaks upon invalid/unexpected inputs, however works as intended as long as expected inputs are entered
+```
 
 ## Installation
+```
 Requires python3
+```
 
 ## To-do list
 ```
