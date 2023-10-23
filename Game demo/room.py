@@ -142,7 +142,7 @@ init_room = {'1': { 'name': 'start',
 
 },}
 
-def room_dict(room_gen, game_map):
+def room_dict(room_gen, game_map): # setting up room exits
 
     for element in room_gen:
     
@@ -181,7 +181,7 @@ def room_dict(room_gen, game_map):
 
     return init_room
 
-def random_room(game_room):
+def random_room(game_room):  # setting up random rooms
 
     list_of_main_item = ['object1', 'object2', 'object3', 'object4', 'object5', 'object6', 'tool1', 'tool2', 'tool3']
 
@@ -210,7 +210,7 @@ def random_room(game_room):
     
     return game_room
 
-def print_room(game_room):
+def print_room(game_room):  # for testing
 
     for element in game_room:
         print('NAME : ' + game_room[element]['name'])
