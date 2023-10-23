@@ -20,9 +20,9 @@ def normalise_input(user_input, whitelist):
 
     return normalised_words
 
-
-# Example usage:
 whitelist = ["go", "take", "north", "east", "west", "south"]
+# Example usage:
+'''
 user_input = "Go north and take the key!"
 normalised_input = normalise_input(user_input, whitelist)
-print(normalised_input)
+'''

@@ -17,6 +17,7 @@ class Room:
 
     def __init__(self):
         self.__id = None  # type str - used for easy reference to a room object
+        self.__map_id = None # type str - used for a shorted name for printing the map
         self.__x = None  # type int
         self.__y = None  # type int
         self.__exits = {'north': None,
@@ -24,16 +25,18 @@ class Room:
                         'south': None,
                         'west': None
                         }
-        self.__type = None  # type str - used to store type of room
-        self.__description = None  # stores str but type undetermined; can be arr, dict or its own object -
-        # used to store room text
+        self.__type = None  # type str - used to store type of room ('riddle', 'puzzle', 'event')
+        self.__first_prompt = None  # type str - used to store the text for when the player first enters a room
+        self.__enter_prompt = None  # type str - used to store the text for when a player enters a room that have visited previously
+        self.__hint_prompt = None   # type str - used to store the text for when a player needs a hint
+        self.__complete_prompt = None    # type str - used to store the text for when a player has completed the room
+        self.__complete_score = None   # type int - used to hold the score the player gets when completing the room
         self.__clear_condition = None  # type stored in this attribute depends on room type
         self.__isClear = False  # type bool - checks if the room is cleared or not; False until True
         self.__visited = False  # type bool - checks if player has already visited the room; False until True
-        self.__necessary = None  # type int -
+        self.__required = None  # type int -
         # 0 : not necessary,
         # 1+ : order of importance
-
         self.__items = []  # array of type item - stores all the items currently in the room
 
     def get_id(self):  # gets id of room
@@ -41,6 +44,12 @@ class Room:
 
     def set_id(self, new_id):  # sets id of the room (string)
         self.__id = new_id
+
+    def get_map_id(self):  # gets id of room
+        return self.__map_id
+
+    def set_map_id(self, new_map_id):  # sets id of the room (string)
+        self.__map_id = new_map_id
 
     def get_x(self):  # gets x of room
         return self.__x
@@ -73,11 +82,35 @@ class Room:
     def set_type(self, room_type):  # takes in a string to set the room type
         self.__type = room_type
 
-    def get_desc(self):  # returns the string containing the room's text
-        return self.__description
+    def get_first_prompt(self):  # returns the string containing the room's first prompt
+        return self.__first_prompt
 
-    def set_desc(self, desc):  # sets the room's text based on a single, fully formatted string
-        self.__description = desc
+    def set_first_prompt(self, prompt):  # sets the room's first prompt
+        self.__first_prompt = prompt
+
+    def get_enter_prompt(self):  # returns the string containing the room's enter prompt (described above)
+        return self.__enter_prompt
+
+    def set_enter_prompt(self, prompt):  # sets the room's hint prompt (described above)
+        self.__enter_prompt = prompt
+
+    def get_hint_prompt(self):  # returns the string containing the room's hint prompt
+        return self.__hint_prompt
+
+    def set_hint_prompt(self, prompt):  # sets the room's text based on a single, fully formatted string
+        self.__hint_prompt = prompt
+
+    def get_complete_prompt(self):  # returns the string containing the room's complete prompt
+        return self.__complete_prompt
+
+    def set_complete_prompt(self, prompt):  # sets the room's complete prompt
+        self.__complete_prompt = prompt
+
+    def get_complete_score(self):  # returns the int of the score the room gives to the player
+        return self.__complete_score
+
+    def set_complete_score(self, score):  # sets the room's complete score
+        self.__complete_score = score
 
     def get_clear_condition(self):  # returns the clear condition of the room - type undetermined/any
         return self.__clear_condition
@@ -95,16 +128,16 @@ class Room:
         if user_input == clear_condition:
             self.__isClear = True
 
-    def get_necessary(self):  # returns the integer determining how necessary a room is (for the room lists)
-        return self.__necessary
+    def get_required(self):  # returns the integer determining how required a room is (for the room lists)
+        return self.__required
 
-    def set_necessary(self, necessary_int):  # sets the necessary attr based on the int parsed through
-        self.__necessary = necessary_int
+    def set_required(self, required_int):  # sets the required attr based on the int parsed through
+        self.__required = required_int
 
-    def get_inventory(self):  # returns an array that contains the items the user currently has
+    def get_items(self):  # returns an array that contains the items the room currently has
         return self.__items
 
-    def add_to_inventory(self, item):  # adds the item parsed through to the inventory
+    def add_item(self, item):  # adds the item parsed through to the rooms items list
         self.__items.append(item)
 
     def remove_from_inventory(self, item):  # removes the item parsed if it exists in inventory

@@ -2,7 +2,7 @@ import random  # This module is needed for creating pseudo randomness in the gam
 from rooms import Room
 from player import Player
 
-def init_choose_room():
+def init_choose_room(required_room_list, optional_room_list):
     """
     This function is used to return a room to next be placed in the map from the two lists: required_room_list and optional_room_list
 
@@ -61,10 +61,11 @@ class Map:
     """
     This class holds values for the map and creates the map on creation, useful values in this class are:
 
+    - self.matrix_size this holds the size of the matrix [x, y]
     - self.map_matrix  this returns a 5x5 matrix which holds the room locations as objects in the matrix and empty
       spaces are set as None
-    - self.entrance has easy access for getting the room object for the entrance
-    - self.rooms_in_map has all the room objects in the map in a list
+    - self.rooms_objects has all the room objects in the map in a list
+    - self.rooms is a dictionary used to access rooms by their str id
 
     Any functions built into this class that begin with 'init' are labeled because they are used for the initialisation of the map
 
@@ -83,21 +84,28 @@ class Map:
         This function is automatically called when a map object is created
 
         """
+        self.matrix_size = [5,5]  # sets the size of the map matrix, the integers in the list need to be odd to have a center for the entrance room
+        self.rooms_objects = []  # has all the room objects in the map in a list
+        self.map_matrix = init_gen_empty_map_matrix(self.matrix_size)  # this uses a function built into the Map class to create and set an empty matrix
+        self.rooms = {} # used to access the rooms in the map by their str id
 
-        self.matrix_size = [5,
-                            5]  # sets the size of the map matrix, the integers in the list need to be odd to have a center for the entrance room
-        self.rooms_in_map = []  # adds the entrance room to the rooms_in_map list
-        self.map_matrix = init_gen_empty_map_matrix(
-            self.matrix_size)  # this uses a function built into the Map class to create and set an empty matrix
-
-    def init_gen_map(self):
+    def init_gen_map(self, required_room_list, optional_room_list):
         """
         This function is called in the __init__ function of the class and holds the main system for adding the rooms to
         the map
 
         """
+        #Here it initliases the enterance (first room), so the map creation can work
+        entrance = required_room_list.pop(0)
+        entrance.set_x(2)
+        entrance.set_y(2)
+        self.map_matrix[entrance.get_y()][entrance.get_x()] = entrance  # places entrance in map matrix
+        self.rooms_objects.append(entrance)  # places entrance in rooms list
+        self.rooms[entrance.get_id()] = entrance # adds the entrance room to self.rooms dictionary
+
+
         while required_room_list or optional_room_list:  # runs a while loop until both lists are empty
-            chosen_room = init_choose_room()  # This function picks the next room (mostly) randomly to be next placed in the map
+            chosen_room = init_choose_room(required_room_list, optional_room_list)  # This function picks the next room (mostly) randomly to be next placed in the map
             branch_from_room, exits = self.init_find_branch_room()  # This function finds a random place for placing the room and finds a direction it can be placed from the room
             self.place_room(chosen_room, branch_from_room,
                             exits)  # This function handles the system for adding the room to the game matrix and setting the correct __exits in the __exits dictionary of the room
@@ -140,8 +148,8 @@ class Map:
 
         while not found_branch_room:
             temp_index = random.randint(0,
-                                        len(self.rooms_in_map) - 1)  # here it selects a random integer for selecting a random room to branch from
-            branch_from_room = self.rooms_in_map[temp_index]
+                                        len(self.rooms_objects) - 1)  # here it selects a random integer for selecting a random room to branch from
+            branch_from_room = self.rooms_objects[temp_index]
 
             possible_exits = self.init_check_exits_possible(
                 branch_from_room)  # uses function that returns a list of booleans of possible directions the room can be placed in
@@ -156,7 +164,7 @@ class Map:
         """
 
         branch_from_room.set_exit(current_exit, chosen_room)  # sets the exit for the branch room
-        self.rooms_in_map.append(chosen_room)  # adds new room to the rooms_in_map list
+        self.rooms_objects.append(chosen_room)  # adds new room to the rooms_objects list
 
         if current_exit == "north":  # This sets the exit for the chosen_room and sets the x,y and places the room within the map matrix
             chosen_room.set_exit("south", branch_from_room)
@@ -175,11 +183,13 @@ class Map:
             chosen_room.set_x(branch_from_room.get_x() - 1)
             chosen_room.set_y(branch_from_room.get_y())
 
-        self.map_matrix[chosen_room.get_y()][chosen_room.get_x()] = chosen_room
+        self.map_matrix[chosen_room.get_y()][chosen_room.get_x()] = chosen_room #places room in the map matrix
+
+        self.rooms[chosen_room.get_id()] = chosen_room  #adds room to the self.rooms dictionary
 
     def display_map(self, player):
         """
-        This function is used for displaying the map on a grid,
+        This function is used for displaying the map on a grid, it takes in the player object.
         it uses a for loop that creates 5 lines to be printed, once the first for loop has completed, the whole map should be printed
         This may later be changed slightly to incorporate where the player is, and only display rooms that have been visited
 
@@ -218,31 +228,31 @@ class Map:
                     line_4 += " " * 10
                     line_5 += " " * 10
                 else:
-                    if room.get_exit("north"):
+                    if room.get_exit("north"):  #prints the north exit
                         line_1 += "  __||__  "
                     else:
                         line_1 += "  ______  "
 
-                    if player.current_room == room:
+                    if player.current_room == room: #prints the players location
                         line_2 += " |Player| "
                     else:
                         line_2 += " |      | "
 
-                    if room.get_exit("west"):
+                    if room.get_exit("west"):   #prints the west exit
                         line_3 += "=|  "
                     else:
                         line_3 += " |  "
 
-                    line_3 += str(room.get_id())
+                    line_3 += str(room.get_map_id())    #prints the name in the room
 
-                    if room.get_exit("east"):
+                    if room.get_exit("east"):   #prints the east exit
                         line_3 += "  |="
                     else:
                         line_3 += "  | "
 
                     line_4 += " |______| "
 
-                    if room.get_exit("south"):
+                    if room.get_exit("south"):  #prints the south exit
                         line_5 += "    ||    "
                     else:
                         line_5 += " " * 10
@@ -251,27 +261,3 @@ class Map:
             print(combined_lines)
 
         print("-" * 100)  # print a line to make it easier to read
-
-
-"""
-The code below is temporary until the rooms have been designed, later the code will be changed that the initialization of the map will take
-a list of the rooms
-
-"""
-
-R1, R2, R3, R4 = Room(), Room(), Room(), Room()
-o1, o2, o3, o4 = Room(), Room(), Room(), Room()
-
-R1.set_id("R1")
-R2.set_id("R2")
-R3.set_id("R3")
-R4.set_id("R4")
-o1.set_id("o1")
-o2.set_id("o2")
-o3.set_id("o3")
-o4.set_id("o4")
-
-# This is a list of Room objects used for creating the map, these rooms are the required ones for the game to function
-required_room_list = [R1, R2, R3, R4]
-# This is a list of Room objects used for creating the map, these rooms are optional rooms not necessary for the core game
-optional_room_list = [o1, o2, o3, o4]

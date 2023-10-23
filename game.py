@@ -7,6 +7,7 @@ from map import Map  # imports the class used for the map/map creation
 from rooms import Room  # imports the class used for creating room objects and functions for setting and getting variables
 from player import Player  # imports the player class used for holding data on the player
 from normalise_function import normalise_input, whitelist #imports the function used for normalising the players input, and the whitelist for removing words
+from room_initialisation import create_rooms
 
 
 def check_win():
@@ -46,7 +47,7 @@ def execute_action(game_map, player, player_action):
     """
     if player_action[0] == "go":  # if the first word in the input is "go"
         player.current_room = player.current_room.get_exit(player_action[1])  # update the players current room to the desired room
-        player.current_room.set_visited(True)
+        player.current_room.set_visited(True)   #sets the status of the room as visited when the player enters
 
 
 def main():
@@ -59,18 +60,13 @@ def main():
     print("Welcome to the game!!!!")
 
     game_map = Map()  # creates a map object
-    entrance = Room()  # creates the entrance room object, then sets initial values in the next lines
-    entrance.set_id("en")
-    entrance.set_x(2)
-    entrance.set_y(2)
-    entrance.set_visited(True)
-    game_map.map_matrix[entrance.get_y()][entrance.get_x()] = entrance  # places entrance in map matrix
-    game_map.rooms_in_map.append(entrance)  # places entrance in rooms list
 
-    game_map.init_gen_map()  # This function runs the randomisation process of entering the rooms, may later need to take in a list of the rooms in future versions
+    required_room_list, optional_room_list = create_rooms() #gets the required and optional room list from the create_rooms function located in rooms_initialisation.py
+    game_map.init_gen_map(required_room_list, optional_room_list)  # This function runs the randomisation process of entering the rooms, may later need to take in a list of the rooms in future versions
 
     player_name = input("Please enter your name: ")  # gets the player to input their name
-    player = Player(player_name, entrance)  # creates a player object with the name, and the entrance room object
+    print(game_map.rooms)
+    player = Player(player_name, game_map.rooms["Entrance"])  # creates a player object with the name, and the entrance room object
 
     while True:  # This is the main while loop for the game that will run until the game is complete
         if check_win():  # This is where the game checks if the game has been completed at the start of each turn
