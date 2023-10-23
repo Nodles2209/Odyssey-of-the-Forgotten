@@ -5,7 +5,7 @@ This is a to do list for the project, please add your name like this:(Leo) at th
 This is a function that takes the players input and removes spaces, punctuation, changes to lower class, splits the sentence into a list of words and uses a whitelist (list of words we need to keep like "go","take","north" ect) to remove unnecessary words.
 This can be created in the main.py file or create a new .py file like in task 6 (gameparser.py)
 ------------------------------------------------------------------------------------------------------------------------------------
--item class:
+-item class (Leo):
 create a new .py file that holds a class which can be used to create items, this will have values like "id", "from_room" or anything else you can think of
 ------------------------------------------------------------------------------------------------------------------------------------
 -Room initialization:
