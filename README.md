@@ -58,40 +58,75 @@ The game will need a scoring system that gets larger the more puzzles you solve,
 
 ## Roadmap
 **Highest priority tasks-**
+```
 1. Get the game and map running properly without bugs or hardcoded information within the same location as the main code - including elegant error handling
 2. Add relevant room details for all rooms
 3. Adding optional features from the story idea files if time is available
+```
 
 ## Project dictionary
-**Group Project Ideas folder** - The folder stores all the relevant information about our project's ideas in the form of txt files
+**Group Project Ideas folder** - 
+```
+The folder stores all the relevant information about our project's ideas in the form of txt files
+```
 
-**NOTE**
+**NOTE** -
 This is not to be confused with the .idea folder which is entirely useless and non-functional - it exists as a byproduct of using a jetbrains IDE
 
-**The most relevant txt files to go through currently are** "background story", "Puzzle-ideas", "story_idea" and "Story-idea-2+Lore" as these contain the current info about what the story potentially is about
+**The most relevant txt files to go through currently are**
+```
+"background story", "Puzzle-ideas", "story_idea" and "Story-idea-2+Lore" as these contain the current info about what the story potentially is about
+```
 
 **Note that the current story is not completely decided and the final parts will need to be voted upon**
 
-**Game demo folder** - This folder contains all of Linli's programs for her current ideas - refer to "story_idea" and "Story-idea-2+Lore" to see potential use cases for these files
+**Game demo folder** -
+```
+This folder contains all of Linli's programs for her current ideas - refer to "story_idea" and "Story-idea-2+Lore" to see potential use cases for these files
 
-**game.py within Game demo folder** - Linli's main game program using her map generation algorithm which generates a completely random map - starting room is **random**
 
-**game.py** - Leo's main game program using his map generation algorithm - refer to "Leo's idea" and "Story-idea-2+Lore" to see potential use cases for this file
+game.py within Game demo folder - Linli's main game program using her map generation algorithm which generates a completely random map - starting room is **random**
+```
 
-**gameparser.py** - The main program used to help filter and normalise words, similar to Exercise 4+6's parser; **subject to change** as we might potentially change how the program filters words
+**game.py** -
+```
+Leo's main game program using his map generation algorithm - refer to "Leo's idea" and "Story-idea-2+Lore" to see potential use cases for this file
+```
 
-**map.py** - Leo's map generation algorithm used to generate a random map - starting room is **constant**
+**gameparser.py** -
+```
+The main program used to help filter and normalise words, similar to Exercise 4+6's parser; **subject to change** as we might potentially change how the program filters words
+```
 
-**player.py** - Contains class definitions for the player
+**map.py** -
+```
+Leo's map generation algorithm used to generate a random map - starting room is **constant**
+```
 
-**room_dicts.py** - Contains initial information for the starting room dictionary
+**player.py** -
+```
+Contains class definitions for the player
+```
 
-**rooms.py** - Contains class definitions for all room types as well as relevant getters, setters and methods
+**room_dicts.py** - 
+```
+Contains initial information for the starting room dictionary
+```
 
-**To do list** - Editable file for all remaining tasks left to do that are currently not complete
+**rooms.py** - 
+```
+Contains class definitions for all room types as well as relevant getters, setters and methods
+```
 
-**room_initialisation.py** - Supposed to be the program responsible for creating all the room objects using dictionaries and initialising all the necessary arrays required for map generation
+**To do list** - 
+```
+Editable file for all remaining tasks left to do that are currently not complete
+```
 
+**room_initialisation.py** - 
+```
+Supposed to be the program responsible for creating all the room objects using dictionaries and initialising all the necessary arrays required for map generation
+```
 **room_initialisation.py may be deprecated later if the file is not used**
 
 **More information about each file is given within the documentation in each file**
