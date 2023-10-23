@@ -5,6 +5,8 @@ from map2 import *
 init_room = {'1': { 'name': 'start',
         
         'description': 'This is enterence',
+
+        'object': '',   # what the player will get after the puzzle
         
         'items': [],
         
@@ -18,6 +20,8 @@ init_room = {'1': { 'name': 'start',
 
         'description': '',
 
+        'object': '',
+
         'items': [],
 
         'exits': {},
@@ -29,6 +33,8 @@ init_room = {'1': { 'name': 'start',
  '3': { 'name': 'room2',
 
         'description': '',
+
+        'object': '',
 
         'items': [],
 
@@ -42,6 +48,8 @@ init_room = {'1': { 'name': 'start',
 
         'description': '',
 
+        'object': '',
+
         'items': [],
 
         'exits': {},
@@ -54,6 +62,8 @@ init_room = {'1': { 'name': 'start',
 
         'description': '',
 
+        'object': '',
+
         'items': [],
 
         'exits': {},
@@ -65,6 +75,8 @@ init_room = {'1': { 'name': 'start',
  '6': { 'name': 'room5',
 
         'description': '',
+
+        'object': '',
         
         'items': [],
 
@@ -78,6 +90,8 @@ init_room = {'1': { 'name': 'start',
 
         'description': '',
 
+        'object': '',
+
         'items': [],
 
         'exits': {},
@@ -89,6 +103,8 @@ init_room = {'1': { 'name': 'start',
  '8': { 'name': 'room7',
 
         'description': '',
+
+        'object': '',
 
         'items': [],
 
@@ -102,6 +118,8 @@ init_room = {'1': { 'name': 'start',
 
         'description': '',
 
+        'object': '',
+
         'items': [],
 
         'exits': {},
@@ -114,6 +132,8 @@ init_room = {'1': { 'name': 'start',
 
         'description': '',
 
+        'object': '',
+
         'items': [],
 
         'exits': {},
@@ -123,7 +143,7 @@ init_room = {'1': { 'name': 'start',
 },}
 
 def room_dict(room_gen, game_map):
-    
+
     for element in room_gen:
     
         north = True
@@ -133,35 +153,30 @@ def room_dict(room_gen, game_map):
     
         row = room_gen[element][0]
         col = room_gen[element][1]
-    
+
         for e in range(4):
 
-            try:
-    
-                if game_map[row - 1][col] == 1 and north:
-    
-                    init_room[element]['exits'].update({'north': str((game_map[row - 2][col]) - 1)})
-                    north = False
-    
-                elif game_map[row + 1][col] == 1 and south:
+            if (game_map[row - 1][col] == 1) and north:
 
-                    init_room[element]['exits'].update({'south': str((game_map[row + 2][col]) - 1)})
-                    south = False
-    
-                elif game_map[row][col + 1] == 1 and east:
+                init_room[element]['exits'].update({ 'north': str((game_map[row - 2][col]) - 1) })
+                north = False
 
-                    init_room[element]['exits'].update({'east': str((game_map[row][col + 2]) - 1)})
-                    east = False
-    
-                elif game_map[row][col - 1] == 1 and west:
+            elif (game_map[row + 1][col] == 1) and south:
 
-                    init_room[element]['exits'].update({'west': str((game_map[row][col - 2]) - 1)})
-                    west = False
+                init_room[element]['exits'].update({ 'south': str((game_map[row + 2][col]) - 1) })
+                south = False
 
-                else:
-                    pass
+            elif (game_map[row][col + 1] == 1) and east:
 
-            except IndexError:
+                init_room[element]['exits'].update({ 'east': str((game_map[row][col + 2]) - 1) })
+                east = False
+
+            elif (game_map[row][col - 1] == 1) and west:
+
+                init_room[element]['exits'].update({ 'west': str((game_map[row][col - 2]) - 1) })
+                west = False
+
+            else:
                 pass
 
     return init_room
@@ -186,10 +201,10 @@ def random_room(game_room):
             final.append(objects)
             if objects[0] == 'o':
                 game_room[str(i)]['description'] = 'This is main room'
-                game_room[str(i)]['items'].append(objects)
+                game_room[str(i)]['object'] = objects
             else:
                 game_room[str(i)]['description'] = 'This is optional room'
-                game_room[str(i)]['items'].append(objects)
+                game_room[str(i)]['object'] = objects
 
             i += 1
     
@@ -200,7 +215,7 @@ def print_room(game_room):
     for element in game_room:
         print('NAME : ' + game_room[element]['name'])
         print((game_room[element]['description']).upper())
-        print('ITEMS : ' + str(game_room[element]['items']))
+        print('OBJECT : ' + str(game_room[element]['object']))
         print('EXITS : ' + str(game_room[element]['exits']))
 
         print('\n')
