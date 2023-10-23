@@ -17,7 +17,7 @@ class commands:
 
                 if current_room['score'] == 0:  # if the player didn't get the score
 
-                    current_room = select_puzzles(current_room, True)
+                    current_room = select_puzzles(current_room, True) # store player's score in room dict
 
                     game_room.update(current_room)
 
@@ -25,7 +25,7 @@ class commands:
                     pass
 
             else:
-                textout('You are back :]')
+                textout('You are back :]') # player is back to the entrance
 
         else:
             print('you cannot go in that direction')
@@ -68,7 +68,7 @@ class commands:
 
         return [current_room, game_room, Backpack]
 
-def execute_commands(command, player):
+def execute_commands(command, player):  # input check
 
     try:
         if len(command) != 0:
@@ -98,7 +98,7 @@ def execute_commands(command, player):
 
                     player = commands.drop(command[1], player[0], player[1], player[2])
 
-            elif command[0] == 'exit':
+            elif command[0] == 'exit': # exit, no data will be stored
 
                 textout('YOU ARE OUT')
                 exit()
@@ -113,7 +113,7 @@ def execute_commands(command, player):
 
     return player
 
-def mission_check(current_room, Backpack):
+def mission_check(current_room, Backpack): # main story line
 
     if len(Backpack) == 9 and current_room['name'] == 'start':
         textout('The main story completed')
@@ -132,7 +132,7 @@ def main():
 
    #print_room(game_room)
 
-    current_room = game_room['1']
+    current_room = game_room['1']  # start
     Backpack = []
 
     player = [current_room, game_room, Backpack]
@@ -145,7 +145,7 @@ def main():
         command = input_filter(user_input)
         player = execute_commands(command, player)
 
-        print('Backpack ' + str(player[2]))
+        print('Backpack ' + str(player[2]))  # print player's backpack
 
         mission_check(player[0], player[2])
 
