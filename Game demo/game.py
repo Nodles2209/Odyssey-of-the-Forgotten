@@ -13,7 +13,19 @@ class commands:
             current_room = game_room[current_room['exits'][direction]]
             print('\nYou are in  ' + current_room['name'])
 
-            select_puzzles(current_room, True)
+            if current_room['name'] != 'start':
+
+                if current_room['score'] == 0:  # if the player didn't get the score
+
+                    current_room = select_puzzles(current_room, True)
+
+                    game_room.update(current_room)
+
+                else:
+                    pass
+
+            else:
+                textout('You are back :]')
 
         else:
             print('you cannot go in that direction')
@@ -118,7 +130,7 @@ def main():
 
     game_room = random_room(game_room) # set up items
 
-    print_room(game_room)
+   #print_room(game_room)
 
     current_room = game_room['1']
     Backpack = []
@@ -140,3 +152,4 @@ def main():
 if __name__ == '__main__':
 
     main()
+
