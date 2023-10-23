@@ -24,3 +24,5 @@ entrance = {
     # prompt for when the player completes the room (String)
     "win_prompt": "You completed this room...."
 }
+
+rooms_list = [entrance]

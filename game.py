@@ -6,6 +6,7 @@ in the main codes for loop
 from map import Map  # imports the class used for the map/map creation
 from rooms import Room  # imports the class used for creating room objects and functions for setting and getting variables
 from player import Player  # imports the player class used for holding data on the player
+from normalise_function import normalise_input, whitelist #imports the function used for normalising the players input, and the whitelist for removing words
 
 
 def check_win():
@@ -34,19 +35,6 @@ def print_player_options(current_room, player):
     """
 
     print("This is where the players options he can choose will be printed")
-
-
-def normalise_input(player_action):
-    """
-    This function takes in the players input and returns a normalised list of the important words the player entered,
-    This function may later be moved to its own folder
-
-    """
-
-    input_list = player_action.split(" ")
-    # This splits the players input into a list, by using a space character to split by
-
-    return input_list  # returns a list of important words from the players input
 
 
 def execute_action(game_map, player, player_action):
@@ -97,7 +85,7 @@ def main():
 
         player_action = input("You choose to: ")  # Gets the player to input their choice of the options
 
-        player_action = normalise_input(player_action)  # this normalises the players input to make it ready for the execute_action function
+        player_action = normalise_input(player_action, whitelist)  # this normalises the players input to make it ready for the execute_action function
 
         execute_action(game_map, player, player_action)  # executes the players action, eg 'go north'
 
