@@ -40,24 +40,23 @@ This is a to do list for the project, please add your name like this:(Leo) at th
  To edit this to-do list, refer to the actual txt file in the dev-branch repository
 
 ------------------------------------------------------------------------------------------------------------------------------------
--Normalise function:
+-Normalise function (Joel):
 This is a function that takes the players input and removes spaces, punctuation, changes to lower class, splits the sentence into a list of words and uses a whitelist (list of words we need to keep like "go","take","north" ect) to remove unnecessary words.
 This can be created in the main.py file or create a new .py file like in task 6 (gameparser.py)
 ------------------------------------------------------------------------------------------------------------------------------------
--Item class:
+-item class (Leo):
 create a new .py file that holds a class which can be used to create items, this will have values like "id", "from_room" or anything else you can think of
 ------------------------------------------------------------------------------------------------------------------------------------
--Room initialization:
-A way to take rooms from their information stored in dictionaries and creates room objects in the rooms.py file, then create a list of all the rooms that can be passed to the map class to create the map
-------------------------------------------------------------------------------------------------------------------------------------
--Create room dictionaries:
+-Create room dictionaries:(Ziad)
 This will likely be something lots of people work on, it will be inputting the information of the room (name, puzzle or riddle ect) within dictionaries that can be passed to the room initialization
 ------------------------------------------------------------------------------------------------------------------------------------
 -Build a story:
 Build a story from the ideas already stated (ask people if you have missed some of the ideas stated in the groupchat) this will include creating strings that will be printed for the player eg "Welcome to the game", "you enter a *room* there is .... inside", things like that
 ------------------------------------------------------------------------------------------------------------------------------------
--Create a scoring system:
+-create a scoring system:(Will)
 The game will need a scoring system that gets larger the more puzzles you solve, and is printed to the player when completed, maybe in future add a leaderboard too that stores the top scores of the game
+------------------------------------------------------------------------------------------------------------------------------------
+
 ------------------------------------------------------------------------------------------------------------------------------------
 ```
 
