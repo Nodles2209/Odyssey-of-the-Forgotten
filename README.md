@@ -129,9 +129,8 @@ Editable file for all remaining tasks left to do that are currently not complete
 
 **room_initialisation.py** - 
 ```
-Supposed to be the program responsible for creating all the room objects using dictionaries and initialising all the necessary arrays required for map generation
+Responsible for creating all the room objects using dictionaries and initialising all the necessary arrays required for map generation
 ```
-**room_initialisation.py may be deprecated later if the file is not used**
 
 **More information about each file is given within the documentation in each file**
 
