@@ -287,4 +287,3 @@ class Map:
             # it easier to print
             print(combined_lines)
 
-        print("_" * 100)  # print a line to make it easier to read

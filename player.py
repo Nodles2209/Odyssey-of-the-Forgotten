@@ -9,3 +9,12 @@ class Player:
         self.inventory = []  # list of item objects
         self.score = 0  # int
         self.title = []  # array of str, where titles are only to be used in the final room
+
+    def print_inventory(self):
+        # this function is used for printing the items in the players inventory
+        if self.inventory == []:
+            print("You have nothing in your inventory")
+        else:
+            print("You inventory contains:")
+            for item in self.inventory:
+                print(" >", item.get_id())

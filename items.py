@@ -39,10 +39,6 @@ class Item:
 
 	def inspect(self, game_map, player):
 		'''takes in the games map objects and player object
-		   Inspect the item, this will print a description to the player most of the time, 
-		   but may also do other things like print the map when neccesary'''
+		   and prints the description of the item to the player'''
 
-		if self.__id == "map":	# if inspecting the map, the display_map() function is run
-			print(game_map.display_map(player))
-		else:
-			print(self.__description)	#prints the description of the item
+		print(self.__description)	#prints the description of the item
