@@ -4,9 +4,9 @@ in the main codes for loop
 """
 
 from map import Map  # imports the class used for the map/map creation
-from rooms import Room  # imports the class used for creating room objects and functions for setting and getting variables
 from player import Player  # imports the player class used for holding data on the player
-from normalise_function import normalise_input, whitelist #imports the function used for normalising the players input, and the whitelist for removing words
+from normalise_function import normalise_input, \
+    whitelist  # imports the function used for normalising the players input, and the whitelist for removing words
 from room_initialisation import create_rooms
 
 
@@ -45,9 +45,26 @@ def execute_action(game_map, player, player_action):
     The function expects the first word to be the action eg "go" and the second word to be things like direction eg
     "North\"
     """
-    if player_action[0] == "go":  # if the first word in the input is "go"
-        player.current_room = player.current_room.get_exit(player_action[1])  # update the players current room to the desired room
-        player.current_room.set_visited(True)   #sets the status of the room as visited when the player enters
+
+    try:
+        if player_action[0] == "go":  # if the first word in the input is "go"
+
+            direction = player_action[1]
+
+            if player.current_room.get_exit(direction) is None:
+                print('There is no room in that direction')
+                return None
+
+            player.current_room = player.current_room.get_exit(
+                player_action[1])  # update the players current room to the desired room
+
+            player.current_room.set_visited(True)  # sets the status of the room as visited when the player enters
+
+        else:
+            print('Please enter a keyword [go|take|drop] before your action')
+
+    except IndexError:
+        print('This is not a valid command')
 
 
 def main():
@@ -61,27 +78,38 @@ def main():
 
     game_map = Map()  # creates a map object
 
-    required_room_list, optional_room_list = create_rooms() #gets the required and optional room list from the create_rooms function located in rooms_initialisation.py
-    game_map.init_gen_map(required_room_list, optional_room_list)  # This function runs the randomisation process of entering the rooms, may later need to take in a list of the rooms in future versions
+    required_room_list, optional_room_list = create_rooms()  # gets the required and optional room list from the create_rooms function located in rooms_initialisation.py
+    game_map.init_gen_map(required_room_list,
+                          optional_room_list)  # This function runs the randomisation process of entering the rooms, may later need to take in a list of the rooms in future versions
 
     player_name = input("Please enter your name: ")  # gets the player to input their name
     print(game_map.rooms)
-    player = Player(player_name, game_map.rooms["Entrance"])  # creates a player object with the name, and the entrance room object
+    player = Player(player_name,
+                    game_map.rooms["Entrance"])  # creates a player object with the name, and the entrance room object
 
     while True:  # This is the main while loop for the game that will run until the game is complete
         if check_win():  # This is where the game checks if the game has been completed at the start of each turn
+            """
+            Instead of printing a message here, a function can be called to determine which ending to print (importing
+            the function from another file called endings.py; the player's final score can be parsed into the function)
+            
+            """
+
             print("You Win! wooohoo!!")
             break  # breaks out of while loop
 
-        game_map.display_map(player)    #Displays the map at the start of every turn (use the player object as the argument)
+        game_map.display_map(
+            player)  # Displays the map at the start of every turn (use the player object as the argument)
 
+        print('You are currently in ', end='')
         print_room(player.current_room)  # prints the id of the current room
 
         print_player_options(player.current_room, player)  # prints the options has in the room
 
         player_action = input("You choose to: ")  # Gets the player to input their choice of the options
 
-        player_action = normalise_input(player_action, whitelist)  # this normalises the players input to make it ready for the execute_action function
+        player_action = normalise_input(player_action,
+                                        whitelist)  # this normalises the players input to make it ready for the execute_action function
 
         execute_action(game_map, player, player_action)  # executes the players action, eg 'go north'
 
