@@ -1,9 +1,10 @@
-from items import Item
+# from items import Item
 
 entrance = {
     # Name of room (String)
     "id": "Entrance",
-    # Shortened name for displaying map, might add a map legend to the display map function later (String) (2 letters or digits long)
+    # Shortened name for displaying map, might add a map legend to the display map function later (String) (2 letters
+    # or digits long)
     "map_id": "En",
     # Type of room (eg "riddle", "puzzle", "event") (String)
     "type": "event",
@@ -30,7 +31,8 @@ entrance = {
 room1 = {
     # Name of room (String)
     "id": "Room 1",
-    # Shortened name for displaying map, might add a map legend to the display map function later (String) (2 letters or digits long)
+    # Shortened name for displaying map, might add a map legend to the display map function later (String) (2 letters
+    # or digits long)
     "map_id": "R1",
     # Type of room (eg "riddle", "puzzle", "event") (String)
     "type": "event",
@@ -54,5 +56,6 @@ room1 = {
     "complete_prompt": "You completed this room...."
 }
 
-room_dict_list = [entrance, room1] #A list used for holding all the room dictionaries in this file to be iterated through in the room_initialisation file 
+room_dict_list = [entrance,
+                  room1]  # A list used for holding all the room dictionaries in this file to be iterated through in the room_initialisation file
 #   !!!PLEASE MAKE SURE THE REQUIRED ROOMS IN THIS LIST ARE SORTED IN ORDER FROM SMALLEST TO LARGEST!!!
