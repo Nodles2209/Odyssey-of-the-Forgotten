@@ -33,4 +33,6 @@ def create_items():
 
 		items_dictionary[item_object.get_id()] = item_object
 
+		
+
 	return items_dictionary

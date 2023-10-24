@@ -19,7 +19,7 @@ def check_win():
     return False
 
 
-def print_room(current_room):
+def print_room(current_room, player):
     """
     This function prints the id of the current room and prints the items too,
     takes in the current room the player is in
@@ -27,6 +27,7 @@ def print_room(current_room):
     """
 
     print(current_room.get_id())    #prints the name of the room
+    print("Your current score is:", player.score) #prints the players score
 
     # prints the items in the room if there are any
     if current_room.get_items() != []:
@@ -70,7 +71,9 @@ def execute_take(game_map, player, player_action):
     # is the item exists in the current room, take it and remove it from the room
     if item in player.current_room.get_items():
         player.inventory.append(item)
+        player.score += item.get_score()
         player.current_room.remove_item(item)
+        item.set_score(0)
     else:
         print("Item not in this room, please pick another")
 
@@ -96,6 +99,7 @@ def execute_inspect(game_map, player, player_action):
     """
 
     inspect_object = player_action[1]   #sets the players inputted item to variable
+    current_room = player.current_room
 
     # if the item is found in the maps item list and in the players inventory
     if inspect_object in game_map.items:
@@ -105,9 +109,23 @@ def execute_inspect(game_map, player, player_action):
         else:
             print("This item is not found in your inventory")
     elif inspect_object == "room":
-        player.current_room.inspect()
+        room_type = current_room.get_type()
+        if current_room.get_is_clear():
+            print("You have already completed this room")
+        elif room_type == "riddle":
+            pass
+        elif room_type == "event":
+            pass
+        elif room_type == "sudoku":
+            current_room.set_is_clear(current_room.run_sudoku())
+        
+        if current_room.get_is_clear() == True:
+            player.score += current_room.get_complete_score()
+            current_room.set_complete_score(0)
     else:
         print("This is not a valid command")
+
+    print("-" * 100)
 
 def execute_action(game_map, player, player_action):
     """
@@ -168,7 +186,7 @@ def main():
             break  # breaks out of while loop
 
         print('You are currently in the ', end='')
-        print_room(player.current_room)  # prints the id of the current room
+        print_room(player.current_room, player)  # prints the id of the current room
 
         print_player_options(player.current_room, player)  # prints the options has in the room
 

@@ -235,7 +235,7 @@ class Map:
 
         """
 
-        print("-" * 100)  # print a line to make it easier to read
+        print("_" * 100)  # print a line to make it easier to read
 
         for i in range(len(self.map_matrix)):
             line_1 = ""
@@ -287,4 +287,4 @@ class Map:
             # it easier to print
             print(combined_lines)
 
-        print("-" * 100)  # print a line to make it easier to read
+        print("_" * 100)  # print a line to make it easier to read

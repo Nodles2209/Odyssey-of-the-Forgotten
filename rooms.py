@@ -3,6 +3,7 @@ This program will only store the various classes and their subsequent methods;
 This program is to be imported into room_creation to help create each room object
 
 """
+from puzzle_data import *    #This import holds information needed for puzzles, such as sudoku grid
 
 
 class Room:
@@ -145,13 +146,79 @@ class Room:
             self.__items.remove(item)
 
 
-    def inspect(self):
-        """This function will handle when a player inspects a room, most of the time it will return the type of puzzle it needs to print"""
-        if self.__id == "Entrance":
-            print("This is the room where you woke up")
-        else:
-            print("This is where the game will print the puzzle when the player inspects it")
+    def run_sudoku(self):
+        """
+        This function handles the sudoku puzzle, it takes in the current_room, 
+        it enters a while loop that is only broken when the player decides to leave (return False),
+        or complete the puzzle (return True)
 
+        Please see the puzzle_setup_info to see the format this sudoku is printed
+        """
+
+        uncomplete_map = sudoku1_uncomplete # sets which uncomplete sudoku to use
+        complete_map = sudoku1_complete # sets which complete sudoku to use
+
+        while True:
+            #Start print sudoku grid
+            print("   " + "-" * 36)
+            for y, y_val in enumerate(uncomplete_map):
+                line = ""
+                line += (str(9 - y) + " |")
+                for x, x_val in enumerate(y_val):
+                    if x_val == 0:
+                        line += ("-?-")
+                    else:
+                        line += (" " + str(x_val) + " ")
+                    if x == 2 or x == 5:
+                        line += "|"
+                    else:
+                        line += " "
+                line += "|"
+                print(line)
+                if y == 2 or y == 5:
+                    print("  |" + "-" * 36 + "|")
+                elif y == 8:
+                    print("   " + "-" * 36)
+                else:
+                    print("  |           |           |            |")
+
+            print("    A   B   C   D   E   F   G   H   I\n")
+
+            #End print sudoku print
+
+            #Check if sudoku is completed, return True if complete
+            if complete_map == uncomplete_map:
+                return True
+
+            print("Access the grid one location at a time, using this format -> A1 = 5")
+            print("Or exit the puzzle by entering EXIT")
+            sudoku_input = input("Enter answers here: ")
+            sudoku_input = sudoku_input.lower().split(" ")
+            try:
+                if sudoku_input[0] == "exit":
+                    return False
+                elif len(sudoku_input[2]) == 1 and sudoku_input[2].isnumeric():
+                    x = int(alpha_2_num[sudoku_input[0][0]])
+                    y = 9 - int(sudoku_input[0][1])
+                    num = int(sudoku_input[2])
+
+                    if uncomplete_map[y][x] == 0:
+                        if complete_map[y][x] == num:
+                            uncomplete_map[y][x] = num
+                        else:
+                            print("Incorrect number!")
+                    else:
+                        print("Please choose coordinates labelled '-?-'")
+                else:
+                    print("Please retry checking your formatting, coordinates and answer")
+
+
+            except IndexError:
+                print("Please enter in format explained")
+            except KeyError:
+                print("Please enter in format explained")
+
+                    
 
 class Event(Room):
     """
@@ -176,4 +243,3 @@ class Event(Room):
 
     def set_luck(self, luck):  # only used if creating an "unlucky room", which will be a single room
         self.__luck = luck
-

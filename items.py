@@ -5,10 +5,10 @@ class Item:
 	"""
 
 	def __init__(self):
-		self.__id = None
-		self.__description = None  # type str = holds item text that can be displayed when the item is inspected
-		self.__score = 0  # type int = some items may directly boost/decrease your score
-		self.__title = None  # type str, some items may grant a descriptor to the player to be displayed at the final room
+		self.__id = None	#type str - name of the item
+		self.__description = None  # type str - holds item text that can be displayed when the item is inspected
+		self.__score = 0  # type int - some items may directly boost/decrease your score
+		self.__title = None  # type str - some items may grant a descriptor to the player to be displayed at the final room
 
 	#Getters and Setters for all the objects values (because the objects values are private)
 	def get_id(self):
@@ -41,7 +41,8 @@ class Item:
 		'''takes in the games map objects and player object
 		   Inspect the item, this will print a description to the player most of the time, 
 		   but may also do other things like print the map when neccesary'''
-		if self.__id == "map":
+
+		if self.__id == "map":	# if inspecting the map, the display_map() function is run
 			print(game_map.display_map(player))
 		else:
-			print(self.__description)
+			print(self.__description)	#prints the description of the item
