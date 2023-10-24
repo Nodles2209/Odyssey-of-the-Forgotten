@@ -98,6 +98,7 @@ class Map:
         self.map_matrix = init_gen_empty_map_matrix(
             self.matrix_size)  # this uses a function built into the Map class to create and set an empty matrix
         self.rooms = {}  # used to access the rooms in the map by their str id
+        self.items = None # after item initialisation this is set as a dictionary of all items in the map {"id" : item_object}
 
     def init_gen_map(self, required_room_list, optional_room_list):
         """
@@ -275,11 +276,11 @@ class Map:
                     else:
                         line_3 += "  | "
 
-                    line_4 += " |______| "
-
                     if room.get_exit("south"):  # prints the south exit
+                        line_4 += " |__  __| "
                         line_5 += "    ||    "
                     else:
+                        line_4 += " |______| "
                         line_5 += " " * 10
 
             combined_lines = f"{line_1}\n{line_2}\n{line_3}\n{line_4}\n{line_5}"  # This combines the lines to make

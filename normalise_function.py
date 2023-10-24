@@ -24,7 +24,7 @@ def normalise_input(user_input, white_list):
     return normalised_words
 
 
-whitelist = ["go", "take", "north", "east", "west", "south"]
+whitelist = ["go", "take", "drop", "inspect", "room", "north", "east", "west", "south"]
 
 # Example usage:
 """

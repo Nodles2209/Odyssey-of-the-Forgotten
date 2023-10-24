@@ -140,28 +140,17 @@ class Room:
     def add_item(self, item):  # adds the item parsed through to the rooms items list
         self.__items.append(item)
 
-    def remove_from_inventory(self, item):  # removes the item parsed if it exists in inventory
+    def remove_item(self, item):  # removes the item parsed if it exists in inventory
         if item in self.__items:
             self.__items.remove(item)
-            return True  # returns True if operation is completed as expected
-        return False  # returns False if item is not in the inventory
 
 
-class Riddle(Room):
-    """
-    Since Riddle is inheriting from parent class - Room, it will use the same attributes as Room;
-    if you want to add more attributes that are specific to the Riddle class, add the attributes (set them to private
-    using the __ prefix) after the super() call in the __init__ function
-    The get and set methods will be the same as its parent class, however if extra attributes are added, new get and set
-    methods will need to be created for these added attributes
-
-    Additionally, the Riddle class will have its own unique methods to determine whether it's cleared or not using the
-    stored value in self.__clear_condition
-
-    """
-
-    def __init__(self):
-        super().__init__()
+    def inspect(self):
+        """This function will handle when a player inspects a room, most of the time it will return the type of puzzle it needs to print"""
+        if self.__id == "Entrance":
+            print("This is the room where you woke up")
+        else:
+            print("This is where the game will print the puzzle when the player inspects it")
 
 
 class Event(Room):
@@ -188,19 +177,3 @@ class Event(Room):
     def set_luck(self, luck):  # only used if creating an "unlucky room", which will be a single room
         self.__luck = luck
 
-
-class Puzzle(Room):
-    """
-    Since Puzzle is inheriting from parent class - Room, it will use the same attributes as Room;
-    if you want to add more attributes that are specific to the Puzzle class, add the attributes (set them to private
-    using the __ prefix) after the super() call in the __init__ function
-    The get and set methods will be the same as its parent class, however if extra attributes are added, new get and set
-    methods will need to be created for these added attributes
-
-    Additionally, the Puzzle class will have its own unique methods to determine whether it's cleared or not using the
-    stored value in self.__clear_condition
-
-    """
-
-    def __init__(self):
-        super().__init__()
