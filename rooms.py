@@ -17,7 +17,7 @@ class Room:
 
     def __init__(self):
         self.__id = None  # type str - used for easy reference to a room object
-        self.__map_id = None # type str - used for a shorted name for printing the map
+        self.__map_id = None  # type str - used for a shorted name for printing the map
         self.__x = None  # type int
         self.__y = None  # type int
         self.__exits = {'north': None,
@@ -63,8 +63,8 @@ class Room:
     def set_y(self, y):  # sets id y coordinate the room (int)
         self.__y = y
 
-    def get_exit(self, current_exit):  # gets an exit of the room taking in a direction as a string
-        return self.__exits[current_exit]
+    def get_exit(self, direction):  # gets an exit of the room taking in a direction as a string
+        return self.__exits[direction]
 
     def set_exit(self, current_exit, room):  # sets an exit for the room taking in an exit direction (string) and
         # room that it leads to (room object)
@@ -179,6 +179,14 @@ class Event(Room):
 
     def __init__(self):
         super().__init__()
+        self.__luck = True  # type bool, if a room generated is ever set to False, immediately end the run and trigger
+        # the bad/unlucky ending
+
+    def get_luck(self):
+        return self.__luck
+
+    def set_luck(self, luck):  # only used if creating an "unlucky room", which will be a single room
+        self.__luck = luck
 
 
 class Puzzle(Room):

@@ -7,4 +7,5 @@ class Player:
         self.name = name  # string
         self.current_room = entrance  # room object
         self.inventory = []  # list of item objects
-        self.score = None  # int
+        self.score = 0  # int
+        self.title = []  # array of str, where titles are only to be used in the final room
