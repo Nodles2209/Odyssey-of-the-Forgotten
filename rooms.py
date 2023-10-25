@@ -3,7 +3,7 @@ This program will only store the various classes and their subsequent methods;
 This program is to be imported into room_creation to help create each room object
 
 """
-from puzzle_data import *  # This import holds information needed for puzzles, such as sudoku grid
+from puzzle_data import alpha_2_num
 import re
 from time import sleep
 
@@ -192,7 +192,7 @@ class Sudoku(Room):
     def get_incomplete(self):
         return self.__incomplete
 
-    def set_incomplete(self, puzzle):  # only used if creating an "unlucky room", which will be a single room
+    def set_incomplete(self, puzzle):
         self.__incomplete = puzzle
 
     def run_sudoku(self):
@@ -204,8 +204,9 @@ class Sudoku(Room):
         Please see the puzzle_setup_info to see the format this sudoku is printed
         """
 
-        incomplete_map = self.__incomplete  # sets which incomplete sudoku to use
-        complete_map = self.get_clear_condition()  # sets which complete sudoku to use
+        original_incomplete_map = self.get_incomplete()
+        incomplete_map = [list(row) for row in original_incomplete_map]  # Create a deep copy
+        complete_map = self.get_clear_condition() # sets which complete sudoku to use
 
         while True:
             # Start print sudoku grid

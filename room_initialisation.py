@@ -36,6 +36,7 @@ def create_rooms():
         #creates an event room if the type of the room is event, (Event room is a child class to the Room class)
         if room_dict["type"] == "event":
             room_object = Event()   #creates a blank event room template
+            room_object.set_luck(room_dict["luck"])
         elif room_dict["type"] == "sudoku":
             room_object = Sudoku()
             room_object.set_incomplete(room_dict["incomplete"])
