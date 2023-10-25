@@ -247,5 +247,5 @@ chess1 = {
 
 
 # A list used for holding all the room dictionaries in this file to be iterated through in the room_initialisation file
-room_dict_list = [entrance, riddle1, key_room, sudoku, chess1]
+room_dict_list = [entrance, riddle1, riddle2, riddle3, key_room, sudoku, chess1]
 #   !!!PLEASE MAKE SURE THE REQUIRED ROOMS IN THIS LIST ARE SORTED IN ORDER FROM SMALLEST TO LARGEST!!!
