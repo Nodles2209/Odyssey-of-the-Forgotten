@@ -1,4 +1,4 @@
-# from items import Item
+from puzzle_data import *
 
 entrance = {
     # Name of room (String)
@@ -86,7 +86,7 @@ sudoku = {
     # List of items in room as "id" of the item (List[item_id])
     "item_list": [],
     # Clear condition that is checked with the user input to see if rooms task is complete, set to True if checking completion in own function
-    "clear_condition": True,
+    "clear_condition": sudoku1_complete,
     # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
     "locked" : "key",
     # item given to you if you complete the puzzle, None if there isnt one
@@ -99,7 +99,9 @@ sudoku = {
     # Hint (doesnt always apply) (String)
     "hint_prompt": "Find all the parts for the plane in other places around the map",
     # prompt for when the player completes the room (String)
-    "complete_prompt": "You completed this room...."
+    "complete_prompt": "You completed this room....",
+    # stores incomplete puzzle data from puzzle data file
+    "incomplete": sudoku1_incomplete,
 }
 
 # A list used for holding all the room dictionaries in this file to be iterated through in the room_initialisation file
