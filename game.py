@@ -54,24 +54,21 @@ def print_player_options(game_map, current_room, player, win_possible):
     # Printing the options for the directions the player can take
     if current_room.get_exit("north"):
         print("Use 'GO north' - to continue through the north exit")
-        if current_room.get_exit("north").get_type() == "event":
-            print("!!! THE ROOM TO THE NORTH WILL IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
-            print("!!! ENTER AT YOUR OWN RISK !!!")
+        if current_room.get_exit("north").get_type() == "event" and current_room.get_exit("north").get_visited() == False:
+            print("!!! THE ROOM TO THE NORTH COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
     if current_room.get_exit("east"):
         print("Use 'GO east' - to continue through the east exit")
-        if current_room.get_exit("east").get_type() == "event":
-            print("!!! THE ROOM TO THE EAST WILL IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
-            print("!!! ENTER AT YOUR OWN RISK !!!")
+        if current_room.get_exit("east").get_type() == "event" and current_room.get_exit("east").get_visited() == False:
+            print("!!! THE ROOM TO THE EAST COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
     if current_room.get_exit("south"):
         print("Use 'GO south' - to continue through the south exit")
-        if current_room.get_exit("south").get_type() == "event":
-            print("!!! THE ROOM TO THE SOUTH WILL IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
-            print("!!! ENTER AT YOUR OWN RISK !!!")
+        if current_room.get_exit("south").get_type() == "event" and current_room.get_exit("south").get_visited() == False:
+            print("!!! THE ROOM TO THE SOUTH COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
     if current_room.get_exit("west"):
         print("Use 'GO west' - to continue through the west exit")
-        if current_room.get_exit("west").get_type() == "event":
-            print("!!! THE ROOM TO THE WEST WILL IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
-            print("!!! ENTER AT YOUR OWN RISK !!!")
+        if current_room.get_exit("west").get_type() == "event" and current_room.get_exit("west").get_visited() == False:
+            print("!!! THE ROOM TO THE WEST COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
+
 
     # prints how to answer the riddle if in riddle room
     if current_room.get_type() == "riddle" and current_room.get_is_clear() == False:
@@ -300,6 +297,22 @@ def execute_bad_ending(player):
     print("This is where your journey takes its tragic turn, but remember it well.")
     print("In your next adventure, be ever watchful, for traps may lie in wait.")
 
+def execute_event(player):
+    print(player.current_room.get_first_prompt())
+    while True:
+        choice = input("enter 'YES' or 'NO': ").strip().lower()
+        if choice == "yes":
+            print(player.current_room.get_complete_prompt())
+            player.score += player.current_room.get_complete_score()
+            print("Your score has been affected!")
+            break
+        elif choice == "no":
+            break
+        else:
+            print("Enter a valid option")
+
+    player.current_room.set_is_clear(True)
+
 
 
 def main():
@@ -319,7 +332,7 @@ def main():
     print("In its bony grasp rests a set of faded blueprints, intricate and intriguing.")
     print("It seems the individual drew plans to fashion a makeshift plane, a desperate bid for escape.")
     print("If you can gather the necessary components, you may have a chance at breaking free.")
-    print("But first, you must embark on a journey to uncover the fragments of your own identity.")
+    print("But first, you must embark on a journey to uncover the fragments of your own identity.\n")
 
     game_map = Map()  # creates a map object
 
@@ -354,6 +367,9 @@ def main():
             if player.current_room.get_luck() == False:
                 player.won_game = True
                 execute_bad_ending(player)
+            else:
+                if player.current_room.get_is_clear() == False:
+                    execute_event(player)
 
 
 if __name__ == "__main__":  # checks this file is being run itself, and is not being imported elsewhere

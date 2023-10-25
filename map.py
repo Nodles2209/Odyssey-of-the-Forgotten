@@ -232,7 +232,7 @@ class Map:
          |______|
 
         """
-
+        print("  Map key:  PLAYER: your location, \nEN: The room you entered the game in, \nCOMP: shows if the rooms puzzle is complete")
         for i in range(len(self.map_matrix)):
             line_1 = ""
             line_2 = ""
@@ -265,21 +265,26 @@ class Map:
 
                     if room.get_exit("west"):  # prints the west exit
                         if room.get_exit("west").get_locked():
-                            line_3 += "=X  "
+                            line_3 += "=X "
                         else:
-                            line_3 += "=|  "
+                            line_3 += "=| "
                     else:
-                        line_3 += " |  "
+                        line_3 += " | "
 
-                    line_3 += str(room.get_map_id())  # prints the name in the room
+                    if room.get_id() == "Entrance":
+                        line_3 += " EN "
+                    elif room.get_is_clear() == True:
+                        line_3 += "COMP"
+                    else:
+                        line_3 += "    "
 
                     if room.get_exit("east"):  # prints the east exit
                         if room.get_exit("east").get_locked():
-                            line_3 += "  X="
+                            line_3 += " X="
                         else:
-                            line_3 += "  |="
+                            line_3 += " |="
                     else:
-                        line_3 += "  | "
+                        line_3 += " | "
 
                     if room.get_exit("south"):  # prints the south exit
                         if room.get_exit("south").get_locked():
