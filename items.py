@@ -41,4 +41,26 @@ class Item:
 		'''takes in the games map objects and player object
 		   and prints the description of the item to the player'''
 
+		if player.current_room.get_exit("north"):
+			if self.get_id() == player.current_room.get_exit("north").get_locked():
+				print("You have unlocked the north exit")
+				player.current_room.get_exit("north").set_locked(None)
+				player.inventory.remove(self)
+		if player.current_room.get_exit("east"):
+			if self.get_id() == player.current_room.get_exit("east").get_locked():
+				print("You have unlocked the east exit")
+				player.current_room.get_exit("east").set_locked(None)
+				player.inventory.remove(self)
+		if player.current_room.get_exit("south"):
+			if self.get_id() == player.current_room.get_exit("south").get_locked():
+				print("You have unlocked the south exit")
+				player.current_room.get_exit("south").set_locked(None)
+				player.inventory.remove(self)
+		if player.current_room.get_exit("west"):
+			if self.get_id() == player.current_room.get_exit("west").get_locked():
+				print("You have unlocked the west exit")
+				player.current_room.get_exit("west").set_locked(None)
+				player.inventory.remove(self)
+
+
 		print(self.__description)	#prints the description of the item

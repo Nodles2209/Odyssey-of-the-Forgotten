@@ -76,10 +76,11 @@ def execute_go(game_map, player, player_action):
         print('There is no room in that direction')
         return None
 
-    player.current_room = player.current_room.get_exit(
-        player_action[1])  # update the players current room to the desired room
-
-    player.current_room.set_visited(True)  # sets the status of the room as visited when the player enters
+    if player.current_room.get_exit(player_action[1]).get_locked(): # checks if the room is locked
+        print("This room is locked, go find the key and INSPECT it here")
+    else:
+        player.current_room = player.current_room.get_exit(player_action[1])  # update the players current room to the desired room
+        player.current_room.set_visited(True)  # sets the status of the room as visited when the player enters
 
 def execute_take(game_map, player, player_action):
     """

@@ -34,6 +34,7 @@ class Room:
         self.__complete_score = None   # type int - used to hold the score the player gets when completing the room
         self.__clear_condition = None  # type stored in this attribute depends on room type
         self.__isClear = False  # type bool - checks if the room is cleared or not; False until True
+        self.__locked = None    # type str - None if the room isnt locked, else item id to unlock it
         self.__visited = False  # type bool - checks if player has already visited the room; False until True
         self.__required = None  # type int -
         # 0 : not necessary,
@@ -129,6 +130,12 @@ class Room:
         if user_input == clear_condition:
             self.__isClear = True
 
+    def get_locked(self):
+        return self.__locked
+
+    def set_locked(self, key):
+        self.__locked = key
+
     def get_required(self):  # returns the integer determining how required a room is (for the room lists)
         return self.__required
 
@@ -162,49 +169,49 @@ class Room:
             #Start print sudoku grid
             print("   " + "-" * 36)
             for y, y_val in enumerate(uncomplete_map):
-                line = ""
-                line += (str(9 - y) + " |")
-                for x, x_val in enumerate(y_val):
+                line = ""       #empty string for appending to
+                line += (str(9 - y) + " |") #add the numbers for coordinates down the side
+                for x, x_val in enumerate(y_val):   #enumerate returns the index and the value of list
                     if x_val == 0:
-                        line += ("-?-")
+                        line += ("-?-") #prints this symbol if empty space in grid
                     else:
-                        line += (" " + str(x_val) + " ")
+                        line += (" " + str(x_val) + " ")    #prints the value of the square if not 0
                     if x == 2 or x == 5:
-                        line += "|"
+                        line += "|"     #used for formatting grid
                     else:
-                        line += " "
-                line += "|"
-                print(line)
+                        line += " " #used for formatting grid
+                line += "|" #used for formatting grid
+                print(line)     #prints the line that had information appended to
                 if y == 2 or y == 5:
-                    print("  |" + "-" * 36 + "|")
+                    print("  |" + "-" * 36 + "|")   #used for formatting grid
                 elif y == 8:
-                    print("   " + "-" * 36)
+                    print("   " + "-" * 36) #used for formatting grid
                 else:
-                    print("  |           |           |            |")
+                    print("  |           |           |            |") #used for formatting grid
 
-            print("    A   B   C   D   E   F   G   H   I\n")
-
+            print("    A   B   C   D   E   F   G   H   I\n")    #gives the x coordinates
             #End print sudoku print
 
             #Check if sudoku is completed, return True if complete
             if complete_map == uncomplete_map:
                 return True
 
+            # Here is the main code for the sudoku
             print("Access the grid one location at a time, using this format -> A1 = 5")
             print("Or exit the puzzle by entering EXIT")
-            sudoku_input = input("Enter answers here: ")
-            sudoku_input = sudoku_input.lower().split(" ")
+            sudoku_input = input("Enter answers here: ")    #get input from player
+            sudoku_input = sudoku_input.lower().split(" ")  #normalises input
             try:
-                if sudoku_input[0] == "exit":
+                if sudoku_input[0] == "exit":   # checks if player wants to exit the puzzle
                     return False
-                elif len(sudoku_input[2]) == 1 and sudoku_input[2].isnumeric():
-                    x = int(alpha_2_num[sudoku_input[0][0]])
-                    y = 9 - int(sudoku_input[0][1])
-                    num = int(sudoku_input[2])
+                elif len(sudoku_input[2]) == 1 and sudoku_input[2].isnumeric(): #checks for players input is formatted right
+                    x = int(alpha_2_num[sudoku_input[0][0]])    #gets x coordinate by using input into alpha to numeric dictionary found in puzzle data
+                    y = 9 - int(sudoku_input[0][1]) #gets y coordinate
+                    num = int(sudoku_input[2])  #gets the number the player wants to add
 
                     if uncomplete_map[y][x] == 0:
                         if complete_map[y][x] == num:
-                            uncomplete_map[y][x] = num
+                            uncomplete_map[y][x] = num #sets the new number in grid if correct
                         else:
                             print("Incorrect number!")
                     else:
@@ -213,9 +220,9 @@ class Room:
                     print("Please retry checking your formatting, coordinates and answer")
 
 
-            except IndexError:
+            except IndexError:      #checks for formatted wrong
                 print("Please enter in format explained")
-            except KeyError:
+            except KeyError:        #checks for formatted wrong
                 print("Please enter in format explained")
 
                     

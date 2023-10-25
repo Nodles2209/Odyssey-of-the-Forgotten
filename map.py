@@ -255,7 +255,10 @@ class Map:
                     line_5 += " " * 10
                 else:
                     if room.get_exit("north"):  # prints the north exit
-                        line_1 += "  __||__  "
+                        if room.get_exit("north").get_locked():
+                            line_1 += "  __XX__  "
+                        else:
+                            line_1 += "  __||__  "
                     else:
                         line_1 += "  ______  "
 
@@ -265,19 +268,28 @@ class Map:
                         line_2 += " |      | "
 
                     if room.get_exit("west"):  # prints the west exit
-                        line_3 += "=|  "
+                        if room.get_exit("west").get_locked():
+                            line_3 += "=X  "
+                        else:
+                            line_3 += "=|  "
                     else:
                         line_3 += " |  "
 
                     line_3 += str(room.get_map_id())  # prints the name in the room
 
                     if room.get_exit("east"):  # prints the east exit
-                        line_3 += "  |="
+                        if room.get_exit("east").get_locked():
+                            line_3 += "  X="
+                        else:
+                            line_3 += "  |="
                     else:
                         line_3 += "  | "
 
                     if room.get_exit("south"):  # prints the south exit
-                        line_4 += " |__  __| "
+                        if room.get_exit("south").get_locked():
+                            line_4 += " |__XX__| "
+                        else:
+                            line_4 += " |__  __| "
                         line_5 += "    ||    "
                     else:
                         line_4 += " |______| "

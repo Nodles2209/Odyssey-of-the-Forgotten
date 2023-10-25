@@ -50,6 +50,7 @@ def create_rooms():
         for item in room_dict["item_list"]:
             room_object.add_item(items_dictionary[item])
         room_object.set_clear_condition(room_dict["clear_condition"])
+        room_object.set_locked(room_dict["locked"])
         room_object.set_first_prompt(room_dict["first_prompt"])
         room_object.set_enter_prompt(room_dict["enter_prompt"])
         room_object.set_hint_prompt(room_dict["hint_prompt"])
