@@ -271,19 +271,23 @@ def execute_win(player):
     """
     This function is holding the code that is run when the game is completed, takes in the player object
     """
-    print("Congratulations", player.name, "!, You are preparing to take off on your new makeshift plane\n")
+    from puzzle_pip import puzzle_pip
 
-    if player.score >= 5000:
-        print("Just as you were about to take off, a glimmer in the nearby bushes catches your eye.")
-        print("With a rush of excitement, you uncover a magnificent DIAMOND, the largest ever seen!")
-        print("You secure your newfound treasure, and the world feels like it's at your feet as you soar into the sunset with a triumphant smile.")
-        print("You have reached the GLORIOUS LUCKY ENDING! Congratulations, " + player.name + "!")
-    else:
-        print("With a determined leap, you take off in your makeshift plane, soaring into the endless sky.")
-        print("The world below fades away, and you find yourself on a journey to reclaim your lost past.")
-        print("But as you fly, a haunting question lingers: where is home? Can you even remember?")
-        print("Despite the uncertainty, you've earned your freedom.")
-        print("You've reached the REGULAR ENDING.")
+    start_plane = puzzle_pip()
+    if start_plane:
+        print("Congratulations", player.name, "!, You are preparing to take off on your new makeshift plane\n")
+
+        if player.score >= 5000:
+            print("Just as you were about to take off, a glimmer in the nearby bushes catches your eye.")
+            print("With a rush of excitement, you uncover a magnificent DIAMOND, the largest ever seen!")
+            print("You secure your newfound treasure, and the world feels like it's at your feet as you soar into the sunset with a triumphant smile.")
+            print("You have reached the GLORIOUS LUCKY ENDING! Congratulations, " + player.name + "!")
+        else:
+            print("With a determined leap, you take off in your makeshift plane, soaring into the endless sky.")
+            print("The world below fades away, and you find yourself on a journey to reclaim your lost past.")
+            print("But as you fly, a haunting question lingers: where is home? Can you even remember?")
+            print("Despite the uncertainty, you've earned your freedom.")
+            print("You've reached the REGULAR ENDING.")
     print("\nYour score was:", player.score)
     player.won_game = True
 
