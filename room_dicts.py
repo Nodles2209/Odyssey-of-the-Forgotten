@@ -93,7 +93,7 @@ riddle1 = {
     "complete_item": None,
     # The first prompt that appears when the player enters the room for the first time, things like what the room is
     # and what it looks like (String)
-    "first_prompt": "You enter a room, there are some weird markings on the wall, you take a closer look and it looks like a riddle\nIt says 'The more you take the more you leave behind'\nEnter your answer to complete the room",
+    "first_prompt": "You enter a room, there are some weird markings on the wall, you take a closer look and it looks like a riddle\nIt says 'The more you take the more you leave behind'",
     # The prompt that appears when the player enters the room for all times after the first time (String)
     "enter_prompt": "You enter back into the room with the riddle",
     # Hint (doesnt always apply) (String)

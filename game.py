@@ -44,6 +44,11 @@ def print_player_options(game_map, current_room, player):
     if current_room.get_exit("west"):
         print("Use 'GO west' - to continue through the west exit")
 
+    # prints how to answer the riddle if in riddle room
+    if current_room.get_type() == "riddle" and current_room.get_is_clear() == False:
+        print("Use 'RIDDLE *answer' to enter your answer to the rooms riddle")
+        print("Use 'RIDDLE hint' to get a hint for the riddle")
+
     # option for checking inventory
     print("Use 'INSPECT I' - to see your inventory")
     # option for inspecting room to see information or initaiate the task within
@@ -159,9 +164,9 @@ def execute_inspect(game_map, player, player_action):
         if current_room.get_is_clear():
             player.score += current_room.get_complete_score()
             current_room.set_complete_score(0)  # sets the score of the room to 0 so they cannot get the same reward twice
+            print(current_room.get_complete_prompt())
             if current_room.get_complete_item():
                 item_id = current_room.get_complete_item()
-                print(current_room.get_complete_prompt())
                 player.inventory.append(game_map.items[item_id])
                 print("You won a", item_id, "for completing the puzzle")
                 current_room.set_complete_item(None)
@@ -176,6 +181,32 @@ def execute_check(player, player_action):
         print("Your score is currently:",player.score, "\n")
     else:
         print("This is not a valid command")
+
+def execute_riddle(game_map, player, player_action):
+    #This function holds the checks to complete the riddle
+    if player.current_room.get_is_clear():  #checks if the riddle is complete
+        print("You have already completed this riddle!")
+        return
+
+    players_answer = player_action[1]   #gets the players second word entered
+
+    if players_answer == "hint":    #checks if a player wants a hint
+        print(player.current_room.get_hint_prompt())
+    #checks if the players answer is correct
+    elif players_answer == player.current_room.get_clear_condition():   
+        player.current_room.set_is_clear(True)
+        print(player.current_room.get_complete_prompt())
+        player.score += player.current_room.get_complete_score()
+        player.current_room.set_complete_score(0)  # sets the score of the room to 0 so they cannot get the same reward twice
+        # checks if the room has an object for completing the puzzle
+        if player.current_room.get_complete_item():
+            item_id = player.current_room.get_complete_item()
+            player.inventory.append(game_map.items[item_id])
+            print("You won a", item_id, "for completing the puzzle")
+            player.current_room.set_complete_item(None)
+    else:   #if the player gets the answer wrong
+        print("This answer was wrong, try again or get a hint")
+
 
 def execute_action(game_map, player, player_action):
     """
@@ -196,11 +227,13 @@ def execute_action(game_map, player, player_action):
             execute_inspect(game_map, player, player_action)
         elif player_action[0] == "check":
             execute_check(player, player_action)
+        elif player_action[0] == "riddle":
+            execute_riddle(game_map, player, player_action)
         else:
             print('Please enter a keyword [go|take|drop|inspect|check] before your action')
 
     except IndexError:
-        print('This is not a valid command')
+        print('This is not a valid command or your answer is wrong')
 
 
 def main():
