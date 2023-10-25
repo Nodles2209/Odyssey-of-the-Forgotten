@@ -79,8 +79,6 @@ def puzzle_pip():
             running = True
             record = 'E'
     
-            i = 0
-    
             while running:
                 
                 for element in map_map[row][col][4]:
@@ -115,18 +113,13 @@ def puzzle_pip():
                 if '1' in map_map[row][col][4]: # complete
                     print('Finish')
                     print('\033[97m')
-                    score = 1
                     running = False
-    
-                print(i)
-                i = i + 1
         else:
             print('WRONG START')
+
+    complete_pip = False
     
-        end = map_map[0][0]
-    
-    
-    print('complete the puzzle to connect the wire or EXIT')
+    print('Connect the wire to start the plane or EXIT')
     print('Example: ')
     print('open 0 1')
     print('swap 0 1 2 6')
@@ -161,14 +154,60 @@ def puzzle_pip():
                 print('You cannot swap them')
     
         elif user_input[0] == 'submit':
-            check_puzzle(map_map)
+                    row = 2
+                    col = 7
+    
+                    if 'E' in map_map[row][col - 1][4]:
+    
+                        col -= 1
+    
+                        running = True
+                        record = 'E'
+    
+                        while running:
+                
+                            for element in map_map[row][col][4]:
+    
+                                if element != record:
+    
+                                    if element == 'N' and ('S' in map_map[row - 1][col][4]):
+                                        row -= 1
+                                        record = 'S'
+                                        break
+        
+                                    elif element == 'W' and ('E' in map_map[row][col - 1][4]):
+                                        col -= 1
+                                        record = 'E'
+                                        break
+        
+                                    elif element == 'E' and ('W' in map_map[row][col + 1][4]):
+                                        col += 1
+                                        record = 'W'
+                                        break
+        
+                                    elif element == 'S' and ('N' in map_map[row + 1][col][4]):
+                                        row += 1
+                                        record = 'N'
+                                        break
+        
+                                    else:
+                                        print('Wrong')
+                                        running = False
+                                        break 
+    
+                            if '1' in map_map[row][col][4]: # complete
+                                print('Finish type EXIT')
+                                print('\033[97m')
+                                complete_pip = True
+                                break
+                                
+                    else:
+                        print('WRONG START')
     
         elif user_input[0] == 'exit':
             print('\033[97m')
-            print('bye')
             break
     
         else:
             print('This does not make any sense ')
-
-puzzle_pip()
+    return complete_pip
