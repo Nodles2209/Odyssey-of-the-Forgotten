@@ -1,5 +1,5 @@
+from parser.py import *
 def puzzle_pip():
-    from parser import *
 
     # N1 W2 E3 S4
     t1 = ['--***--', '| *** |', '| *** |', '--***--', 'NS']
