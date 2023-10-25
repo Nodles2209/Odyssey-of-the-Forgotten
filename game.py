@@ -52,19 +52,19 @@ def print_player_options(game_map, current_room, player, win_possible):
     # Printing the options for the directions the player can take
     if current_room.get_exit("north"):
         print("Use 'GO north' - to continue through the north exit")
-        if current_room.get_exit("north").get_type() == "event" and current_room.get_exit("north").get_visited() == False:
+        if current_room.get_exit("north").get_id() == "Bad room":
             print("!!! THE ROOM TO THE NORTH COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
     if current_room.get_exit("east"):
         print("Use 'GO east' - to continue through the east exit")
-        if current_room.get_exit("east").get_type() == "event" and current_room.get_exit("east").get_visited() == False:
+        if current_room.get_exit("east").get_id() == "Bad room":
             print("!!! THE ROOM TO THE EAST COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
     if current_room.get_exit("south"):
         print("Use 'GO south' - to continue through the south exit")
-        if current_room.get_exit("south").get_type() == "event" and current_room.get_exit("south").get_visited() == False:
+        if current_room.get_exit("south").get_id() == "Bad room":
             print("!!! THE ROOM TO THE SOUTH COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
     if current_room.get_exit("west"):
         print("Use 'GO west' - to continue through the west exit")
-        if current_room.get_exit("west").get_type() == "event" and current_room.get_exit("west").get_visited() == False:
+        if current_room.get_exit("west").get_id() == "Bad room":
             print("!!! THE ROOM TO THE WEST COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
 
 
@@ -253,21 +253,26 @@ def execute_win(player):
     """
     This function is holding the code that is run when the game is completed, takes in the player object
     """
-    print("Congratulations", player.name, "!, You are preparing to take off on your new makeshift plane\n")
+    from puzzle_pip import puzzle_pip
 
-    if player.score >= 7500:
-        print("Just as you were about to take off, a glimmer in the nearby bushes catches your eye.")
-        print("With a rush of excitement, you uncover a magnificent DIAMOND, the largest ever seen!")
-        print("You secure your newfound treasure, and the world feels like it's at your feet as you soar into the sunset with a triumphant smile.")
-        print("You have reached the GLORIOUS LUCKY ENDING! Congratulations, " + player.name + "!")
-    else:
-        print("With a determined leap, you take off in your makeshift plane, soaring into the endless sky.")
-        print("The world below fades away, and you find yourself on a journey to reclaim your lost past.")
-        print("But as you fly, a haunting question lingers: where is home? Can you even remember?")
-        print("Despite the uncertainty, you've earned your freedom.")
-        print("You've reached the REGULAR ENDING.")
-    print("\nYour score was:", player.score)
-    player.won_game = True
+    start_plane = puzzle_pip()
+    if start_plane:
+        print("Congratulations", player.name, "!, You are preparing to take off on your new makeshift plane\n")
+
+        if player.score >= 5000:
+            print("Just as you were about to take off, a glimmer in the nearby bushes catches your eye.")
+            print("With a rush of excitement, you uncover a magnificent DIAMOND, the largest ever seen!")
+            print("You secure your newfound treasure, and the world feels like it's at your feet as you soar into the sunset with a triumphant smile.")
+            print("You have reached the GLORIOUS LUCKY ENDING! Congratulations, " + player.name + "!")
+        else:
+            print("With a determined leap, you take off in your makeshift plane, soaring into the endless sky.")
+            print("The world below fades away, and you find yourself on a journey to reclaim your lost past.")
+            print("But as you fly, a haunting question lingers: where is home? Can you even remember?")
+            print("Despite the uncertainty, you've earned your freedom.")
+            print("You've reached the REGULAR ENDING.")
+        print("\nYour score was:", player.score)
+        player.won_game = True
+
 
 def execute_bad_ending(player):
     player.won = True
