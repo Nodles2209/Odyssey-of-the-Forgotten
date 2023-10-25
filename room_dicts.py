@@ -36,21 +36,21 @@ entrance = {
     "complete_prompt": "You completed this room...."
 }
 
-key_room = {
+event1 = {
     # Name of room (String)
-    "id": "Key room",
+    "id": "Event room 1",
     # Shortened name for displaying map, might add a map legend to the display map function later (String) (2 letters
     # or digits long)
-    "map_id": "K1",
+    "map_id": "E1",
     # Type of room (eg "basic", "riddle", "puzzle", "event") (String)
-    "type": "basic",
+    "type": "event",
     # visited (Only the rooms you want to appear immediately should this be set to True) (Boolean)
     "visited": False,
     # required room. 0 if optional room. 1-2-3-4.. for the order after that for required rooms (entrance begins as
     # 1), necessary for map creation (Int)
     "required": 2,
     # score given to player upon completion of room (Int)
-    "complete_room_score": 0,
+    "complete_room_score": -300,
     # List of items in room as "id" of the item (List[item_id])
     "item_list": ["key"],
     # Clear condition that is checked with the user input to see if rooms task is complete, set to True if checking completion in own function
@@ -61,14 +61,53 @@ key_room = {
     "complete_item": None,
     # The first prompt that appears when the player enters the room for the first time, things like what the room is
     # and what it looks like (String)
-    "first_prompt": "You enter a room, i wonder if something useful is here",
+    "first_prompt": "You enter into the room and notice something wedged in the wall,\n do you want to try and yank at it?",
     # The prompt that appears when the player enters the room for all times after the first time (String)
-    "enter_prompt": "You are back the room you found that key",
+    "enter_prompt": None,
     # Hint (doesnt always apply) (String)
     "hint_prompt": None,
     # prompt for when the player completes the room (String)
-    "complete_prompt": None
+    "complete_prompt": "You pull at it and find... A SMELLY SOCK! YUCK!",
+    #luck, only set to false if is the bad room
+    "luck": None
 }
+
+event2 = {
+    # Name of room (String)
+    "id": "Event room 2",
+    # Shortened name for displaying map, might add a map legend to the display map function later (String) (2 letters
+    # or digits long)
+    "map_id": "E2",
+    # Type of room (eg "basic", "riddle", "puzzle", "event") (String)
+    "type": "event",
+    # visited (Only the rooms you want to appear immediately should this be set to True) (Boolean)
+    "visited": False,
+    # required room. 0 if optional room. 1-2-3-4.. for the order after that for required rooms (entrance begins as
+    # 1), necessary for map creation (Int)
+    "required": 0,
+    # score given to player upon completion of room (Int)
+    "complete_room_score": 500,
+    # List of items in room as "id" of the item (List[item_id])
+    "item_list": [],
+    # Clear condition that is checked with the user input to see if rooms task is complete, set to True if checking completion in own function
+    "clear_condition": True,
+    # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
+    "locked" : None,
+    # item given to you if you complete the puzzle, None if there isnt one
+    "complete_item": None,
+    # The first prompt that appears when the player enters the room for the first time, things like what the room is
+    # and what it looks like (String)
+    "first_prompt": "You enter the room and see a mouse trapped under a rock,\n do you want to help it?",
+    # The prompt that appears when the player enters the room for all times after the first time (String)
+    "enter_prompt": None,
+    # Hint (doesnt always apply) (String)
+    "hint_prompt": None,
+    # prompt for when the player completes the room (String)
+    "complete_prompt": "The mouse leaps free and leads you to a little hole, inside you find GOLD!",
+    #luck, only set to false if is the bad room
+    "luck": None
+}
+
 
 riddle1 = {
     # Name of room (String)
@@ -97,7 +136,7 @@ riddle1 = {
     # and what it looks like (String)
     "first_prompt": "You enter a room, there are some weird markings on the wall, you take a closer look and it looks like a riddle\nIt says 'The more you take the more you leave behind'",
     # The prompt that appears when the player enters the room for all times after the first time (String)
-    "enter_prompt": "You enter back into the room with the riddle",
+    "enter_prompt": "You enter a room, there are some weird markings on the wall, you take a closer look and it looks like a riddle\nIt says 'The more you take the more you leave behind'",
     # Hint (doesnt always apply) (String)
     "hint_prompt": "This riddle is all about your journey, and what you do as you move forward.",
     # prompt for when the player completes the room (String)
@@ -126,12 +165,12 @@ riddle2 = {
     # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
     "locked" : None,
     # item given to you if you complete the puzzle, None if there isnt one
-    "complete_item": None,
+    "complete_item": "engine",
     # The first prompt that appears when the player enters the room for the first time, things like what the room is
     # and what it looks like (String)
     "first_prompt": "You enter a room, there are some weird markings on the wall, you take a closer look and it looks like a riddle\nIt says 'I'm often running, but I don't have legs.\nI have a bed, but never sleep.\nI can have banks, but no money.\nWhat am I?'",
     # The prompt that appears when the player enters the room for all times after the first time (String)
-    "enter_prompt": "You enter back into the room with the riddle",
+    "enter_prompt": "You enter a room, there are some weird markings on the wall, you take a closer look and it looks like a riddle\nIt says 'I'm often running, but I don't have legs.\nI have a bed, but never sleep.\nI can have banks, but no money.\nWhat am I?'",
     # Hint (doesnt always apply) (String)
     "hint_prompt": "This bed doesn't need sheets or pillows, but can be deep or shallow.",
     # prompt for when the player completes the room (String)
@@ -150,7 +189,7 @@ riddle3 = {
     "visited": False,
     # required room. 0 if optional room. 1-2-3-4.. for the order after that for required rooms (entrance begins as
     # 1), necessary for map creation (Int)
-    "required": 0,
+    "required": 4,
     # score given to player upon completion of room (Int)
     "complete_room_score": 1000,
     # List of items in room as "id" of the item (List[item_id])
@@ -160,12 +199,12 @@ riddle3 = {
     # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
     "locked" : None,
     # item given to you if you complete the puzzle, None if there isnt one
-    "complete_item": None,
+    "complete_item": "propeller",
     # The first prompt that appears when the player enters the room for the first time, things like what the room is
     # and what it looks like (String)
     "first_prompt": "You enter a room, there are some weird markings on the wall, you take a closer look and it looks like a riddle\nIt says 'What has a head and a tail but has no legs?'",
     # The prompt that appears when the player enters the room for all times after the first time (String)
-    "enter_prompt": "You enter back into the room with the riddle",
+    "enter_prompt": "You enter a room, there are some weird markings on the wall, you take a closer look and it looks like a riddle\nIt says 'What has a head and a tail but has no legs?'",
     # Hint (doesnt always apply) (String)
     "hint_prompt": "Whatever this is, it is often associated with good luck.",
     # prompt for when the player completes the room (String)
@@ -231,7 +270,7 @@ chess1 = {
     # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
     "locked": None,
     # item given to you if you complete the puzzle, None if there isnt one
-    "complete_item": None,
+    "complete_item": "chassis",
     # The first prompt that appears when the player enters the room for the first time, things like what the room is
     # and what it looks like (String)
     "first_prompt": "You enter the room and find strange glyphs,\nThe glyphs come together on a grid to resemble a chess board...",
@@ -283,7 +322,7 @@ bad_room = {
 }
 
 # A list used for holding all the room dictionaries in this file to be iterated through in the room_initialisation file
-room_dict_list = [entrance, riddle1, riddle2, riddle3, key_room, sudoku, chess1]
+room_dict_list = [entrance, riddle1, riddle2, riddle3, event1, event2, sudoku, chess1]
 #   !!!PLEASE MAKE SURE THE REQUIRED ROOMS IN THIS LIST ARE SORTED IN ORDER FROM SMALLEST TO LARGEST!!!
 
 bad_room_chance = random.random()

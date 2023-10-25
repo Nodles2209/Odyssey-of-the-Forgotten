@@ -52,24 +52,21 @@ def print_player_options(game_map, current_room, player, win_possible):
     # Printing the options for the directions the player can take
     if current_room.get_exit("north"):
         print("Use 'GO north' - to continue through the north exit")
-        if current_room.get_exit("north").get_type() == "event":
-            print("!!! THE ROOM TO THE NORTH WILL IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
-            print("!!! ENTER AT YOUR OWN RISK !!!")
+        if current_room.get_exit("north").get_id() == "Bad room":
+            print("!!! THE ROOM TO THE NORTH COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
     if current_room.get_exit("east"):
         print("Use 'GO east' - to continue through the east exit")
-        if current_room.get_exit("east").get_type() == "event":
-            print("!!! THE ROOM TO THE EAST WILL IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
-            print("!!! ENTER AT YOUR OWN RISK !!!")
+        if current_room.get_exit("east").get_id() == "Bad room":
+            print("!!! THE ROOM TO THE EAST COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
     if current_room.get_exit("south"):
         print("Use 'GO south' - to continue through the south exit")
-        if current_room.get_exit("south").get_type() == "event":
-            print("!!! THE ROOM TO THE SOUTH WILL IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
-            print("!!! ENTER AT YOUR OWN RISK !!!")
+        if current_room.get_exit("south").get_id() == "Bad room":
+            print("!!! THE ROOM TO THE SOUTH COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
     if current_room.get_exit("west"):
         print("Use 'GO west' - to continue through the west exit")
-        if current_room.get_exit("west").get_type() == "event":
-            print("!!! THE ROOM TO THE WEST WILL IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
-            print("!!! ENTER AT YOUR OWN RISK !!!")
+        if current_room.get_exit("west").get_id() == "Bad room":
+            print("!!! THE ROOM TO THE WEST COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
+
 
     # prints how to answer the riddle if in riddle room
     if current_room.get_type() == "riddle" and current_room.get_is_clear() == False:
@@ -92,8 +89,6 @@ def print_player_options(game_map, current_room, player, win_possible):
         print("Use 'TAKE *name' to take these items from the room:")
         for item in current_room.get_items():
             print("  > 'TAKE",item.get_id() + "'")
-    # option for dropping items
-    print("Use 'DROP *name' to drop items from your inventory")
 
 
 def execute_go(game_map, player, player_action):
@@ -138,20 +133,6 @@ def execute_take(game_map, player, player_action):
     else:
         print("Item not in this room, please pick another")
 
-def execute_drop(game_map, player, player_action):
-    """
-    This function takes in the game_map, player, and player_action,
-    it drops items in the players inventory
-    """
-
-    item = game_map.items[player_action[1]] #sets the players inputted item to variable
-
-    # if the item exists in the players inventory, drop it in the room
-    if item in player.inventory:
-        player.inventory.remove(item)
-        player.current_room.add_item(item)
-    else:
-        print("This object is not found in your inventory")
 
 def execute_inspect(game_map, player, player_action):
     """
@@ -253,8 +234,6 @@ def execute_action(game_map, player, player_action):
             execute_go(game_map, player, player_action)
         elif player_action[0] == "take":
             execute_take(game_map, player, player_action)
-        elif player_action[0] == "drop":
-            execute_drop(game_map, player, player_action)
         elif player_action[0] == "inspect":
             execute_inspect(game_map, player, player_action)
         elif player_action[0] == "check":
@@ -274,21 +253,26 @@ def execute_win(player):
     """
     This function is holding the code that is run when the game is completed, takes in the player object
     """
-    print("Congratulations", player.name, "!, You are preparing to take off on your new makeshift plane\n")
+    from puzzle_pip import puzzle_pip
 
-    if player.score >= 5000:
-        print("Just as you were about to take off, a glimmer in the nearby bushes catches your eye.")
-        print("With a rush of excitement, you uncover a magnificent DIAMOND, the largest ever seen!")
-        print("You secure your newfound treasure, and the world feels like it's at your feet as you soar into the sunset with a triumphant smile.")
-        print("You have reached the GLORIOUS LUCKY ENDING! Congratulations, " + player.name + "!")
-    else:
-        print("With a determined leap, you take off in your makeshift plane, soaring into the endless sky.")
-        print("The world below fades away, and you find yourself on a journey to reclaim your lost past.")
-        print("But as you fly, a haunting question lingers: where is home? Can you even remember?")
-        print("Despite the uncertainty, you've earned your freedom.")
-        print("You've reached the REGULAR ENDING.")
-    print("\nYour score was:", player.score)
-    player.won_game = True
+    start_plane = puzzle_pip()
+    if start_plane:
+        print("Congratulations", player.name, "!, You are preparing to take off on your new makeshift plane\n")
+
+        if player.score >= 5000:
+            print("Just as you were about to take off, a glimmer in the nearby bushes catches your eye.")
+            print("With a rush of excitement, you uncover a magnificent DIAMOND, the largest ever seen!")
+            print("You secure your newfound treasure, and the world feels like it's at your feet as you soar into the sunset with a triumphant smile.")
+            print("You have reached the GLORIOUS LUCKY ENDING! Congratulations, " + player.name + "!")
+        else:
+            print("With a determined leap, you take off in your makeshift plane, soaring into the endless sky.")
+            print("The world below fades away, and you find yourself on a journey to reclaim your lost past.")
+            print("But as you fly, a haunting question lingers: where is home? Can you even remember?")
+            print("Despite the uncertainty, you've earned your freedom.")
+            print("You've reached the REGULAR ENDING.")
+        print("\nYour score was:", player.score)
+        player.won_game = True
+
 
 def execute_bad_ending(player):
     player.won = True
@@ -299,6 +283,22 @@ def execute_bad_ending(player):
     print("Your score: 0")
     print("This is where your journey takes its tragic turn, but remember it well.")
     print("In your next adventure, be ever watchful, for traps may lie in wait.")
+
+def execute_event(player):
+    print(player.current_room.get_first_prompt())
+    while True:
+        choice = input("enter 'YES' or 'NO': ").strip().lower()
+        if choice == "yes":
+            print(player.current_room.get_complete_prompt())
+            player.score += player.current_room.get_complete_score()
+            print("Your score has been affected!")
+            break
+        elif choice == "no":
+            break
+        else:
+            print("Enter a valid option")
+
+    player.current_room.set_is_clear(True)
 
 
 
@@ -319,11 +319,11 @@ def main():
     print("In its bony grasp rests a set of faded blueprints, intricate and intriguing.")
     print("It seems the individual drew plans to fashion a makeshift plane, a desperate bid for escape.")
     print("If you can gather the necessary components, you may have a chance at breaking free.")
-    print("But first, you must embark on a journey to uncover the fragments of your own identity.")
+    print("But first, you must embark on a journey to uncover the fragments of your own identity.\n")
 
     game_map = Map()  # creates a map object
 
-    win_objects = ["wing"]  #the items the player needs in their inventory to build the plane
+    win_objects = ["wing", "engine", "propeller", "chassis"]  #the items the player needs in their inventory to build the plane
 
     required_room_list, optional_room_list, items_dictionary = create_rooms()  # gets the required and optional room list from the create_rooms function located in rooms_initialisation.py
 
@@ -354,6 +354,9 @@ def main():
             if player.current_room.get_luck() == False:
                 player.won_game = True
                 execute_bad_ending(player)
+            else:
+                if player.current_room.get_is_clear() == False:
+                    execute_event(player)
 
 
 if __name__ == "__main__":  # checks this file is being run itself, and is not being imported elsewhere
