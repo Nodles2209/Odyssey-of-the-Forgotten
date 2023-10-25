@@ -1,4 +1,5 @@
 from puzzle_data import *
+from chess_boards import *
 
 entrance = {
     # Name of room (String)
@@ -138,6 +139,44 @@ sudoku = {
     "incomplete": sudoku1_incomplete
 }
 
+chess1 = {
+    # Name of room (String)
+    "id": "Chess Room",
+    # Shortened name for displaying map, might add a map legend to the display map function later (String) (2 letters
+    # or digits long)
+    "map_id": "C1",
+    # Type of room (eg "basic", "riddle", "puzzle", "event", "sudoku" ect) (String)
+    "type": "chess",
+    # visited (Only the rooms you want to appear immediately should this be set to True) (Boolean)
+    "visited": False,
+    # required room. 0 if optional room. 1-2-3-4.. for the order after that for required rooms (entrance begins as
+    # 1), necessary for map creation (Int)
+    "required": 4,
+    # score given to player upon completion of room (Int)
+    "complete_room_score": 2000,
+    # List of items in room as "id" of the item (List[item_id])
+    "item_list": [],
+    # Clear condition that is checked with the user input to see if rooms task is complete, set to True if checking completion in own function
+    "clear_condition": ['qe4e8', 're1xe8'],
+    # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
+    "locked": None,
+    # item given to you if you complete the puzzle, None if there isnt one
+    "complete_item": None,
+    # The first prompt that appears when the player enters the room for the first time, things like what the room is
+    # and what it looks like (String)
+    "first_prompt": "You enter the room and find strange glyphs,\nThe glyphs come together on a grid to resemble a chess board...",
+    # The prompt that appears when the player enters the room for all times after the first time (String)
+    "enter_prompt": "You are back in the room with the chess puzzle",
+    # Hint (doesnt always apply) (String)
+    "hint_prompt": "Find all the parts for the plane in other places around the map",
+    # prompt for when the player completes the room (String)
+    "complete_prompt": "You completed the puzzle....",
+    # stores incomplete puzzle data from puzzle data file
+    "board_turn": [chess_1_p1, chess_1_p2],
+    "cutscenes": [chess_1_p1_cutscene, chess_1_p2_cutscene]
+}
+
+
 # A list used for holding all the room dictionaries in this file to be iterated through in the room_initialisation file
-room_dict_list = [entrance, riddle1, key_room, sudoku]  
+room_dict_list = [entrance, riddle1, key_room, sudoku, chess1]
 #   !!!PLEASE MAKE SURE THE REQUIRED ROOMS IN THIS LIST ARE SORTED IN ORDER FROM SMALLEST TO LARGEST!!!
