@@ -1,5 +1,6 @@
 from puzzle_data import *
 from chess_boards import *
+import random
 
 entrance = {
     # Name of room (String)
@@ -245,7 +246,46 @@ chess1 = {
     "cutscenes": [chess_1_p1_cutscene, chess_1_p2_cutscene]
 }
 
+bad_room = {
+    # Name of room (String)
+    "id": "Bad room",
+    # Shortened name for displaying map, might add a map legend to the display map function later (String) (2 letters
+    # or digits long)
+    "map_id": "BR",
+    # Type of room (eg "basic", "riddle", "puzzle", "event") (String)
+    "type": "event",
+    # visited (Only the rooms you want to appear immediately should this be set to True) (Boolean)
+    "visited": False,
+    # required room. 0 if optional room. 1-2-3-4.. for the order after that for required rooms (entrance begins as
+    # 1), necessary for map creation (Int)
+    "required": 8,
+    # score given to player upon completion of room (Int)
+    "complete_room_score": 0,
+    # List of items in room as "id" of the item (List[item_id])
+    "item_list": [],
+    # Clear condition that is checked with the user input to see if rooms task is complete, set to True if checking completion in own function
+    "clear_condition": None,
+    # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
+    "locked" : None,
+    # item given to you if you complete the puzzle, None if there isnt one
+    "complete_item": None,
+    # The first prompt that appears when the player enters the room for the first time, things like what the room is
+    # and what it looks like (String)
+    "first_prompt": None,
+    # The prompt that appears when the player enters the room for all times after the first time (String)
+    "enter_prompt": None,
+    # Hint (doesnt always apply) (String)
+    "hint_prompt": None,
+    # prompt for when the player completes the room (String)
+    "complete_prompt": None,
+    #luck for if the room is a bad room
+    "luck": False
+}
 
 # A list used for holding all the room dictionaries in this file to be iterated through in the room_initialisation file
 room_dict_list = [entrance, riddle1, riddle2, riddle3, key_room, sudoku, chess1]
 #   !!!PLEASE MAKE SURE THE REQUIRED ROOMS IN THIS LIST ARE SORTED IN ORDER FROM SMALLEST TO LARGEST!!!
+
+bad_room_chance = random.random()
+if bad_room_chance < 0.001:
+    room_dict_list.append(bad_room)

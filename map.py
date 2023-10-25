@@ -4,12 +4,11 @@ import random  # This module is needed for creating pseudo randomness in the gam
 def init_choose_room(required_room_list, optional_room_list):
     """
     This function is used to return a room to next be placed in the map from the two lists: required_room_list and
-    optional_room_list
+    optional_room_list, it also takes the bad list to decide if it will be placed
 
     """
     room_type_choice = random.random()  # This uses the random module to create a random float between 0-1
-    if (
-            room_type_choice <= 0.4 and required_room_list) or not optional_room_list:  # Here the float is used as a
+    if (room_type_choice <= 0.4 and required_room_list) or not optional_room_list:  # Here the float is used as a
         # percentage change of picking a required room (40% chance of picking) or the if runs if the
         # optional_room_list is empty
         chosen_room = required_room_list.pop(
@@ -115,8 +114,7 @@ class Map:
         self.rooms[entrance.get_id()] = entrance  # adds the entrance room to self.rooms dictionary
 
         while required_room_list or optional_room_list:  # runs a while loop until both lists are empty
-            chosen_room = init_choose_room(required_room_list,
-                                           optional_room_list)  # This function picks the next room (mostly) randomly
+            chosen_room = init_choose_room(required_room_list, optional_room_list)  # This function picks the next room (mostly) randomly
             # to be next placed in the map
             branch_from_room, exits = self.init_find_branch_room()  # This function finds a random place for placing
             # the room and finds a direction it can be placed from the room
