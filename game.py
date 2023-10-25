@@ -150,7 +150,7 @@ def execute_inspect(game_map, player, player_action):
             current_room.set_is_clear(current_room.run_sudoku())
         
         # checks if the room has been completed and gets the player his score if they have
-        if current_room.get_is_clear() == True:
+        if current_room.get_is_clear():
             player.score += current_room.get_complete_score()
             current_room.set_complete_score(0)  # sets the score of the room to 0 so they cannot get the same reward twice
             if current_room.get_complete_item():
