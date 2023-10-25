@@ -1,3 +1,4 @@
+from puzzle_data import *
 
 entrance = {
     # Name of room (String)
@@ -60,7 +61,7 @@ key_room = {
     # and what it looks like (String)
     "first_prompt": "You enter a room, i wonder if something useful is here",
     # The prompt that appears when the player enters the room for all times after the first time (String)
-    "enter_prompt": "This is the room you found that key",
+    "enter_prompt": "You are back the room you found that key",
     # Hint (doesnt always apply) (String)
     "hint_prompt": None,
     # prompt for when the player completes the room (String)
@@ -85,20 +86,22 @@ sudoku = {
     # List of items in room as "id" of the item (List[item_id])
     "item_list": [],
     # Clear condition that is checked with the user input to see if rooms task is complete, set to True if checking completion in own function
-    "clear_condition": True,
+    "clear_condition": sudoku1_complete,
     # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
     "locked" : "key",
     # item given to you if you complete the puzzle, None if there isnt one
     "complete_item": "wing",
     # The first prompt that appears when the player enters the room for the first time, things like what the room is
     # and what it looks like (String)
-    "first_prompt": "You wake up and you are in an unfamiliar place....",
+    "first_prompt": "You enter the room and behind some vines you find a weird puzzle on the wall,\nWeird, it looks just like sudoku",
     # The prompt that appears when the player enters the room for all times after the first time (String)
-    "enter_prompt": "You are back in the sudoku room",
+    "enter_prompt": "You are back in the room with the sudoku puzzle",
     # Hint (doesnt always apply) (String)
     "hint_prompt": "Find all the parts for the plane in other places around the map",
     # prompt for when the player completes the room (String)
-    "complete_prompt": "You completed the puzzle, a small hatch opens and inside is an old wing for a plane"
+    "complete_prompt": "You completed the puzzle, a small hatch opens and inside is an old wing for a plane",
+    # stores incomplete puzzle data from puzzle data file
+    "incomplete": sudoku1_incomplete
 }
 
 # A list used for holding all the room dictionaries in this file to be iterated through in the room_initialisation file

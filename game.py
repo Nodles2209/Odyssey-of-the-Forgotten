@@ -155,13 +155,13 @@ def execute_inspect(game_map, player, player_action):
         elif room_type == "sudoku": # this handles the code for the sudoku room
             current_room.set_is_clear(current_room.run_sudoku())
         
-        # checks if the room has been completed and gets the adjusts players score ect as required
-        if current_room.get_is_clear() == True:
-            print(current_room.get_complete_prompt())
+        # checks if the room has been completed and gets the player his score if they have
+        if current_room.get_is_clear():
             player.score += current_room.get_complete_score()
             current_room.set_complete_score(0)  # sets the score of the room to 0 so they cannot get the same reward twice
             if current_room.get_complete_item():
                 item_id = current_room.get_complete_item()
+                print(current_room.get_complete_prompt())
                 player.inventory.append(game_map.items[item_id])
                 print("You won a", item_id, "for completing the puzzle")
                 current_room.set_complete_item(None)

@@ -124,12 +124,8 @@ class Room:
     def get_is_clear(self):  # returns a boolean that determines the clear state of the room
         return self.__isClear
 
-    def set_is_clear(self, user_input):  # sets whether the room is cleared based on the user input by checking
-        # whether the clear condition is the same as the user input
-        clear_condition = self.get_clear_condition()
-
-        if user_input == clear_condition:
-            self.__isClear = True
+    def set_is_clear(self, clear):  # sets a bool to determine whether the room is cleared
+        self.__isClear = clear
 
     def get_locked(self):   #get whether the room is locked
         return self.__locked
@@ -158,80 +154,6 @@ class Room:
     def remove_item(self, item):  # removes the item parsed if it exists in inventory
         if item in self.__items:
             self.__items.remove(item)
-
-
-    def run_sudoku(self):
-        """
-        This function handles the sudoku puzzle, it takes in the current_room, 
-        it enters a while loop that is only broken when the player decides to leave (return False),
-        or complete the puzzle (return True)
-
-        Please see the puzzle_setup_info to see the format this sudoku is printed
-        """
-
-        uncomplete_map = sudoku1_uncomplete # sets which uncomplete sudoku to use
-        complete_map = sudoku1_complete # sets which complete sudoku to use
-
-        while True:
-            #Start print sudoku grid
-            print("   " + "-" * 36)
-            for y, y_val in enumerate(uncomplete_map):
-                line = ""       #empty string for appending to
-                line += (str(9 - y) + " |") #add the numbers for coordinates down the side
-                for x, x_val in enumerate(y_val):   #enumerate returns the index and the value of list
-                    if x_val == 0:
-                        line += ("-?-") #prints this symbol if empty space in grid
-                    else:
-                        line += (" " + str(x_val) + " ")    #prints the value of the square if not 0
-                    if x == 2 or x == 5:
-                        line += "|"     #used for formatting grid
-                    else:
-                        line += " " #used for formatting grid
-                line += "|" #used for formatting grid
-                print(line)     #prints the line that had information appended to
-                if y == 2 or y == 5:
-                    print("  |" + "-" * 36 + "|")   #used for formatting grid
-                elif y == 8:
-                    print("   " + "-" * 36) #used for formatting grid
-                else:
-                    print("  |           |           |            |") #used for formatting grid
-
-            print("    A   B   C   D   E   F   G   H   I\n")    #gives the x coordinates
-            #End print sudoku print
-
-            #Check if sudoku is completed, return True if complete
-            if complete_map == uncomplete_map:
-                return True
-
-            # Here is the main code for the sudoku
-            print("Access the grid one location at a time, using this format -> A1 = 5")
-            print("Or exit the puzzle by entering EXIT")
-            sudoku_input = input("Enter answers here: ")    #get input from player
-            sudoku_input = sudoku_input.lower().split(" ")  #normalises input
-            try:
-                if sudoku_input[0] == "exit":   # checks if player wants to exit the puzzle
-                    return False
-                elif len(sudoku_input[2]) == 1 and sudoku_input[2].isnumeric(): #checks for players input is formatted right
-                    x = int(alpha_2_num[sudoku_input[0][0]])    #gets x coordinate by using input into alpha to numeric dictionary found in puzzle data
-                    y = 9 - int(sudoku_input[0][1]) #gets y coordinate
-                    num = int(sudoku_input[2])  #gets the number the player wants to add
-
-                    if uncomplete_map[y][x] == 0:
-                        if complete_map[y][x] == num:
-                            uncomplete_map[y][x] = num #sets the new number in grid if correct
-                        else:
-                            print("Incorrect number!")
-                    else:
-                        print("Please choose coordinates labelled '-?-'")
-                else:
-                    print("Please retry checking your formatting, coordinates and answer")
-
-
-            except IndexError:      #checks for formatted wrong
-                print("Please enter in format explained")
-            except KeyError:        #checks for formatted wrong
-                print("Please enter in format explained")
-
                     
 
 class Event(Room):
@@ -257,3 +179,92 @@ class Event(Room):
 
     def set_luck(self, luck):  # only used if creating an "unlucky room", which will be a single room
         self.__luck = luck
+
+
+class Sudoku(Room):
+
+    def __init__(self):
+        super().__init__()
+        self.__incomplete = None
+
+    def get_incomplete(self):
+        return self.__incomplete
+
+    def set_incomplete(self, puzzle):  # only used if creating an "unlucky room", which will be a single room
+        self.__incomplete = puzzle
+
+    def run_sudoku(self):
+        """
+        This function handles the sudoku puzzle, it takes in the current_room,
+        it enters a while loop that is only broken when the player decides to leave (return False),
+        or complete the puzzle (return True)
+
+        Please see the puzzle_setup_info to see the format this sudoku is printed
+        """
+
+        incomplete_map = self.__incomplete # sets which incomplete sudoku to use
+        complete_map = self.get_clear_condition() # sets which complete sudoku to use
+
+        while True:
+            #Start print sudoku grid
+            print("   " + "-" * 36)
+            for y, y_val in enumerate(incomplete_map):
+                line = ""       #empty string for appending to
+                line += (str(9 - y) + " |") #add the numbers for coordinates down the side
+                for x, x_val in enumerate(y_val):   #enumerate returns the index and the value of list
+                    if x_val == 0:
+                        line += ("-?-") #prints this symbol if empty space in grid
+                    else:
+                        line += (" " + str(x_val) + " ")    #prints the value of the square if not 0
+                    if x == 2 or x == 5:
+                        line += "|"     #used for formatting grid
+                    else:
+                        line += " " #used for formatting grid
+                line += "|" #used for formatting grid
+                print(line)     #prints the line that had information appended to
+                if y == 2 or y == 5:
+                    print("  |" + "-" * 36 + "|")   #used for formatting grid
+                elif y == 8:
+                    print("   " + "-" * 36) #used for formatting grid
+                else:
+                    print("  |           |           |            |") #used for formatting grid
+
+            print("    A   B   C   D   E   F   G   H   I\n")    #gives the x coordinates
+            #End print sudoku print
+
+            #Check if sudoku is completed, return True if complete
+            if complete_map == incomplete_map:
+                return True
+
+            # Here is the main code for the sudoku
+            print("Access the grid one location at a time, using this format -> A1 = 5")
+            print("Or exit the puzzle by entering EXIT")
+            sudoku_input = input("Enter answers here: ")    #get input from player
+            sudoku_input = sudoku_input.lower().split(" ")  #normalises input
+            try:
+                if sudoku_input[0] == "exit":   # checks if player wants to exit the puzzle
+                    return False
+                elif len(sudoku_input[2]) == 1 and sudoku_input[2].isnumeric(): #checks for players input is formatted right
+                    x = int(alpha_2_num[sudoku_input[0][0]])    #gets x coordinate by using input into alpha to numeric dictionary found in puzzle data
+                    y = 9 - int(sudoku_input[0][1]) #gets y coordinate
+                    num = int(sudoku_input[2])  #gets the number the player wants to add
+
+                    if incomplete_map[y][x] == 0:
+                        if complete_map[y][x] == num:
+                            incomplete_map[y][x] = num #sets the new number in grid if correct
+                        else:
+                            print("Incorrect number!")
+                    else:
+                        print("Please choose coordinates labelled '-?-'")
+                else:
+                    print("Please retry checking your formatting, coordinates and answer")
+
+
+            except IndexError:      #checks for formatted wrong
+                print("Please enter in format explained")
+            except KeyError:        #checks for formatted wrong
+                print("Please enter in format explained")
+
+
+
+
