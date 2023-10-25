@@ -115,7 +115,7 @@ def puzzle_pip():
         end = map_map[0][0]
     
     
-    print('complete the puzzle to connect the wire or pass')
+    print('complete the puzzle to connect the wire or EXIT')
     print('Example: ')
     print('open 0 1')
     print('swap 0 1 2 6')
@@ -152,7 +152,7 @@ def puzzle_pip():
         elif user_input[0] == 'submit':
             check_puzzle(map_map)
     
-        elif user_input[0] == 'pass':
+        elif user_input[0] == 'exit':
             print('bye')
             break
     
