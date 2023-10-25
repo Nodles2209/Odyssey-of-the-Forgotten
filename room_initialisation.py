@@ -40,6 +40,10 @@ def create_rooms():
         elif room_dict["type"] == "sudoku":
             room_object = Sudoku()
             room_object.set_incomplete(room_dict["incomplete"])
+        elif room_dict["type"] == "chess":
+            room_object = Chess()
+            room_object.set_board_turn(room_dict["board_turn"])
+            room_object.set_cutscenes(room_dict["cutscenes"])
         else:
             room_object = Room()  # creates a blank room template
 

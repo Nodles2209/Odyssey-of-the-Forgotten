@@ -282,7 +282,7 @@ chess1 = {
     "complete_prompt": "You completed the puzzle....",
     # stores incomplete puzzle data from puzzle data file
     "board_turn": [chess_1_p1, chess_1_p2],
-    "cutscenes": [chess_1_p1_cutscene, chess_1_p2_cutscene]
+    "cutscenes": [chess_1_p0_cutscene, chess_1_p1_cutscene, chess_1_p2_cutscene]
 }
 
 bad_room = {

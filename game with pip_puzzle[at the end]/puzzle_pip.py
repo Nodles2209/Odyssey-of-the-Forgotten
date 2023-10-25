@@ -196,7 +196,7 @@ def puzzle_pip():
                                         break 
     
                             if '1' in map_map[row][col][4]: # complete
-                                print('Finish')
+                                print('Finish type EXIT')
                                 print('\033[97m')
                                 complete_pip = True
                                 break
@@ -206,11 +206,8 @@ def puzzle_pip():
     
         elif user_input[0] == 'exit':
             print('\033[97m')
-            print('bye')
             break
     
         else:
             print('This does not make any sense ')
     return complete_pip
-p = puzzle_pip()
-print(p)

@@ -25,9 +25,11 @@ def check_win_items(win_objects, game_map, player):
         if player.current_room.get_id() == "Entrance":
             return True
         else:
-            print("You have all the parts for the plane now! Get back to the entrance to build it!")
+            print("You have all the parts for the plane now! Get back to the entrance to build it")
 
     return False
+
+
 
 
 def print_room(current_room, player):
@@ -47,26 +49,17 @@ def print_player_options(game_map, current_room, player, win_possible):
     print("\nHere are your options:")
 
     #Print option to build the plane
-    if win_possible:
+    if win_possible == True:
         print("Use 'BUILD plane' - to build the plane and leave the island (This completes the game)")
     # Printing the options for the directions the player can take
     if current_room.get_exit("north"):
         print("Use 'GO north' - to continue through the north exit")
-        if current_room.get_exit("north").get_type() == "event" and current_room.get_exit("north").get_visited() == False:
-            print("!!! THE ROOM TO THE NORTH COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
     if current_room.get_exit("east"):
         print("Use 'GO east' - to continue through the east exit")
-        if current_room.get_exit("east").get_type() == "event" and current_room.get_exit("east").get_visited() == False:
-            print("!!! THE ROOM TO THE EAST COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
     if current_room.get_exit("south"):
         print("Use 'GO south' - to continue through the south exit")
-        if current_room.get_exit("south").get_type() == "event" and current_room.get_exit("south").get_visited() == False:
-            print("!!! THE ROOM TO THE SOUTH COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
     if current_room.get_exit("west"):
         print("Use 'GO west' - to continue through the west exit")
-        if current_room.get_exit("west").get_type() == "event" and current_room.get_exit("west").get_visited() == False:
-            print("!!! THE ROOM TO THE WEST COULD IMMEDIATLEY AFFECT YOUR PLAYER POSITIVELY OR NEGATIVELY !!!")
-
 
     # prints how to answer the riddle if in riddle room
     if current_room.get_type() == "riddle" and current_room.get_is_clear() == False:
@@ -111,12 +104,11 @@ def execute_go(game_map, player, player_action):
         player.current_room = player.current_room.get_exit(player_action[1])  # update the players current room to the desired room
         player.current_room.set_visited(True)  # sets the status of the room as visited when the player enters
 
-        if player.current_room.get_type() != "event":
-            if player.current_room.get_first_prompt():
-                print(player.current_room.get_first_prompt(), "(" + player.current_room.get_id() + ")")
-                player.current_room.set_first_prompt(None)
-            else:
-                print(player.current_room.get_enter_prompt())
+        if player.current_room.get_first_prompt():
+            print(player.current_room.get_first_prompt(), "(" + player.current_room.get_id() + ")")
+            player.current_room.set_first_prompt(None)
+        else:
+            print(player.current_room.get_enter_prompt())
 
 def execute_take(game_map, player, player_action):
     """
@@ -184,11 +176,9 @@ def execute_inspect(game_map, player, player_action):
             pass
         elif room_type == "sudoku": # this handles the code for the sudoku room
             current_room.set_is_clear(current_room.run_sudoku())
-        elif room_type == "chess":  # this handles the code for the chess room
-            current_room.set_is_clear(current_room.run_chess())
         else:
             print("This room does not have a task")
-
+        
         # checks if the room has been completed and gets the player his score if they have
         if current_room.get_is_clear():
             player.score += current_room.get_complete_score()
@@ -222,7 +212,7 @@ def execute_riddle(game_map, player, player_action):
     if players_answer == "hint":    #checks if a player wants a hint
         print(player.current_room.get_hint_prompt())
     #checks if the players answer is correct
-    elif players_answer == player.current_room.get_clear_condition():
+    elif players_answer == player.current_room.get_clear_condition():   
         player.current_room.set_is_clear(True)
         print(player.current_room.get_complete_prompt())
         player.score += player.current_room.get_complete_score()
@@ -271,47 +261,27 @@ def execute_win(player):
     """
     This function is holding the code that is run when the game is completed, takes in the player object
     """
-    print("Congratulations", player.name, "!, You are preparing to take off on your new makeshift plane\n")
+    from puzzle_pip import puzzle_pip
 
-    if player.score >= 5000:
-        print("Just as you were about to take off, a glimmer in the nearby bushes catches your eye.")
-        print("With a rush of excitement, you uncover a magnificent DIAMOND, the largest ever seen!")
-        print("You secure your newfound treasure, and the world feels like it's at your feet as you soar into the sunset with a triumphant smile.")
-        print("You have reached the GLORIOUS LUCKY ENDING! Congratulations, " + player.name + "!")
-    else:
-        print("With a determined leap, you take off in your makeshift plane, soaring into the endless sky.")
-        print("The world below fades away, and you find yourself on a journey to reclaim your lost past.")
-        print("But as you fly, a haunting question lingers: where is home? Can you even remember?")
-        print("Despite the uncertainty, you've earned your freedom.")
-        print("You've reached the REGULAR ENDING.")
-    print("\nYour score was:", player.score)
-    player.won_game = True
+    start_engine = puzzle_pip()
+    if start_engine:
+        print("Congratulations", player.name, "!, You are preparing to take off on your new makeshift plane\n")
 
-def execute_bad_ending(player):
-    player.won = True
-    print("\n*** YOU'VE FALLEN INTO A TRAP! ***")
-    print("In a moment of unfortunate misstep, " + player.name + ", you find yourself ensnared in the treacherous clutches of a trap.")
-    print("The room darkens, and your heart quickens as the mechanisms of doom activate.")
-    print("Desperation fills the air as the walls close in, and you realize there's no escape.\n")
-    print("Your score: 0")
-    print("This is where your journey takes its tragic turn, but remember it well.")
-    print("In your next adventure, be ever watchful, for traps may lie in wait.")
-
-def execute_event(player):
-    print(player.current_room.get_first_prompt())
-    while True:
-        choice = input("enter 'YES' or 'NO': ").strip().lower()
-        if choice == "yes":
-            print(player.current_room.get_complete_prompt())
-            player.score += player.current_room.get_complete_score()
-            print("Your score has been affected!")
-            break
-        elif choice == "no":
-            break
+        if player.score >= 5000:
+            print("You were just about to take off when you notice something shiny in the bushes beside you")
+            print("You found a DIAMOND, the largest one the world has ever seen!")
+            print("You stuff your riches into your pocket and fly off into the sunset :)\n")
+            print("You achieved the LUCKY ending! Congratulations!!!!!")
         else:
-            print("Enter a valid option")
+            print("You take a big run up and fly off in your makeshift plane")
+            print("Finally escaping and returning home")
+            print("But where is home? Can you even remember?...")
+            print("Anyway you are free!!!!\n")
+            print("You achieved the REGULAR ending")
 
-    player.current_room.set_is_clear(True)
+        print("\nYour score was:", player.score)
+        player.won_game = True
+
 
 
 
@@ -321,18 +291,8 @@ def main():
     it also holds the initialisation of the entrance room (temporary) and  while loop for the main game
     """
 
-    print("-" * 100)
-    print("\nAs you awaken, you find yourself surrounded by the ancient ruins of a fortress,")
-    print("The air is heavy with the whispers of history, and your senses are overwhelmed.")
-    print("You peer out into the unknown and discover that you're stranded on a mysterious island,")
-    print("a world untouched by modern hands.\n")
-    print("Your head is throbing, and the shadows of forgotten memories dance on the edge of your consciousness.")
-    print("You can't recall who you are or how you arrived in this enigmatic place.\n")
-    print("Within the chamber where you awoke, a dusty, skeletal figure lies before you,")
-    print("In its bony grasp rests a set of faded blueprints, intricate and intriguing.")
-    print("It seems the individual drew plans to fashion a makeshift plane, a desperate bid for escape.")
-    print("If you can gather the necessary components, you may have a chance at breaking free.")
-    print("But first, you must embark on a journey to uncover the fragments of your own identity.\n")
+    print("-" * 100)  # prints a long line across the screen just to make it easier to read for thr player
+    print("Welcome to the game!!!!")
 
     game_map = Map()  # creates a map object
 
@@ -362,14 +322,6 @@ def main():
         player_action = normalise_input(player_action, whitelist)  # this normalises the players input to make it ready for the execute_action function
 
         execute_action(game_map, player, player_action)  # executes the players action, eg 'go north'
-
-        if player.current_room.get_type() == "event":
-            if player.current_room.get_luck() == False:
-                player.won_game = True
-                execute_bad_ending(player)
-            else:
-                if player.current_room.get_is_clear() == False:
-                    execute_event(player)
 
 
 if __name__ == "__main__":  # checks this file is being run itself, and is not being imported elsewhere
