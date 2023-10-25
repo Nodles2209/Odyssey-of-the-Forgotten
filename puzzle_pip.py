@@ -104,6 +104,7 @@ def puzzle_pip():
     
                 if '1' in map_map[row][col][4]: # complete
                     print('Finish')
+                    print('\033[96m')
                     score = 1
                     running = False
     
@@ -153,6 +154,7 @@ def puzzle_pip():
             check_puzzle(map_map)
     
         elif user_input[0] == 'exit':
+            print('\033[96m')
             print('bye')
             break
     
