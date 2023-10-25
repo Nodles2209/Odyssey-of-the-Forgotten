@@ -121,7 +121,7 @@ riddle2 = {
     # List of items in room as "id" of the item (List[item_id])
     "item_list": [],
     # Clear condition that is checked with the user input to see if rooms task is complete, set to True if checking completion in own function
-    "clear_condition": "A river",
+    "clear_condition": "river",
     # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
     "locked" : None,
     # item given to you if you complete the puzzle, None if there isnt one
@@ -155,7 +155,7 @@ riddle3 = {
     # List of items in room as "id" of the item (List[item_id])
     "item_list": [],
     # Clear condition that is checked with the user input to see if rooms task is complete, set to True if checking completion in own function
-    "clear_condition": "A penny",
+    "clear_condition": "penny",
     # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
     "locked" : None,
     # item given to you if you complete the puzzle, None if there isnt one

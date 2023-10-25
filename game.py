@@ -9,14 +9,27 @@ from normalise_function import normalise_input, whitelist  # imports the functio
 from room_initialisation import create_rooms
 
 
-def check_win():
+def check_win_items(win_objects, game_map, player):
     """
-    This function will return True or False on whether the player has completed the game or not.
-    The function itself will hold the conditions on how the player can win
+    This function will return True or False on whether the player can build the plane.
+    The function takes the objects needed to win, the game map and the player
 
     """
+    win_possible = True
+
+    for item in win_objects:
+        if game_map.items[item] not in player.inventory:
+            win_possible = False
+
+    if win_possible:
+        if player.current_room.get_id() == "Entrance":
+            return True
+        else:
+            print("You have all the parts for the plane now! Get back to the entrance to build it")
 
     return False
+
+
 
 
 def print_room(current_room, player):
@@ -28,12 +41,16 @@ def print_room(current_room, player):
     print(current_room.get_id())    #prints the name of the room
 
 
-def print_player_options(game_map, current_room, player):
+def print_player_options(game_map, current_room, player, win_possible):
     """
     This function takes in the game_map, current_room object and the player object and will print the options the player has in this room
 
     """
     print("\nHere are your options:")
+
+    #Print option to build the plane
+    if win_possible == True:
+        print("Use 'BUILD plane' - to build the plane and leave the island (This completes the game)")
     # Printing the options for the directions the player can take
     if current_room.get_exit("north"):
         print("Use 'GO north' - to continue through the north exit")
@@ -52,7 +69,7 @@ def print_player_options(game_map, current_room, player):
     # option for checking inventory
     print("Use 'INSPECT I' - to see your inventory")
     # option for inspecting room to see information or initaiate the task within
-    print("Use 'INSPECT room' - to see information about a room or initiate a rooms task")
+    print("Use 'INSPECT room' - to initiate a rooms task")
     #checks if the player has the map item and then prints the option of checking the map if he does
     map_item = game_map.items["map"]
     if map_item in player.inventory:
@@ -159,6 +176,8 @@ def execute_inspect(game_map, player, player_action):
             pass
         elif room_type == "sudoku": # this handles the code for the sudoku room
             current_room.set_is_clear(current_room.run_sudoku())
+        else:
+            print("This room does not have a task")
         
         # checks if the room has been completed and gets the player his score if they have
         if current_room.get_is_clear():
@@ -229,11 +248,37 @@ def execute_action(game_map, player, player_action):
             execute_check(player, player_action)
         elif player_action[0] == "riddle":
             execute_riddle(game_map, player, player_action)
+        elif player_action[0] == "build":
+            execute_win(player)
         else:
             print('Please enter a keyword [go|take|drop|inspect|check] before your action')
 
     except IndexError:
         print('This is not a valid command or your answer is wrong')
+
+
+def execute_win(player):
+    """
+    This function is holding the code that is run when the game is completed, takes in the player object
+    """
+    print("Congratulations", player.name, "!, You are preparing to take off on your new makeshift plane\n")
+
+    if player.score >= 5000:
+        print("You were just about to take off when you notice something shiny in the bushes beside you")
+        print("You found a DIAMOND, the largest one the world has ever seen!")
+        print("You stuff your riches into your pocket and fly off into the sunset :)\n")
+        print("You achieved the LUCKY ending! Congratulations!!!!!")
+    else:
+        print("You take a big run up and fly off in your makeshift plane")
+        print("Finally escaping and returning home")
+        print("But where is home? Can you even remember?...")
+        print("Anyway you are free!!!!\n")
+        print("You achieved the REGULAR ending")
+
+    print("\nYour score was:", player.score)
+    player.won_game = True
+
+
 
 
 def main():
@@ -247,6 +292,8 @@ def main():
 
     game_map = Map()  # creates a map object
 
+    win_objects = ["wing"]  #the items the player needs in their inventory to build the plane
+
     required_room_list, optional_room_list, items_dictionary = create_rooms()  # gets the required and optional room list from the create_rooms function located in rooms_initialisation.py
 
     # Adds all the items in the game to the whitelist for normalising the input
@@ -259,18 +306,10 @@ def main():
     player_name = input("Please enter your name: ")  # gets the player to input their name
     player = Player(player_name, game_map.rooms["Entrance"])  # creates a player object with the name, and the entrance room object
 
-    while True:  # This is the main while loop for the game that will run until the game is complete
-        if check_win():  # This is where the game checks if the game has been completed at the start of each turn
-            """
-            Instead of printing a message here, a function can be called to determine which ending to print (importing
-            the function from another file called endings.py; the player's final score can be parsed into the function)
-            
-            """
+    while player.won_game == False:  # This is the main while loop for the game that will run until the game is complete
+        win_possible = check_win_items(win_objects, game_map, player)  # This is where the game checks if the player has the objects to build the plane, returns true if the player can get the option to build plane
 
-            print("You Win! wooohoo!!")
-            break  # breaks out of while loop
-
-        print_player_options(game_map, player.current_room, player)  # prints the options has in the room
+        print_player_options(game_map, player.current_room, player, win_possible)  # prints the options has in the room
 
         player_action = input("You choose to: ")  # Gets the player to input their choice of the options
 
@@ -282,4 +321,14 @@ def main():
 
 
 if __name__ == "__main__":  # checks this file is being run itself, and is not being imported elsewhere
-    main()
+    while True:
+        print("-" * 100)
+        print("\nplease type 'START' to start the game")
+        print("Or type 'EXIT' to exit the game")
+        start_input = input("Decide here: ").strip().lower()
+        if start_input == "start":
+            main()
+        elif start_input == "exit":
+            break
+        else:
+            print("Please type a valid command")

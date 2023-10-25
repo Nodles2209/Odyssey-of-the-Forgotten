@@ -9,6 +9,7 @@ class Player:
         self.inventory = []  # list of item objects
         self.score = 0  # int
         self.title = []  # array of str, where titles are only to be used in the final room
+        self.won_game = False
 
     def print_inventory(self):
         # this function is used for printing the items in the players inventory
