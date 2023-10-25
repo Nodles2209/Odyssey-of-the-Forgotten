@@ -1,4 +1,4 @@
-from parser.py import *
+from parser import *
 def puzzle_pip():
 
     # N1 W2 E3 S4
