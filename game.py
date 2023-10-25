@@ -89,8 +89,6 @@ def print_player_options(game_map, current_room, player, win_possible):
         print("Use 'TAKE *name' to take these items from the room:")
         for item in current_room.get_items():
             print("  > 'TAKE",item.get_id() + "'")
-    # option for dropping items
-    print("Use 'DROP *name' to drop items from your inventory")
 
 
 def execute_go(game_map, player, player_action):
@@ -135,20 +133,6 @@ def execute_take(game_map, player, player_action):
     else:
         print("Item not in this room, please pick another")
 
-def execute_drop(game_map, player, player_action):
-    """
-    This function takes in the game_map, player, and player_action,
-    it drops items in the players inventory
-    """
-
-    item = game_map.items[player_action[1]] #sets the players inputted item to variable
-
-    # if the item exists in the players inventory, drop it in the room
-    if item in player.inventory:
-        player.inventory.remove(item)
-        player.current_room.add_item(item)
-    else:
-        print("This object is not found in your inventory")
 
 def execute_inspect(game_map, player, player_action):
     """
@@ -250,8 +234,6 @@ def execute_action(game_map, player, player_action):
             execute_go(game_map, player, player_action)
         elif player_action[0] == "take":
             execute_take(game_map, player, player_action)
-        elif player_action[0] == "drop":
-            execute_drop(game_map, player, player_action)
         elif player_action[0] == "inspect":
             execute_inspect(game_map, player, player_action)
         elif player_action[0] == "check":
@@ -273,7 +255,7 @@ def execute_win(player):
     """
     print("Congratulations", player.name, "!, You are preparing to take off on your new makeshift plane\n")
 
-    if player.score >= 5000:
+    if player.score >= 7500:
         print("Just as you were about to take off, a glimmer in the nearby bushes catches your eye.")
         print("With a rush of excitement, you uncover a magnificent DIAMOND, the largest ever seen!")
         print("You secure your newfound treasure, and the world feels like it's at your feet as you soar into the sunset with a triumphant smile.")
@@ -336,7 +318,7 @@ def main():
 
     game_map = Map()  # creates a map object
 
-    win_objects = ["wing"]  #the items the player needs in their inventory to build the plane
+    win_objects = ["wing", "engine", "propeller", "chassis"]  #the items the player needs in their inventory to build the plane
 
     required_room_list, optional_room_list, items_dictionary = create_rooms()  # gets the required and optional room list from the create_rooms function located in rooms_initialisation.py
 

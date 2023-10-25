@@ -232,7 +232,7 @@ class Map:
          |______|
 
         """
-        print("  Map key:  PLAYER: your location, \nEN: The room you entered the game in, \nCOMP: shows if the rooms puzzle is complete")
+        print("  Map key:  PLAYER: your location, \n  EN: The room you entered the game in, \n  COMP: shows if the rooms puzzle is complete")
         for i in range(len(self.map_matrix)):
             line_1 = ""
             line_2 = ""

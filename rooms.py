@@ -359,5 +359,4 @@ class Chess(Room):
             print(white_turn_display)
             sleep(2)
 
-        print(f'{current_clear_condition}#')
         return True

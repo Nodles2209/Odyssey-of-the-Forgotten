@@ -88,7 +88,7 @@ event2 = {
     # score given to player upon completion of room (Int)
     "complete_room_score": 500,
     # List of items in room as "id" of the item (List[item_id])
-    "item_list": ["key"],
+    "item_list": [],
     # Clear condition that is checked with the user input to see if rooms task is complete, set to True if checking completion in own function
     "clear_condition": True,
     # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
@@ -165,7 +165,7 @@ riddle2 = {
     # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
     "locked" : None,
     # item given to you if you complete the puzzle, None if there isnt one
-    "complete_item": None,
+    "complete_item": "engine",
     # The first prompt that appears when the player enters the room for the first time, things like what the room is
     # and what it looks like (String)
     "first_prompt": "You enter a room, there are some weird markings on the wall, you take a closer look and it looks like a riddle\nIt says 'I'm often running, but I don't have legs.\nI have a bed, but never sleep.\nI can have banks, but no money.\nWhat am I?'",
@@ -189,7 +189,7 @@ riddle3 = {
     "visited": False,
     # required room. 0 if optional room. 1-2-3-4.. for the order after that for required rooms (entrance begins as
     # 1), necessary for map creation (Int)
-    "required": 0,
+    "required": 4,
     # score given to player upon completion of room (Int)
     "complete_room_score": 1000,
     # List of items in room as "id" of the item (List[item_id])
@@ -199,7 +199,7 @@ riddle3 = {
     # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
     "locked" : None,
     # item given to you if you complete the puzzle, None if there isnt one
-    "complete_item": None,
+    "complete_item": "propeller",
     # The first prompt that appears when the player enters the room for the first time, things like what the room is
     # and what it looks like (String)
     "first_prompt": "You enter a room, there are some weird markings on the wall, you take a closer look and it looks like a riddle\nIt says 'What has a head and a tail but has no legs?'",
@@ -270,7 +270,7 @@ chess1 = {
     # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
     "locked": None,
     # item given to you if you complete the puzzle, None if there isnt one
-    "complete_item": None,
+    "complete_item": "chassis",
     # The first prompt that appears when the player enters the room for the first time, things like what the room is
     # and what it looks like (String)
     "first_prompt": "You enter the room and find strange glyphs,\nThe glyphs come together on a grid to resemble a chess board...",
