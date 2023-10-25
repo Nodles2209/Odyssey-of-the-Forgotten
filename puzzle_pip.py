@@ -1,5 +1,15 @@
-from parser import *
+from string import punctuation
 def puzzle_pip():
+    def input_filter(text):
+        user_input = ''
+
+        for element in text:
+            if not (element in punctuation):
+                user_input = user_input + element
+
+        user_input = (user_input.lower().split())
+
+        return user_input
 
     # N1 W2 E3 S4
     t1 = ['--***--', '| *** |', '| *** |', '--***--', 'NS']
@@ -104,6 +114,7 @@ def puzzle_pip():
     
                 if '1' in map_map[row][col][4]: # complete
                     print('Finish')
+                    print('\033[97m')
                     score = 1
                     running = False
     
@@ -153,6 +164,7 @@ def puzzle_pip():
             check_puzzle(map_map)
     
         elif user_input[0] == 'exit':
+            print('\033[97m')
             print('bye')
             break
     
