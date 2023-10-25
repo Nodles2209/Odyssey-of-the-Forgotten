@@ -288,8 +288,8 @@ def execute_win(player):
             print("But as you fly, a haunting question lingers: where is home? Can you even remember?")
             print("Despite the uncertainty, you've earned your freedom.")
             print("You've reached the REGULAR ENDING.")
-    print("\nYour score was:", player.score)
-    player.won_game = True
+        print("\nYour score was:", player.score)
+        player.won_game = True
 
 def execute_bad_ending(player):
     player.won = True
