@@ -82,6 +82,12 @@ def execute_go(game_map, player, player_action):
         player.current_room = player.current_room.get_exit(player_action[1])  # update the players current room to the desired room
         player.current_room.set_visited(True)  # sets the status of the room as visited when the player enters
 
+        if player.current_room.get_first_prompt():
+            print(player.current_room.get_first_prompt(), "(" + player.current_room.get_id() + ")")
+            player.current_room.set_first_prompt(None)
+        else:
+            print(player.current_room.get_enter_prompt())
+
 def execute_take(game_map, player, player_action):
     """
     This function takes in the game_map, player, and player_action,
@@ -149,8 +155,9 @@ def execute_inspect(game_map, player, player_action):
         elif room_type == "sudoku": # this handles the code for the sudoku room
             current_room.set_is_clear(current_room.run_sudoku())
         
-        # checks if the room has been completed and gets the player his score if they have
+        # checks if the room has been completed and gets the adjusts players score ect as required
         if current_room.get_is_clear() == True:
+            print(current_room.get_complete_prompt())
             player.score += current_room.get_complete_score()
             current_room.set_complete_score(0)  # sets the score of the room to 0 so they cannot get the same reward twice
             if current_room.get_complete_item():
@@ -162,7 +169,6 @@ def execute_inspect(game_map, player, player_action):
     else:
         print("This is not a valid command")
 
-    print("")
 
 def execute_check(player, player_action):
     # This function takes a player and plaayer_action, it handles any checks like checking score the player wants to complete 
@@ -230,9 +236,6 @@ def main():
 
             print("You Win! wooohoo!!")
             break  # breaks out of while loop
-
-        print('You are currently in the ', end='')
-        print_room(player.current_room, player)  # prints the id of the current room
 
         print_player_options(game_map, player.current_room, player)  # prints the options has in the room
 

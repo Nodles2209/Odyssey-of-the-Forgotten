@@ -235,8 +235,6 @@ class Map:
 
         """
 
-        print("_" * 100)  # print a line to make it easier to read
-
         for i in range(len(self.map_matrix)):
             line_1 = ""
             line_2 = ""

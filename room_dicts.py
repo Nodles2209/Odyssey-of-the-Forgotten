@@ -1,4 +1,3 @@
-# from items import Item
 
 entrance = {
     # Name of room (String)
@@ -25,9 +24,9 @@ entrance = {
     "complete_item": None,
     # The first prompt that appears when the player enters the room for the first time, things like what the room is
     # and what it looks like (String)
-    "first_prompt": "You wake up and you are in an unfamiliar place....",
+    "first_prompt": None,
     # The prompt that appears when the player enters the room for all times after the first time (String)
-    "enter_prompt": "You are back in the first room....",
+    "enter_prompt": "You are back in the room you woke up in",
     # Hint (doesnt always apply) (String)
     "hint_prompt": "Find all the parts for the plane in other places around the map",
     # prompt for when the player completes the room (String)
@@ -95,11 +94,11 @@ sudoku = {
     # and what it looks like (String)
     "first_prompt": "You wake up and you are in an unfamiliar place....",
     # The prompt that appears when the player enters the room for all times after the first time (String)
-    "enter_prompt": "You are back in the first room....",
+    "enter_prompt": "You are back in the sudoku room",
     # Hint (doesnt always apply) (String)
     "hint_prompt": "Find all the parts for the plane in other places around the map",
     # prompt for when the player completes the room (String)
-    "complete_prompt": "You completed this room...."
+    "complete_prompt": "You completed the puzzle, a small hatch opens and inside is an old wing for a plane"
 }
 
 # A list used for holding all the room dictionaries in this file to be iterated through in the room_initialisation file
