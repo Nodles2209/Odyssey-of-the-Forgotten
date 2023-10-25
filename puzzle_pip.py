@@ -118,7 +118,7 @@ def puzzle_pip():
     print('complete the puzzle to connect the wire or pass')
     print('Example: ')
     print('open 0 1')
-    print('sweap 0 1 2 6')
+    print('swap 0 1 2 6')
     print('submit when you finish\n')
     print_map(init_map)
     map_map = init_map
@@ -137,7 +137,7 @@ def puzzle_pip():
             else:
                 print('You cannot open it')
     
-        elif user_input[0] == 'sweap' and len(user_input) == 5:
+        elif user_input[0] == 'swap' and len(user_input) == 5:
     
             try:
                 sweap = map_map[int(user_input[1])][int(user_input[2])]
@@ -147,7 +147,7 @@ def puzzle_pip():
                 print_map(map_map)
     
             except IndexError:
-                print('You cannot sweap them')
+                print('You cannot swap them')
     
         elif user_input[0] == 'submit':
             check_puzzle(map_map)
