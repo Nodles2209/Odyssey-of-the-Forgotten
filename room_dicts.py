@@ -21,6 +21,8 @@ entrance = {
     "clear_condition": True,
     # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
     "locked" : None,
+    # item given to you if you complete the puzzle, None if there isnt one
+    "complete_item": None,
     # The first prompt that appears when the player enters the room for the first time, things like what the room is
     # and what it looks like (String)
     "first_prompt": "You wake up and you are in an unfamiliar place....",
@@ -53,6 +55,8 @@ key_room = {
     "clear_condition": True,
     # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
     "locked" : None,
+    # item given to you if you complete the puzzle, None if there isnt one
+    "complete_item": None,
     # The first prompt that appears when the player enters the room for the first time, things like what the room is
     # and what it looks like (String)
     "first_prompt": "You enter a room, i wonder if something useful is here",
@@ -85,6 +89,8 @@ sudoku = {
     "clear_condition": True,
     # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
     "locked" : "key",
+    # item given to you if you complete the puzzle, None if there isnt one
+    "complete_item": "wing",
     # The first prompt that appears when the player enters the room for the first time, things like what the room is
     # and what it looks like (String)
     "first_prompt": "You wake up and you are in an unfamiliar place....",

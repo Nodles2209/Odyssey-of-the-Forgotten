@@ -153,6 +153,12 @@ def execute_inspect(game_map, player, player_action):
         if current_room.get_is_clear() == True:
             player.score += current_room.get_complete_score()
             current_room.set_complete_score(0)  # sets the score of the room to 0 so they cannot get the same reward twice
+            if current_room.get_complete_item():
+                item_id = current_room.get_complete_item()
+                player.inventory.append(game_map.items[item_id])
+                print("You won a", item_id, "for completing the puzzle")
+                current_room.set_complete_item(None)
+
     else:
         print("This is not a valid command")
 

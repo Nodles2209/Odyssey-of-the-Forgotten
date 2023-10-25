@@ -21,7 +21,18 @@ key_item = {
 	"title" : None
 	  }
 
+wing = {
+	# type str, id of the item
+	"id" : "wing",
+	# type str, item description, run when the item is inspected (unless unqiue case like map where the map itself is displayed)
+	"description" : "A plane wing, this could be useful",
+	# type int, score you gain or loose when picking this item up
+	"score" : 0,
+	# type str, some items may grant a descriptor to the player to be displayed at the final room
+	"title" : None
+	  }
+
 
 # A list of all the items in the map that is imported in item_initialisation.py to create the item objects
 # please add any items you make here so this works
-item_dict_list = [map_item, key_item]
+item_dict_list = [map_item, key_item, wing]

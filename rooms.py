@@ -35,6 +35,7 @@ class Room:
         self.__clear_condition = None  # type stored in this attribute depends on room type
         self.__isClear = False  # type bool - checks if the room is cleared or not; False until True
         self.__locked = None    # type str - None if the room isnt locked, else item id to unlock it
+        self.__complete_item = None # type str - item gained when completing puzzle, if item use item id, else None
         self.__visited = False  # type bool - checks if player has already visited the room; False until True
         self.__required = None  # type int -
         # 0 : not necessary,
@@ -130,11 +131,17 @@ class Room:
         if user_input == clear_condition:
             self.__isClear = True
 
-    def get_locked(self):
+    def get_locked(self):   #get whether the room is locked
         return self.__locked
 
-    def set_locked(self, key):
+    def set_locked(self, key):  #sets if the room is locked
         self.__locked = key
+
+    def get_complete_item(self):    # gets the item id of the item you win if you complete the puzzle
+        return self.__complete_item
+
+    def set_complete_item(self, item_id):   #sets the complete item 
+        self.__complete_item = item_id
 
     def get_required(self):  # returns the integer determining how required a room is (for the room lists)
         return self.__required
