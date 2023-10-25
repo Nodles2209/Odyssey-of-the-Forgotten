@@ -3,7 +3,9 @@ This program will only store the various classes and their subsequent methods;
 This program is to be imported into room_creation to help create each room object
 
 """
-from puzzle_data import *    #This import holds information needed for puzzles, such as sudoku grid
+from puzzle_data import *  # This import holds information needed for puzzles, such as sudoku grid
+import re
+from time import sleep
 
 
 class Room:
@@ -29,13 +31,13 @@ class Room:
         self.__type = None  # type str - used to store type of room ('riddle', 'puzzle', 'event')
         self.__first_prompt = None  # type str - used to store the text for when the player first enters a room
         self.__enter_prompt = None  # type str - used to store the text for when a player enters a room that have visited previously
-        self.__hint_prompt = None   # type str - used to store the text for when a player needs a hint
-        self.__complete_prompt = None    # type str - used to store the text for when a player has completed the room
-        self.__complete_score = None   # type int - used to hold the score the player gets when completing the room
+        self.__hint_prompt = None  # type str - used to store the text for when a player needs a hint
+        self.__complete_prompt = None  # type str - used to store the text for when a player has completed the room
+        self.__complete_score = None  # type int - used to hold the score the player gets when completing the room
         self.__clear_condition = None  # type stored in this attribute depends on room type
         self.__isClear = False  # type bool - checks if the room is cleared or not; False until True
-        self.__locked = None    # type str - None if the room isnt locked, else item id to unlock it
-        self.__complete_item = None # type str - item gained when completing puzzle, if item use item id, else None
+        self.__locked = None  # type str - None if the room isnt locked, else item id to unlock it
+        self.__complete_item = None  # type str - item gained when completing puzzle, if item use item id, else None
         self.__visited = False  # type bool - checks if player has already visited the room; False until True
         self.__required = None  # type int -
         # 0 : not necessary,
@@ -127,16 +129,16 @@ class Room:
     def set_is_clear(self, clear):  # sets a bool to determine whether the room is cleared
         self.__isClear = clear
 
-    def get_locked(self):   #get whether the room is locked
+    def get_locked(self):  # get whether the room is locked
         return self.__locked
 
-    def set_locked(self, key):  #sets if the room is locked
+    def set_locked(self, key):  # sets if the room is locked
         self.__locked = key
 
-    def get_complete_item(self):    # gets the item id of the item you win if you complete the puzzle
+    def get_complete_item(self):  # gets the item id of the item you win if you complete the puzzle
         return self.__complete_item
 
-    def set_complete_item(self, item_id):   #sets the complete item 
+    def set_complete_item(self, item_id):  # sets the complete item
         self.__complete_item = item_id
 
     def get_required(self):  # returns the integer determining how required a room is (for the room lists)
@@ -154,7 +156,7 @@ class Room:
     def remove_item(self, item):  # removes the item parsed if it exists in inventory
         if item in self.__items:
             self.__items.remove(item)
-                    
+
 
 class Event(Room):
     """
@@ -202,56 +204,58 @@ class Sudoku(Room):
         Please see the puzzle_setup_info to see the format this sudoku is printed
         """
 
-        incomplete_map = self.__incomplete # sets which incomplete sudoku to use
-        complete_map = self.get_clear_condition() # sets which complete sudoku to use
+        incomplete_map = self.__incomplete  # sets which incomplete sudoku to use
+        complete_map = self.get_clear_condition()  # sets which complete sudoku to use
 
         while True:
-            #Start print sudoku grid
+            # Start print sudoku grid
             print("   " + "-" * 36)
             for y, y_val in enumerate(incomplete_map):
-                line = ""       #empty string for appending to
-                line += (str(9 - y) + " |") #add the numbers for coordinates down the side
-                for x, x_val in enumerate(y_val):   #enumerate returns the index and the value of list
+                line = ""  # empty string for appending to
+                line += (str(9 - y) + " |")  # add the numbers for coordinates down the side
+                for x, x_val in enumerate(y_val):  # enumerate returns the index and the value of list
                     if x_val == 0:
-                        line += ("-?-") #prints this symbol if empty space in grid
+                        line += ("-?-")  # prints this symbol if empty space in grid
                     else:
-                        line += (" " + str(x_val) + " ")    #prints the value of the square if not 0
+                        line += (" " + str(x_val) + " ")  # prints the value of the square if not 0
                     if x == 2 or x == 5:
-                        line += "|"     #used for formatting grid
+                        line += "|"  # used for formatting grid
                     else:
-                        line += " " #used for formatting grid
-                line += "|" #used for formatting grid
-                print(line)     #prints the line that had information appended to
+                        line += " "  # used for formatting grid
+                line += "|"  # used for formatting grid
+                print(line)  # prints the line that had information appended to
                 if y == 2 or y == 5:
-                    print("  |" + "-" * 36 + "|")   #used for formatting grid
+                    print("  |" + "-" * 36 + "|")  # used for formatting grid
                 elif y == 8:
-                    print("   " + "-" * 36) #used for formatting grid
+                    print("   " + "-" * 36)  # used for formatting grid
                 else:
-                    print("  |           |           |            |") #used for formatting grid
+                    print("  |           |           |            |")  # used for formatting grid
 
-            print("    A   B   C   D   E   F   G   H   I\n")    #gives the x coordinates
-            #End print sudoku print
+            print("    A   B   C   D   E   F   G   H   I\n")  # gives the x coordinates
+            # End print sudoku print
 
-            #Check if sudoku is completed, return True if complete
+            # Check if sudoku is completed, return True if complete
             if complete_map == incomplete_map:
                 return True
 
             # Here is the main code for the sudoku
             print("Access the grid one location at a time, using this format -> A1 = 5")
             print("Or exit the puzzle by entering EXIT")
-            sudoku_input = input("Enter answers here: ")    #get input from player
-            sudoku_input = sudoku_input.lower().split(" ")  #normalises input
+            sudoku_input = input("Enter answers here: ")  # get input from player
+            sudoku_input = sudoku_input.lower().split(" ")  # normalises input
             try:
-                if sudoku_input[0] == "exit":   # checks if player wants to exit the puzzle
+                if sudoku_input[0] == "exit":  # checks if player wants to exit the puzzle
                     return False
-                elif len(sudoku_input[2]) == 1 and sudoku_input[2].isnumeric(): #checks for players input is formatted right
-                    x = int(alpha_2_num[sudoku_input[0][0]])    #gets x coordinate by using input into alpha to numeric dictionary found in puzzle data
-                    y = 9 - int(sudoku_input[0][1]) #gets y coordinate
-                    num = int(sudoku_input[2])  #gets the number the player wants to add
+                elif len(sudoku_input[2]) == 1 and sudoku_input[
+                    2].isnumeric():  # checks for players input is formatted right
+                    x = int(alpha_2_num[sudoku_input[0][
+                        0]])  # gets x coordinate by using input into alpha to numeric dictionary found in puzzle data
+                    y = 9 - int(sudoku_input[0][1])  # gets y coordinate
+                    num = int(sudoku_input[2])  # gets the number the player wants to add
 
                     if incomplete_map[y][x] == 0:
                         if complete_map[y][x] == num:
-                            incomplete_map[y][x] = num #sets the new number in grid if correct
+                            incomplete_map[y][x] = num  # sets the new number in grid if correct
                         else:
                             print("Incorrect number!")
                     else:
@@ -260,11 +264,99 @@ class Sudoku(Room):
                     print("Please retry checking your formatting, coordinates and answer")
 
 
-            except IndexError:      #checks for formatted wrong
+            except IndexError:  # checks for formatted wrong
                 print("Please enter in format explained")
-            except KeyError:        #checks for formatted wrong
+            except KeyError:  # checks for formatted wrong
                 print("Please enter in format explained")
 
 
+class Chess(Room):
 
+    def __init__(self):
+        super().__init__()
+        self.__board_turn = None
+        self.__cutscenes = None
 
+    def get_board_turn(self):
+        return self.__board_turn
+
+    def set_board_turn(self, boards):  # only used if creating an "unlucky room", which will be a single room
+        self.__board_turn = boards
+
+    def get_cutscenes(self):
+        return self.__cutscenes
+
+    def set_cutscenes(self, boards):
+        self.__cutscenes = boards
+
+    def answer_check(self, answer, user_answer):
+
+        format_pattern = r'^(k|q|n|b|r|p)[a-h][1-8][a-h|x]{1,2}[1-8]$'
+        format_check = re.match(format_pattern, user_answer)
+
+        if user_answer == answer:
+            return None
+        elif format_check is None:
+            print('Incorrect format, please try again')
+        else:
+            print('Incorrect answer, please try again')
+
+        print("It's white's turn to play: ")
+
+        user_input = input('Enter your input here: ')
+        normalised_input = user_input.lower().strip()
+        self.answer_check(answer, normalised_input)
+
+    def run_chess(self):
+        black_turns_display = self.__board_turn
+        board_cutscenes = self.__cutscenes
+        clear_conditions = self.get_clear_condition()
+
+        number_of_steps = len(clear_conditions)
+
+        print('Printing board...')
+        sleep(0.5)
+        print(board_cutscenes[0])
+        sleep(0.5)
+
+        print('For this puzzle, you must enter your move in the particular format: \n'
+              '<chess piece>+<grid coordinate it currently is in>+<grid coordinate you want to move '
+              'to> \n'
+              'For example, if you want to move a king at c4 to c5, you would type "kc4c5"\n'
+              'If you want to capture a piece, add a "x" between the coordinates you are at at the '
+              'ones you want to move to\n'
+              'For example, if a bishop at e8 captures a pawn at d6, you would type "be8xd6"\n'
+              'The notation letter for each piece is as follows:\n'
+              'king = k,\n'
+              'queen = q,\n'
+              'knight = n,\n'
+              'bishop = b,\n'
+              'rook = r,\n'
+              'pawn = p,\n'
+              'All of the terms must be typed together as a single input\n')
+        print('If you want to complete the puzzle later, type "EXIT" to leave the puzzle')
+        sleep(5)
+
+        for index in range(number_of_steps):
+            print("Black's turn: ")
+            sleep(0.5)
+            print(black_turns_display[index])
+            sleep(0.5)
+
+            print("It's now white's turn to play: ")
+
+            user_input = input('Enter your input here: ')
+            normalised_input = user_input.lower().strip()
+
+            if normalised_input == 'exit':
+                return False
+
+            current_clear_condition = clear_conditions[index]
+            white_turn_display = board_cutscenes[index+1]
+
+            self.answer_check(current_clear_condition, normalised_input)
+            print(white_turn_display)
+            sleep(2)
+
+        print(f'{current_clear_condition}#')
+        return True

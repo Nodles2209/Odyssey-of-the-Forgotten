@@ -154,6 +154,8 @@ def execute_inspect(game_map, player, player_action):
             pass
         elif room_type == "sudoku": # this handles the code for the sudoku room
             current_room.set_is_clear(current_room.run_sudoku())
+        elif room_type == "chess":  # this handles the code for the chess room
+            current_room.set_is_clear(current_room.run_chess())
         
         # checks if the room has been completed and gets the player his score if they have
         if current_room.get_is_clear():
