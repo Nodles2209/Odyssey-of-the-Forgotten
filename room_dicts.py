@@ -103,6 +103,75 @@ riddle1 = {
     "complete_prompt": "You completed the riddle, Great Job"
 }
 
+riddle2 = {
+    # Name of room (String)
+    "id": "Riddle room 2",
+    # Shortened name for displaying map, might add a map legend to the display map function later (String) (2 letters
+    # or digits long)
+    "map_id": "R2",
+    # Type of room (eg "basic", "riddle", "puzzle", "event") (String)
+    "type": "riddle",
+    # visited (Only the rooms you want to appear immediately should this be set to True) (Boolean)
+    "visited": False,
+    # required room. 0 if optional room. 1-2-3-4.. for the order after that for required rooms (entrance begins as
+    # 1), necessary for map creation (Int)
+    "required": 0,
+    # score given to player upon completion of room (Int)
+    "complete_room_score": 1000,
+    # List of items in room as "id" of the item (List[item_id])
+    "item_list": [],
+    # Clear condition that is checked with the user input to see if rooms task is complete, set to True if checking completion in own function
+    "clear_condition": "A river",
+    # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
+    "locked" : None,
+    # item given to you if you complete the puzzle, None if there isnt one
+    "complete_item": None,
+    # The first prompt that appears when the player enters the room for the first time, things like what the room is
+    # and what it looks like (String)
+    "first_prompt": "You enter a room, there are some weird markings on the wall, you take a closer look and it looks like a riddle\nIt says 'I'm often running, but I don't have legs.\nI have a bed, but never sleep.\nI can have banks, but no money.\nWhat am I?'",
+    # The prompt that appears when the player enters the room for all times after the first time (String)
+    "enter_prompt": "You enter back into the room with the riddle",
+    # Hint (doesnt always apply) (String)
+    "hint_prompt": "This bed doesn't need sheets or pillows, but can be deep or shallow.",
+    # prompt for when the player completes the room (String)
+    "complete_prompt": "You completed the riddle, Great Job"
+}
+
+riddle3 = {
+    # Name of room (String)
+    "id": "Riddle room 3",
+    # Shortened name for displaying map, might add a map legend to the display map function later (String) (2 letters
+    # or digits long)
+    "map_id": "R3",
+    # Type of room (eg "basic", "riddle", "puzzle", "event") (String)
+    "type": "riddle",
+    # visited (Only the rooms you want to appear immediately should this be set to True) (Boolean)
+    "visited": False,
+    # required room. 0 if optional room. 1-2-3-4.. for the order after that for required rooms (entrance begins as
+    # 1), necessary for map creation (Int)
+    "required": 0,
+    # score given to player upon completion of room (Int)
+    "complete_room_score": 1000,
+    # List of items in room as "id" of the item (List[item_id])
+    "item_list": [],
+    # Clear condition that is checked with the user input to see if rooms task is complete, set to True if checking completion in own function
+    "clear_condition": "A penny",
+    # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
+    "locked" : None,
+    # item given to you if you complete the puzzle, None if there isnt one
+    "complete_item": None,
+    # The first prompt that appears when the player enters the room for the first time, things like what the room is
+    # and what it looks like (String)
+    "first_prompt": "You enter a room, there are some weird markings on the wall, you take a closer look and it looks like a riddle\nIt says 'What has a head and a tail but has no legs?'",
+    # The prompt that appears when the player enters the room for all times after the first time (String)
+    "enter_prompt": "You enter back into the room with the riddle",
+    # Hint (doesnt always apply) (String)
+    "hint_prompt": "Whatever this is, it is often associated with good luck.",
+    # prompt for when the player completes the room (String)
+    "complete_prompt": "You completed the riddle, Great Job"
+}
+
+
 sudoku = {
     # Name of room (String)
     "id": "Sudoku Room",
