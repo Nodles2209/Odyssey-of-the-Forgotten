@@ -68,6 +68,40 @@ key_room = {
     "complete_prompt": None
 }
 
+riddle1 = {
+    # Name of room (String)
+    "id": "Riddle room 1",
+    # Shortened name for displaying map, might add a map legend to the display map function later (String) (2 letters
+    # or digits long)
+    "map_id": "R1",
+    # Type of room (eg "basic", "riddle", "puzzle", "event") (String)
+    "type": "riddle",
+    # visited (Only the rooms you want to appear immediately should this be set to True) (Boolean)
+    "visited": False,
+    # required room. 0 if optional room. 1-2-3-4.. for the order after that for required rooms (entrance begins as
+    # 1), necessary for map creation (Int)
+    "required": 0,
+    # score given to player upon completion of room (Int)
+    "complete_room_score": 1000,
+    # List of items in room as "id" of the item (List[item_id])
+    "item_list": [],
+    # Clear condition that is checked with the user input to see if rooms task is complete, set to True if checking completion in own function
+    "clear_condition": "footsteps",
+    # If the room is locked or not to the player, None if not locked, if locked put the id of the item to unlock it
+    "locked" : None,
+    # item given to you if you complete the puzzle, None if there isnt one
+    "complete_item": None,
+    # The first prompt that appears when the player enters the room for the first time, things like what the room is
+    # and what it looks like (String)
+    "first_prompt": "You enter a room, there are some weird markings on the wall, you take a closer look and it looks like a riddle\nIt says 'The more you take the more you leave behind'\nEnter your answer to complete the room",
+    # The prompt that appears when the player enters the room for all times after the first time (String)
+    "enter_prompt": "You enter back into the room with the riddle",
+    # Hint (doesnt always apply) (String)
+    "hint_prompt": "This riddle is all about your journey, and what you do as you move forward.",
+    # prompt for when the player completes the room (String)
+    "complete_prompt": "You completed the riddle, Great Job"
+}
+
 sudoku = {
     # Name of room (String)
     "id": "Sudoku Room",
@@ -105,5 +139,5 @@ sudoku = {
 }
 
 # A list used for holding all the room dictionaries in this file to be iterated through in the room_initialisation file
-room_dict_list = [entrance, key_room, sudoku]  
+room_dict_list = [entrance, riddle1, key_room, sudoku]  
 #   !!!PLEASE MAKE SURE THE REQUIRED ROOMS IN THIS LIST ARE SORTED IN ORDER FROM SMALLEST TO LARGEST!!!
