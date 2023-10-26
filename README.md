@@ -1,71 +1,59 @@
 # CM1101 Group Project
-
-## Add your files
-Relevant commands for adding files to git:
-```
-cd existing_repo
-git remote add origin https://git.cardiff.ac.uk/c23033307/cm1101-group-project.git
-git branch -M main
-git push -uf origin main
-```
-
 ***
 
-# Project Details:
-
-## Name
-Undecided - Will need to vote on this later
+# Odyssey of the Forgotten
 
 ## Description
+Stranded on a mysterious island with no recollection of your past, you must navigate the treacherous terrain, explore ancient ruins, and solve various puzzles and riddles to piece together a functional plane and make your daring escape.
+
+## Roadmap
+**Version 1.0 (Current version)**
+
+*Feature list:*
 ```
-This game is a text based adventure game focused on roguelite puzzle game mechanics.
+1. Randomly Generated Ruins: 
+   Each playthrough offers a unique experience as the island's ancient ruins shift and change, presenting new challenges and mysteries to solve with every playthrough!
+
+2. A variety of Puzzles and Riddles: 
+   Investigate the mysterious markings found deep within the ruins and uncover the hidden messages that were intended to be hidden away for eternity.
+   
+   Base Puzzles:
+   -    Sudoku
+   -    Chess
+   -    Connect the wire
+
+5. Exploration: 
+   Scour the island's lush, uncharted wilderness for resources, tools, and hidden artifacts, using them to construct vital components for your plane.
+
+6. Choices and Consequences - Multiple Endings:
+   Your decisions influence the outcome of your adventure. Will you take the risk and delve into uncharted territory for a great reward at the end, or will you play it safe and quietly leave the island, leaving no trace of your exploits?
 ```
 
-**This description will be left incomplete until the final story is fully decided upon**
+**Version 1.1 (Future patch)**
 
-## Testing info
-**REQUIRES FIXES**
+*Features still work in progress*
 ```
-Tests for game.py - Breaks upon invalid/unexpected inputs, however works as intended as long as expected inputs are entered
+1. Leaderboards: 
+   Store your scores and compete against your previous playthroughs to give your final endings some more meaning
+   
+2. Titles: 
+   Collect various titles based on your achievements and exploits within the ruins!
+
+5. More rooms:
+   As time goes on, you find out that the ruins were even more vast than you imagined, brimming with experiences never seen before; perhaps there is more to the ruins than one might have initially thought
+
+6. Choices and Consequences:
+   Your decisions influence the outcome of your adventure. Will you take the risk and delve into uncharted territory for a great reward at the end, or will you play it safe and quietly leave the island, leaving no trace of your exploits?
+
+7. A race against time:
+   The more you begin to understand of the ruins, the more you realise how precarious your situation is... You find that your time is quickly running out, lest you get consumed by the ruins and the mysteries that surround it... Will you find all the parts and make it out in time?
+   
+8. Bug-fixes
 ```
 
 ## Installation
 ```
 Requires python3
-```
-
-## To-do list
-```
-This is a to do list for the project, please add your name like this:(Leo) at the end of the name of the task if you are taking on the task. Please delete the take from this file once you have completed it. Please add any more tasks that need to be completed if you think of any.
- To edit this to-do list, refer to the actual txt file in the dev-branch repository
-
-------------------------------------------------------------------------------------------------------------------------------------
--Normalise function (Joel):
-This is a function that takes the players input and removes spaces, punctuation, changes to lower class, splits the sentence into a list of words and uses a whitelist (list of words we need to keep like "go","take","north" ect) to remove unnecessary words.
-This can be created in the main.py file or create a new .py file like in task 6 (gameparser.py)
-------------------------------------------------------------------------------------------------------------------------------------
--item class (Leo):
-create a new .py file that holds a class which can be used to create items, this will have values like "id", "from_room" or anything else you can think of
-------------------------------------------------------------------------------------------------------------------------------------
--Create room dictionaries:(Ziad)
-This will likely be something lots of people work on, it will be inputting the information of the room (name, puzzle or riddle ect) within dictionaries that can be passed to the room initialization
-------------------------------------------------------------------------------------------------------------------------------------
--Build a story:
-Build a story from the ideas already stated (ask people if you have missed some of the ideas stated in the groupchat) this will include creating strings that will be printed for the player eg "Welcome to the game", "you enter a *room* there is .... inside", things like that
-------------------------------------------------------------------------------------------------------------------------------------
--create a scoring system:(Will)
-The game will need a scoring system that gets larger the more puzzles you solve, and is printed to the player when completed, maybe in future add a leaderboard too that stores the top scores of the game
-------------------------------------------------------------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------------------------------------------------------------
-```
-
-## Roadmap
-**Highest priority tasks-**
-```
-1. Get the game and map running properly without bugs or hardcoded information within the same location as the main code - including elegant error handling
-2. Add relevant room details for all rooms
-3. Adding optional features from the story idea files if time is available
 ```
 
 ## Project dictionary
@@ -84,37 +72,29 @@ This is not to be confused with the .idea folder which is entirely useless and n
 
 **Note that the current story is not completely decided and the final parts will need to be voted upon**
 
-**Game demo folder** -
-```
-This folder contains all of Linli's programs for her current ideas - refer to "story_idea" and "Story-idea-2+Lore" to see potential use cases for these files
-
-
-game.py within Game demo folder - Linli's main game program using her map generation algorithm which generates a completely random map - starting room is **random**
-```
-
 **game.py** -
 ```
-Leo's main game program using his map generation algorithm - refer to "Leo's idea" and "Story-idea-2+Lore" to see potential use cases for this file
+The main game program that runs all the various modules necessary for running the game
 ```
 
-**gameparser.py** -
+**normalise_function.py** -
 ```
-The main program used to help filter and normalise words, similar to Exercise 4+6's parser; **subject to change** as we might potentially change how the program filters words
+The main program used to help filter and normalise words, using a whitelist of words
 ```
 
 **map.py** -
 ```
-Leo's map generation algorithm used to generate a random map - starting room is **constant**
+The map generation algorithm used to generate a random map
 ```
 
 **player.py** -
 ```
-Contains class definitions for the player
+Contains class definitions for the player as well as the relevant methods
 ```
 
 **room_dicts.py** - 
 ```
-Contains initial information for the starting room dictionary
+Contains initial information for all the starting rooms dictionaries as well as an array that contains all these dictionaries to be processed in other programs
 ```
 
 **rooms.py** - 
@@ -132,10 +112,50 @@ Editable file for all remaining tasks left to do that are currently not complete
 Responsible for creating all the room objects using dictionaries and initialising all the necessary arrays required for map generation
 ```
 
+**items.py** -
+```
+Contains class definitions for all the items as well as relevant methods
+```
+
+**item_dicts.py** -
+```
+Contains all the initial information for all the items as well as an array that stores all these items to reference in other programs
+```
+
+**puzzle_data.py**
+```
+Program used to store all relevant information for the sudoku puzzles
+```
+
+**chess_boards.py**
+```
+Program used to store all relevant information for the chess puzzles
+```
+
+**puzzle_pip.py**
+```
+Program used to store and process all relevant information about the connect the wire puzzle
+```
+
 **More information about each file is given within the documentation in each file**
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## Bugs to be fixed
+```
+For answer_check() within the Chess class:
+Regex will need to be updated to account for potential inputs such as qe8x3 sending an "incorrect answer" flag rather than a "incorrect format" flag
+
+for puzzle_pip.py:
+May need to rework the swap and open logic to account for incidents where you may reopen a spot that was already opened and swapped, resulting in the slot to return to its original state instead
+```
 
 ## Project status
 Ongoing
+
+## Add your files
+Relevant commands for adding files to git:
+```
+cd existing_repo
+git remote add origin https://git.cardiff.ac.uk/c23033307/cm1101-group-project.git
+git branch -M main
+git push -uf origin main
+```
