@@ -1,8 +1,0 @@
-PUZZLE IDEAS:
-    - SUDOKU PUZZLES - Correctly guess the number that is to be added in a certain square
-    - CHESS PUZZLES - Correctly guess the next move for white/black to make to lead to a checkmate/advantageous position
-    - WORD SEARCH/SCRAMBLE - Correctly find a valid word from an ascii matrix filled with scrambled letters
-
-**OPTIONAL IDEA**
-A difficulty level is assigned to each puzzle, with the most difficult ones giving more points/benefits/**OPTIONAL**
-titles/special items
