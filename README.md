@@ -30,7 +30,7 @@ Stranded on a mysterious island with no recollection of your past, you must navi
    Your decisions influence the outcome of your adventure. Will you take the risk and delve into uncharted territory for a great reward at the end, or will you play it safe and quietly leave the island, leaving no trace of your exploits?
 ```
 
-**Version 1.1 (Future patch)**
+**Version 1.1 (Future patches)**
 
 *Features still work in progress*
 ```
