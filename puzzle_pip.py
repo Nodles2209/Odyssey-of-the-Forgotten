@@ -1,4 +1,6 @@
 from string import punctuation
+
+
 def puzzle_pip():
     def input_filter(text):
         user_input = ''
@@ -120,10 +122,14 @@ def puzzle_pip():
     complete_pip = False
     
     print('Connect the wire to start the plane or EXIT')
+    print('Type "open <x> <y>" to uncover the wire pattern stored in the given x,y coordinates on the grid')
+    print('OR')
+    print('Type "swap <x1> <y1> <x2> <y2>" to swap the wire pattern stored in the coordinates given in x1, y1 to the ones'
+          'stored in x2, y2')
     print('Example: ')
-    print('open 0 1')
-    print('swap 0 1 2 6')
-    print('submit when you finish\n')
+    print('"open 0 1" would uncover the wire pattern in 0, 1')
+    print('"swap 0 1 2 6" would swap the wire pattern in 0, 1 with the one in 2, 6')
+    print('submit when you finish by entering keywords "submit" and then "exit"\n')
     print_map(init_map)
     map_map = init_map
     while True:
